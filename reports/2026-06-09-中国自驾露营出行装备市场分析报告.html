@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中国自驾露营出行装备市场分析报告 — Market Research OS</title>
+<style>
+  /* ===== CSS Variables ===== */
+  :root {
+    --paper:#F0F0EC; --white:#FFFFFF; --ink-black:#0F0F0D; --ink-dark:#1E1E1A;
+    --text-primary:#1A1A16; --text-sec:#5C5C54; --text-dim:#9A9A90;
+    --yellow:#F5C518; --yellow-pale:#FDF7D6;
+    --blue:#1A56DB; --border:#D8D8D2; --border-dark:#C0C0B8;
+    --green:#15803D; --red:#B91C1C; --grid-line:rgba(0,0,0,0.06);
+  }
+
+  /* ===== Reset & Base ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 15px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  body { background: var(--paper); color: var(--text-primary); font-family: -apple-system,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif; line-height: 1.7; }
+  .mono { font-family: 'SF Mono','Menlo','Consolas','Liberation Mono',monospace; }
+
+  /* ===== Navigation ===== */
+  .nav { position: sticky; top: 0; z-index: 100; height: 52px; background: var(--ink-black); border-bottom: 1px solid #2A2A26; display: flex; align-items: center; padding: 0 32px; gap: 0; }
+  .nav-brand { font-family: monospace; font-size: 13px; font-weight: 600; color: var(--yellow); letter-spacing: 0.02em; }
+  .nav-divider { width: 1px; height: 20px; background: #3A3A34; margin: 0 16px; }
+  .nav-title { font-family: monospace; font-size: 11px; color: var(--text-dim); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .nav-meta { font-family: monospace; font-size: 11px; color: var(--text-dim); }
+
+  /* ===== Cover ===== */
+  .cover {
+    background-color: var(--ink-black);
+    background-image: linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg,rgba(255,255,255,0.08) 1px,transparent 1px);
+    background-size: 24px 24px;
+    padding: 72px 64px 0;
+  }
+  .cover-doc-class { font-family: monospace; font-size: 10px; color: var(--yellow); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 24px; }
+  .cover-title-block { border-left: 3px solid var(--yellow); padding-left: 24px; margin-bottom: 32px; }
+  .cover-title-block h1 { font-size: 38px; font-weight: 700; color: var(--white); line-height: 1.2; margin-bottom: 8px; }
+  .cover-title-block h1 .accent { color: var(--yellow); }
+  .cover-subtitle { font-family: monospace; font-size: 12px; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 12px; }
+  .cover-meta { display: flex; gap: 32px; margin-bottom: 48px; padding-left: 27px; }
+  .cover-meta-item { font-family: monospace; font-size: 11px; color: var(--text-dim); }
+  .cover-meta-item span { color: rgba(255,255,255,0.5); }
+  .cover-kpi-bar { background: rgba(255,255,255,0.04); border-top: 1px solid #2A2A26; display: grid; grid-template-columns: repeat(4,1fr); }
+  .cover-kpi-item { padding: 24px 32px; border-right: 1px solid #2A2A26; }
+  .cover-kpi-item:last-child { border-right: none; }
+  .cover-kpi-value { font-family: monospace; font-size: 22px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+  .cover-kpi-value .arrow-up { color: var(--yellow); }
+  .cover-kpi-label { font-family: monospace; font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em; }
+
+  /* ===== Main Layout ===== */
+  .main { max-width: 1100px; margin: 0 auto; padding: 64px 48px; }
+  .section { margin-bottom: 64px; }
+
+  /* ===== Section Header ===== */
+  .section-code { font-family: monospace; font-size: 11px; font-weight: 600; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+  .section-title { font-size: 26px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.02em; margin-bottom: 8px; }
+  .section-divider { width: 100%; height: 1px; background: var(--border); margin-bottom: 32px; }
+  .sub-title { font-size: 18px; font-weight: 600; color: var(--text-primary); margin: 28px 0 16px; }
+
+  /* ===== Grid ===== */
+  .grid-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+
+  /* ===== Stat Cards ===== */
+  .stat-card { background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--yellow); border-radius: 4px; padding: 24px; }
+  .stat-card-label { font-family: monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+  .stat-card-value { font-family: monospace; font-size: 32px; font-weight: 700; color: var(--blue); line-height: 1; }
+  .stat-card-value-sm { font-family: monospace; font-size: 22px; font-weight: 700; color: var(--blue); line-height: 1; }
+  .stat-card-desc { font-size: 13px; color: var(--text-sec); border-top: 1px solid var(--border); padding-top: 12px; margin-top: 12px; line-height: 1.6; }
+  .stat-card-unit { font-size: 14px; font-weight: 400; color: var(--text-sec); margin-left: 4px; }
+
+  /* ===== Tables ===== */
+  .table-wrap { overflow-x: auto; margin-bottom: 8px; border: 1px solid var(--border-dark); border-radius: 4px; }
+  .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .data-table thead tr { background: var(--ink-dark); }
+  .data-table thead th { font-family: monospace; font-size: 10px; color: rgba(255,255,255,0.7); letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 16px; border-right: 1px solid #2A2A26; white-space: nowrap; }
+  .data-table thead th:last-child { border-right: none; }
+  .data-table tbody td { padding: 11px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .data-table tbody tr:last-child td { border-bottom: none; }
+  .data-table tbody tr:hover { background: rgba(0,0,0,0.02); }
+  .data-table tbody tr.highlight { background: var(--yellow-pale); }
+  .data-table .mono-cell { font-family: monospace; font-size: 12px; }
+  .data-table .blue { color: var(--blue); font-family: monospace; font-weight: 600; }
+  .data-table .green-text { color: var(--green); font-weight: 600; }
+  .data-table .red-text { color: var(--red); font-weight: 600; }
+  .table-note { font-family: monospace; font-size: 10px; color: var(--text-dim); margin-top: 8px; line-height: 1.5; }
+
+  /* ===== Badges ===== */
+  .badge { font-family: monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 7px; border-radius: 2px; display: inline-block; }
+  .badge-red { background: #FEE2E2; color: var(--red); }
+  .badge-yellow { background: #FEF3C7; color: #92400E; }
+  .badge-green { background: #DCFCE7; color: var(--green); }
+  .badge-blue { background: #DBEAFE; color: #1E40AF; }
+  .badge-gray { background: #F3F4F6; color: #374151; }
+
+  /* ===== VoC Block ===== */
+  .voc-block { background: #FFFEF5; border: 1px solid var(--border); border-left: 3px solid var(--yellow); border-radius: 4px; padding: 20px 24px 16px; margin-bottom: 16px; }
+  .voc-source { font-family: monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
+  .voc-text { font-size: 14px; color: var(--text-primary); line-height: 1.7; margin-bottom: 16px; }
+  .voc-meta { display: flex; gap: 24px; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 12px; }
+  .voc-meta-item { font-family: monospace; font-size: 10px; color: var(--text-dim); }
+
+  /* ===== Insights Box ===== */
+  .insights-box {
+    background-color: var(--ink-black);
+    background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg,rgba(255,255,255,0.05) 1px,transparent 1px);
+    background-size: 24px 24px;
+    border-radius: 4px;
+    padding: 36px 40px;
+    margin-top: 40px;
+  }
+  .insights-header { font-family: monospace; font-size: 11px; font-weight: 600; color: var(--yellow); letter-spacing: 0.12em; text-transform: uppercase; border-bottom: 1px solid #2A2A26; padding-bottom: 16px; margin-bottom: 32px; }
+  .insight-row { display: flex; gap: 16px; margin-bottom: 24px; align-items: flex-start; }
+  .insight-row:last-child { margin-bottom: 0; }
+  .insight-num { font-family: monospace; font-size: 13px; font-weight: 700; color: var(--yellow); min-width: 28px; flex-shrink: 0; }
+  .insight-body { flex: 1; }
+  .insight-text { font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 6px; line-height: 1.5; }
+  .insight-support { font-family: monospace; font-size: 11px; color: var(--text-dim); line-height: 1.6; }
+
+  /* ===== Info Card ===== */
+  .info-card { background: var(--white); border: 1px solid var(--border); border-radius: 4px; padding: 24px; margin-bottom: 16px; }
+  .info-card h4 { font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 10px; }
+  .info-card p { font-size: 13px; color: var(--text-sec); line-height: 1.7; }
+  .info-card ul { font-size: 13px; color: var(--text-sec); padding-left: 18px; line-height: 1.9; }
+
+  /* ===== Risk Card ===== */
+  .risk-card { background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--red); border-radius: 4px; padding: 20px 24px; margin-bottom: 12px; }
+  .risk-card h4 { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; }
+  .risk-card p { font-size: 13px; color: var(--text-sec); line-height: 1.65; }
+
+  /* ===== Opportunity Card ===== */
+  .opp-card { background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--green); border-radius: 4px; padding: 20px 24px; margin-bottom: 12px; }
+  .opp-card h4 { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; }
+  .opp-card p { font-size: 13px; color: var(--text-sec); line-height: 1.65; }
+
+  /* ===== TL;DR ===== */
+  .tldr-box { background: var(--white); border: 1px solid var(--border-dark); border-top: 3px solid var(--yellow); border-radius: 4px; padding: 32px 36px; }
+  .tldr-item { display: flex; gap: 12px; margin-bottom: 14px; font-size: 14px; line-height: 1.7; }
+  .tldr-item:last-child { margin-bottom: 0; }
+  .tldr-bullet { color: var(--yellow); font-weight: 700; flex-shrink: 0; }
+
+  /* ===== Data Confidence ===== */
+  .conf-bar-wrap { display: flex; align-items: center; gap: 10px; }
+  .conf-bar-track { flex: 1; height: 6px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .conf-bar-fill { height: 100%; background: var(--blue); border-radius: 2px; }
+  .conf-label { font-family: monospace; font-size: 10px; color: var(--text-dim); min-width: 30px; text-align: right; }
+
+  /* ===== Decision Chain ===== */
+  .chain-row { display: flex; align-items: center; gap: 0; margin-bottom: 16px; }
+  .chain-node { background: var(--white); border: 1px solid var(--border); border-radius: 4px; padding: 12px 16px; font-size: 13px; font-weight: 500; text-align: center; flex: 1; }
+  .chain-arrow { font-family: monospace; font-size: 16px; color: var(--yellow); padding: 0 8px; flex-shrink: 0; }
+  .chain-label { font-family: monospace; font-size: 10px; color: var(--text-dim); text-align: center; margin-top: 6px; }
+
+  /* ===== Footer ===== */
+  footer { background: var(--ink-black); border-top: 1px solid #2A2A26; padding: 28px 48px 0; margin-top: 64px; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding-bottom: 24px; }
+  .footer-brand { font-family: monospace; font-size: 12px; font-weight: 600; color: var(--white); letter-spacing: 0.08em; }
+  .footer-meta { font-family: monospace; font-size: 10px; color: var(--text-dim); text-align: center; line-height: 1.8; }
+  .footer-page { font-family: monospace; font-size: 10px; color: var(--text-dim); }
+  .footer-yellow-bar { height: 2px; background: var(--yellow); }
+
+  /* ===== Utilities ===== */
+  p { margin-bottom: 14px; font-size: 15px; line-height: 1.7; }
+  ul { margin-bottom: 14px; padding-left: 20px; }
+  ul li { font-size: 14px; line-height: 1.8; color: var(--text-sec); }
+  strong { color: var(--text-primary); }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .text-dim { color: var(--text-dim); font-size: 13px; }
+  .mb-8 { margin-bottom: 8px; }
+  .mb-16 { margin-bottom: 16px; }
+  .mb-24 { margin-bottom: 24px; }
+  .mb-32 { margin-bottom: 32px; }
+  .mt-24 { margin-top: 24px; }
+  .mt-32 { margin-top: 32px; }
+</style>
+</head>
+<body>
+<!-- NAV -->
+<nav class="nav">
+  <span class="nav-brand mono">[MROS]</span>
+  <div class="nav-divider"></div>
+  <span class="nav-title mono">中国自驾露营出行装备市场分析报告</span>
+  <span class="nav-meta mono">REV.1.0 · 2026-06-09</span>
+</nav>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-doc-class">DOCUMENT CLASS: MARKET INTELLIGENCE · INDUSTRY RESEARCH · CHINA</div>
+  <div class="cover-title-block">
+    <h1>中国<span class="accent">自驾露营</span>出行装备<br>市场分析报告</h1>
+    <div class="cover-subtitle">CHINA SELF-DRIVE CAMPING EQUIPMENT MARKET · INDUSTRY INTELLIGENCE REPORT · 2026</div>
+  </div>
+  <div class="cover-meta">
+    <div class="cover-meta-item">研究对象：<span>车载出行工具装备（非应急汽配）</span></div>
+    <div class="cover-meta-item">地域：<span>中国大陆</span></div>
+    <div class="cover-meta-item">数据期：<span>2024–2026</span></div>
+    <div class="cover-meta-item">VoC样本：<span>6,106条（小红书+B站）</span></div>
+  </div>
+  <div class="cover-kpi-bar">
+    <div class="cover-kpi-item">
+      <div class="cover-kpi-value">¥6,762<span style="font-size:14px;font-weight:400;color:var(--text-dim)">亿</span></div>
+      <div class="cover-kpi-label">中国自驾游市场规模（2024）</div>
+    </div>
+    <div class="cover-kpi-item">
+      <div class="cover-kpi-value">6.08<span style="font-size:14px;font-weight:400;color:var(--text-dim)">亿人次</span></div>
+      <div class="cover-kpi-label">年自驾游出行规模</div>
+    </div>
+    <div class="cover-kpi-item">
+      <div class="cover-kpi-value"><span class="arrow-up">↑</span>8.5<span style="font-size:14px;font-weight:400;color:var(--text-dim)">%</span></div>
+      <div class="cover-kpi-label">全球露营装备市场CAGR（2025–2034）</div>
+    </div>
+    <div class="cover-kpi-item">
+      <div class="cover-kpi-value">85<span style="font-size:14px;font-weight:400;color:var(--text-dim)">%</span></div>
+      <div class="cover-kpi-label">电商白牌占比（品牌窗口期）</div>
+    </div>
+  </div>
+</div>
+<!-- MAIN CONTENT -->
+<div class="main">
+
+<!-- ===== SEC.00 TL;DR ===== -->
+<div class="section">
+  <div class="section-code mono">SEC.00</div>
+  <div class="section-title">TL;DR — 执行摘要</div>
+  <div class="section-divider"></div>
+  <div class="tldr-box">
+    <div class="tldr-item"><span class="tldr-bullet">▸</span><span><strong>市场规模：</strong>中国自驾游市场2024年达6,762亿元、6.08亿人次（Fastdata，2025）；户外露营装备市场55亿美元（上海Jungle，2024），全球露营装备CAGR 8.54%至2034年（Fortune Business Insights，2025）。</span></div>
+    <div class="tldr-item"><span class="tldr-bullet">▸</span><span><strong>价格带：</strong>¥100–200是唯一值得争夺的主战场，141个SKU集中于此，¥500+几乎无销量；白牌占比85%，品牌格局尚未形成，窗口期明确。（电商SKU分析，1,048条，2026-06）</span></div>
+    <div class="tldr-item"><span class="tldr-bullet">▸</span><span><strong>核心洞察：</strong>"降低使用门槛"比"提升品质"更重要——B站"装备吃灰"帖获赞213，系统性闲置问题的根源是操作复杂，不是品质。（B站VoC，3,369条）</span></div>
+    <div class="tldr-item"><span class="tldr-bullet">▸</span><span><strong>头部品类：</strong>工兵铲（销售额指数36,746，第一）、多功能钳（27,152，第二）、车载充气泵（双平台高频）、软质收纳（蓝海）；四类构成产品核心。</span></div>
+    <div class="tldr-item"><span class="tldr-bullet">▸</span><span><strong>决策链双平台：</strong>小红书→种草/冲动（72.6%求购买链接）→B站→验证/防坑；颜值决定种草，耐用性决定复购。（小红书VoC 2,737条+B站VoC 3,369条）</span></div>
+    <div class="tldr-item"><span class="tldr-bullet">▸</span><span><strong>主要风险：</strong>拼多多/抖音渠道未覆盖（可能存在&lt;¥100强势白牌）；纳拓25 SKU领先但品牌护城河极弱；头部平台政策变化影响种草链路。</span></div>
+    <div class="tldr-item"><span class="tldr-bullet">▸</span><span><strong>车载适配缺口：</strong>12V直供电方案（饮水机、充气泵）频繁出现痛点提及，NEV外放电需求验证；明确标注"车载专用"是现阶段最低成本差异化。</span></div>
+    <div class="tldr-item"><span class="tldr-bullet">▸</span><span><strong>结论：</strong>行业处于品牌形成前夜，品类认知教育空白是风险也是机会；以套装化+降门槛+车载叙事切入¥100–200价格带，具备先发优势条件。</span></div>
+  </div>
+</div>
+
+<!-- ===== SEC.01 研究范围 ===== -->
+<div class="section">
+  <div class="section-code mono">SEC.01</div>
+  <div class="section-title">研究范围与术语表</div>
+  <div class="section-divider"></div>
+
+  <div class="sub-title">1.1 研究对象定义</div>
+  <div class="info-card">
+    <h4>✅ 纳入范围</h4>
+    <ul>
+      <li>车载出行工具类：多功能工具钳、工兵铲、充气泵（车载12V版）</li>
+      <li>收纳整理类：软质可压缩收纳袋、硬壳装备箱（如派力肯730等）</li>
+      <li>营地基础设施：折叠桌椅、天幕遮阳、炊具炉具（轻量级）</li>
+      <li>车载电力适配：即热饮水机（12V）、移动电源/外放电方案</li>
+      <li>自驾短途出行（2–3天，家庭为主）中使用的随车装备</li>
+    </ul>
+    <h4 style="margin-top:14px;">❌ 排除范围</h4>
+    <ul>
+      <li>汽车应急工具（车载三角架、补胎工具、救援绳——定位冲突）</li>
+      <li>B2B营地运营商采购</li>
+      <li>专业登山/溯溪/极限户外装备</li>
+      <li>重型露营车、房车内置设备</li>
+    </ul>
+  </div>
+
+  <div class="sub-title">1.2 关键术语与口径说明</div>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead><tr><th>术语</th><th>本报告定义</th><th>备注</th></tr></thead>
+      <tbody>
+        <tr><td><strong>自驾游</strong></td><td>以私家车为主要交通工具的休闲出行，含单次城郊短途及多日长途</td><td>不含商务自驾</td></tr>
+        <tr><td><strong>露营装备</strong></td><td>在营地或车旁使用的可携带设备，强调车载适配性</td><td>区别于徒步背包装备</td></tr>
+        <tr><td><strong>白牌</strong></td><td>无品牌认知（消费者无法主动recall）的贴牌/OEM产品</td><td>含Amzon风格无品牌SKU</td></tr>
+        <tr><td><strong>销售额指数</strong></td><td>电商平台（淘宝/天猫/京东）相对销售表现指数，非绝对GMV</td><td>内部分析口径，1,048 SKU样本</td></tr>
+        <tr><td><strong>Composite Score</strong></td><td>五轴源评估综合分（0–1），含权威度、证据类型、新鲜度、偏见风险、方法论</td><td>≥0.7为高质量来源</td></tr>
+        <tr><td><strong>VoC</strong></td><td>Voice of Customer，用户原始评论/帖子，非问卷</td><td>小红书+B站双源</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="table-note mono">// SCOPE NOTE: 本报告以中国大陆市场为研究主体；货币默认人民币（CNY），涉及美元换算按1 USD ≈ 7.25 CNY（2025年均汇率参考）</p>
+
+  <div class="insights-box">
+    <div class="insights-header">ANALYSIS OUTPUT — 研究范围确认</div>
+    <div class="insight-row"><span class="insight-num">01</span><div class="insight-body"><div class="insight-text">赛道定性为"户外/家庭出行装备"，不是"汽车配件应急工具"</div><div class="insight-support">决策日志 2026-06-05 · 核心共识：中国消费者对"随车出行工具"尚无清晰品类认知，与应急工具的购买逻辑不匹配</div></div></div>
+    <div class="insight-row"><span class="insight-num">02</span><div class="insight-body"><div class="insight-text">研究性质为纯行业研究（市场导向），不预设品牌战略假设</div><div class="insight-support">CLAUDE.md 铁律：研究问题必须市场导向，避免确认偏误；品牌适配度评估属分析阶段产物</div></div></div>
+  </div>
+</div>
+<!-- ===== SEC.02 行业规模 ===== -->
+<div class="section">
+  <div class="section-code mono">SEC.02</div>
+  <div class="section-title">行业规模</div>
+  <div class="section-divider"></div>
+
+  <div class="sub-title">2.1 上游市场：中国自驾游整体规模</div>
+  <div class="grid-3 mb-24">
+    <div class="stat-card">
+      <div class="stat-card-label">中国自驾游市场规模（2024）</div>
+      <div class="stat-card-value">¥6,762<span class="stat-card-unit">亿元</span></div>
+      <div class="stat-card-desc">自驾用户年出行6.08亿人次，年均消费≈¥1,113/人次<br><span class="mono" style="font-size:11px;color:var(--text-dim)">来源: Fastdata极数，2025发布</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-label">核心用户年龄构成</div>
+      <div class="stat-card-value-sm">20–44岁</div>
+      <div class="stat-card-desc">女性占54.6%，家庭出行为主力消费场景，2–3天短途是主要出行时长<br><span class="mono" style="font-size:11px;color:var(--text-dim)">来源: 易车研究院·购车家庭旅游报告，2024</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-label">2024年全国国内旅游消费</div>
+      <div class="stat-card-value-sm">¥5.75<span class="stat-card-unit">万亿</span></div>
+      <div class="stat-card-desc">同比增长+17.1%，56.15亿人次，自驾占出行约80%<br><span class="mono" style="font-size:11px;color:var(--text-dim)">来源: Global Times，2025-01 (<a href="https://www.globaltimes.cn/page/202501/1327362.shtml" target="_blank">链接</a>)</span></div>
+    </div>
+  </div>
+
+  <div class="sub-title">2.2 目标细分市场：中国户外/露营装备</div>
+  <div class="grid-2 mb-16">
+    <div class="stat-card">
+      <div class="stat-card-label">中国户外装备市场规模（2024）</div>
+      <div class="stat-card-value">$55<span class="stat-card-unit">亿美元</span></div>
+      <div class="stat-card-desc">≈ 398亿人民币（按1 USD=7.25 CNY）；露营参与人口超2亿<br><span class="mono" style="font-size:11px;color:var(--text-dim)">来源: Shanghai Jungle Research，2024 (<a href="https://shanghaijungle.squarespace.com/blog/selling-outdoor-equipment-china-hiking-climbing" target="_blank">链接</a>)</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-label">中国户外运动年消费人次（2025）</div>
+      <div class="stat-card-value">8亿<span class="stat-card-unit">+人次</span></div>
+      <div class="stat-card-desc">含徒步、露营、自行车、水上运动等多品类，户外消费体量快速扩张<br><span class="mono" style="font-size:11px;color:var(--text-dim)">来源: 全球矿产资源网，2026-05 (<a href="https://www.worldmr.net/Industry/IndustryList/Info/2026-05-20/322580.shtml" target="_blank">链接</a>)</span></div>
+    </div>
+  </div>
+
+  <div class="sub-title">2.3 全球参照系：露营登山装备市场</div>
+  <div class="grid-3 mb-24">
+    <div class="stat-card">
+      <div class="stat-card-label">全球露营&登山装备规模（2025）</div>
+      <div class="stat-card-value">$173<span class="stat-card-unit">亿美元</span></div>
+      <div class="stat-card-desc">2034年预测$272.6亿，CAGR 8.54%<br><span class="mono" style="font-size:11px;color:var(--text-dim)">来源: Fortune Business Insights，2025 (<a href="https://www.fortunebusinessinsights.com/camping-and-hiking-equipment-market-115954" target="_blank">链接</a>)</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-label">中国露营产品年出口额</div>
+      <div class="stat-card-value">$40<span class="stat-card-unit">亿美元</span></div>
+      <div class="stat-card-desc">帐篷出口$20亿，国内生产总值$58亿；中国是全球最大露营装备制造国<br><span class="mono" style="font-size:11px;color:var(--text-dim)">来源: WorldFirst Sourcing，2024–2025 (<a href="https://sourcing.worldfirst.com/categories/outdoor" target="_blank">链接</a>)</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-label">全球户外冒险装备规模（2025）</div>
+      <div class="stat-card-value">$757<span class="stat-card-unit">亿美元</span></div>
+      <div class="stat-card-desc">2034年预测$1,215亿，CAGR 6.3%；露营是增速最快子品类之一<br><span class="mono" style="font-size:11px;color:var(--text-dim)">来源: Fortune Business Insights，2025 (<a href="https://www.fortunebusinessinsights.com/outdoor-and-adventure-sports-equipment-market-115998" target="_blank">链接</a>)</span></div>
+    </div>
+  </div>
+  <p class="table-note mono">// 口径说明: 中国55亿美元为"户外装备"宽口径（含徒步/攀岩），自驾车载装备为其子集，暂无独立拆分数据。本报告保守估算自驾车载装备占中国户外装备市场约20–30%，对应区间$11–16.5亿（约80–120亿人民币）。</p>
+
+  <div class="sub-title">2.4 自下而上估算：自驾车载装备TAM</div>
+  <div class="info-card">
+    <h4>可复算框架（保守/基准/进取三情景）</h4>
+    <div class="table-wrap" style="margin-top:12px;">
+      <table class="data-table">
+        <thead><tr><th>参数</th><th>保守</th><th>基准</th><th>进取</th><th>来源/假设</th></tr></thead>
+        <tbody>
+          <tr><td>年自驾出行家庭数（估）</td><td class="mono-cell">1.2亿户</td><td class="mono-cell">1.5亿户</td><td class="mono-cell">1.8亿户</td><td>6.08亿人次÷4人/家庭（Fastdata）</td></tr>
+          <tr><td>露营/车载装备采购率</td><td class="mono-cell">5%</td><td class="mono-cell">8%</td><td class="mono-cell">12%</td><td>百分点NEV报告：装备关注度56%；转化率假设</td></tr>
+          <tr><td>年均装备支出（主购用户）</td><td class="mono-cell">¥200</td><td class="mono-cell">¥300</td><td class="mono-cell">¥500</td><td>电商¥100–200主战场，首购均价估算</td></tr>
+          <tr class="highlight"><td><strong>TAM估算</strong></td><td class="mono-cell blue"><strong>¥120亿</strong></td><td class="mono-cell blue"><strong>¥360亿</strong></td><td class="mono-cell blue"><strong>¥1,080亿</strong></td><td>= 家庭数 × 采购率 × 支出</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note mono">// METHODOLOGY: 自下而上估算，非市场报告直接引用。核心不确定性：①采购率假设跨度大（无直接调研）；②支出口径未含复购；③不同渠道（抖音/拼多多）覆盖缺失。基准¥360亿作为当前最佳判断，区间[120亿, 1,080亿]。</p>
+  </div>
+
+  <div class="insights-box">
+    <div class="insights-header">ANALYSIS OUTPUT — 市场规模</div>
+    <div class="insight-row"><span class="insight-num">01</span><div class="insight-body"><div class="insight-text">6.08亿人次自驾出行是巨型流量池，但装备渗透率极低，意味着市场处于早期教育阶段</div><div class="insight-support">Fastdata 2025 · 百分点NEV报告：关注度56%，实际购买转化远低于关注</div></div></div>
+    <div class="insight-row"><span class="insight-num">02</span><div class="insight-body"><div class="insight-text">中国是全球最大露营装备制造国（出口$40亿），但国内品牌力接近于零——出口优势未转化为内销品牌</div><div class="insight-support">WorldFirst Sourcing 2024–2025 · 电商SKU分析：85%白牌</div></div></div>
+    <div class="insight-row"><span class="insight-num">03</span><div class="insight-body"><div class="insight-text">TAM基准估算¥360亿，但真正可服务的SAM（¥100–200价格带的活跃买家）更接近¥50–120亿，进入难度相对可控</div><div class="insight-support">电商1,048 SKU分析，2026-06</div></div></div>
+  </div>
+</div>
+<!-- ===== SEC.03 未来增长潜力 ===== -->
+<div class="section">
+  <div class="section-code mono">SEC.03</div>
+  <div class="section-title">未来增长潜力</div>
+  <div class="section-divider"></div>
+
+  <div class="sub-title">3.1 基准增长展望（2025–2030）</div>
+  <div class="grid-2 mb-24">
+    <div class="stat-card">
+      <div class="stat-card-label">全球露营装备市场CAGR</div>
+      <div class="stat-card-value">8.54<span class="stat-card-unit">%</span></div>
+      <div class="stat-card-desc">2025–2034，$173亿→$272亿。中国作为制造+消费双引擎，增速或高于全球均值。<br><span class="mono" style="font-size:11px;color:var(--text-dim)">Fortune Business Insights，2025</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-label">中国国内旅游消费同比增长</div>
+      <div class="stat-card-value">+17<span class="stat-card-unit">%</span></div>
+      <div class="stat-card-desc">2024年消费额5.75万亿元，同比+17.1%，为户外装备消费奠定增长基础。<br><span class="mono" style="font-size:11px;color:var(--text-dim)">Global Times，2025-01</span></div>
+    </div>
+  </div>
+
+  <div class="sub-title">3.2 情景分析（2026–2030，基于自驾车载装备细分）</div>
+  <div class="table-wrap mb-8">
+    <table class="data-table">
+      <thead><tr><th>情景</th><th>CAGR假设</th><th>2030E市场规模（基准¥360亿起）</th><th>核心前提</th><th>关键风险</th></tr></thead>
+      <tbody>
+        <tr><td><span class="badge badge-gray">保守</span></td><td class="mono-cell">8%</td><td class="mono-cell blue">~¥530亿</td><td>白牌持续主导，品牌教育缓慢；自驾增速回落至个位数</td><td>拼多多价格战压缩毛利</td></tr>
+        <tr class="highlight"><td><span class="badge badge-yellow">基准 ★</span></td><td class="mono-cell">15%</td><td class="mono-cell blue">~¥720亿</td><td>1–2个本土品牌突围；套装化+车载叙事推动品类认知；NEV外放电普及拉动</td><td>平台政策变化，KOL种草成本上升</td></tr>
+        <tr><td><span class="badge badge-green">进取</span></td><td class="mono-cell">25%</td><td class="mono-cell blue">~¥1,100亿</td><td>品类文化形成（对标日本"車中泊"）；大量新用户首购；出口品牌回流内销</td><td>假设过于乐观，消费降级风险</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="table-note mono">// NOTE: 情景估算基于基准TAM¥360亿（2026）复合增长，为可复算假设而非机构预测。核心驱动因素及来源见下方驱动/制约分析。</p>
+
+  <div class="sub-title">3.3 增长驱动因素</div>
+  <div class="grid-2 mb-16">
+    <div class="opp-card"><h4>🚗 NEV渗透率提升 → 外放电普及</h4><p>新能源车外放电（V2L）成为核心用电场景，带动车载用电装备（即热饮水机/充气泵/照明）品类增长。百分点NEV报告：装备关注度56%，外放电是NEV用户与燃油车用户的核心差异场景。（百分点，2024）</p></div>
+    <div class="opp-card"><h4>👨‍👩‍👧 家庭出行场景升级需求</h4><p>易车报告：购车家庭年均出行2–3次，女性54.6%主导决策，家庭化场景对舒适性、颜值、易用性要求持续提升，推动中高端装备渗透。（易车研究院，2024）</p></div>
+    <div class="opp-card"><h4>📱 内容平台驱动品类教育</h4><p>小红书自驾/露营内容年增长持续，72.6%用户在内容互动中求购买链接，内容→种草→购买链路成熟，降低新品类教育成本。（小红书VoC，2,737条，2026）</p></div>
+    <div class="opp-card"><h4>🏭 本土供应链成熟度</h4><p>中国露营装备制造产值$58亿，帐篷/工具/配件全产业链完整，本土品牌进入门槛低，产品品质和交期可控。（WorldFirst Sourcing，2024–2025）</p></div>
+  </div>
+
+  <div class="sub-title">3.4 增长制约因素</div>
+  <div class="grid-2">
+    <div class="risk-card"><h4>⚠️ "装备吃灰"导致复购率低</h4><p>B站VoC"买了全吃灰"获赞213，系统性闲置问题抑制品类扩散；若使用门槛问题未解决，口碑传播受阻，市场教育停滞。（B站VoC，3,369条）</p></div>
+    <div class="risk-card"><h4>⚠️ 消费降级风险</h4><p>宏观经济压力下消费者优先削减非必需品支出；户外装备作为"享乐性消费"在经济下行期敏感度较高。（2025年消费信心数据需持续监测）</p></div>
+    <div class="risk-card"><h4>⚠️ 平台流量成本上升</h4><p>小红书/抖音KOL种草成本持续攀升，小品牌获客CAC压力大；内容平台政策调整可能打断现有种草链路。</p></div>
+    <div class="risk-card"><h4>⚠️ 白牌价格战持续</h4><p>85%白牌占比意味着低价竞争将是常态；无差异化的新进入者将陷入持续价格战，毛利空间被压缩至不可持续水平。（电商SKU分析，2026）</p></div>
+  </div>
+
+  <div class="insights-box">
+    <div class="insights-header">ANALYSIS OUTPUT — 增长潜力</div>
+    <div class="insight-row"><span class="insight-num">01</span><div class="insight-body"><div class="insight-text">基准情景CAGR 15%可实现，前提是至少一个品牌能建立品类认知并推动使用门槛降低</div><div class="insight-support">日本"車中泊"文化用约10年完成品类教育→中国平台传播速度更快，但也意味着竞争加速</div></div></div>
+    <div class="insight-row"><span class="insight-num">02</span><div class="insight-body"><div class="insight-text">NEV外放电是2026–2028年最确定的增量驱动，应作为产品叙事的核心切入点</div><div class="insight-support">百分点NEV报告：外放电是NEV用户与燃油车用户差异最大的功能需求之一</div></div></div>
+  </div>
+</div>
+<!-- ===== SEC.04 市场趋势 ===== -->
+<div class="section">
+  <div class="section-code mono">SEC.04</div>
+  <div class="section-title">市场趋势与动态</div>
+  <div class="section-divider"></div>
+
+  <div class="sub-title">趋势一：双平台序列决策链已形成</div>
+  <div class="info-card mb-16">
+    <p>消费者决策呈现明确的双平台序列：小红书负责<strong>兴趣激发/种草</strong>（颜值驱动，72.6%用户主动求购买链接），B站负责<strong>功能验证/防坑</strong>（耐用性驱动，大量"踩坑"测评内容）。两平台用户重叠，但处于决策的不同阶段。</p>
+    <div class="chain-row" style="margin-top:16px;">
+      <div class="chain-node" style="background:var(--yellow-pale);border-color:#D4A017;">📸 小红书<br><span style="font-size:11px;color:var(--text-dim)">颜值种草·冲动意愿</span></div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-node">求链接<br><span style="font-size:11px;color:var(--text-dim)">72.6%帖子含此行为</span></div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-node" style="background:#EFF6FF;border-color:#93C5FD;">📹 B站<br><span style="font-size:11px;color:var(--text-dim)">功能验证·踩坑防御</span></div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-node" style="background:#F0FDF4;border-color:#86EFAC;">🛒 购买决策<br><span style="font-size:11px;color:var(--text-dim)">价格+实用双重认可</span></div>
+    </div>
+    <p class="table-note mono" style="margin-top:12px;">// SOURCE: 小红书VoC N=2,737，composite 0.79 · B站VoC N=3,369，composite 0.77 · 数据期：2026-06</p>
+  </div>
+
+  <div class="sub-title">趋势二：¥100–200价格带主战场集中化</div>
+  <div class="voc-block">
+    <div class="voc-source">// USER VOICE · 小红书 · 装备购买讨论</div>
+    <div class="voc-text">求推荐车载工具套装，预算200左右，主要想带孩子出去玩，不知道买什么品牌</div>
+    <div class="voc-meta"><span class="voc-meta-item">平台: 小红书</span><span class="voc-meta-item">典型场景: 家庭首购</span><span class="voc-meta-item">价格心智: ¥100–200</span></div>
+  </div>
+  <p>电商分析（1,048 SKU）显示：<strong>141个SKU集中于¥100–200区间</strong>，占活跃竞争SKU的绝大多数；¥300+市场仅SOG（¥238）等少数外资品牌跑出销量；¥500+区间几乎无成交。价格带收敛意味着竞争焦点在于差异化，而非价格进一步下探。</p>
+
+  <div class="sub-title">趋势三："装备闲置"是系统性问题，非个案</div>
+  <div class="voc-block">
+    <div class="voc-source">// USER VOICE · B站 · 露营装备评测区</div>
+    <div class="voc-text">买了一堆东西，结果放了三个月没用一次，不是东西不好，就是每次出发前懒得整理，最后直接不带了</div>
+    <div class="voc-meta"><span class="voc-meta-item">平台: B站</span><span class="voc-meta-item">获赞: 213</span><span class="voc-meta-item">信号类型: 使用门槛痛点</span><span class="voc-meta-item">置信度: 高</span></div>
+  </div>
+  <p>"装备吃灰"帖获赞213，绝非个案情绪。这是<strong>整理成本 + 取用便利度</strong>的系统性问题，与产品品质无关。直接推论：随手可取、免整理/免组装的产品设计，是真正的功能性护城河。</p>
+
+  <div class="sub-title">趋势四：车载供电适配成为新品类分水岭</div>
+  <p>12V供电兼容性（充气泵、即热饮水机）在VoC中频繁出现；NEV外放电（V2L）将这一痛点放大为明确的品类机会。<strong>明确标注"12V车载直供/兼容NEV"</strong>是2026年成本最低的差异化标签，无需硬件创新，仅需产品定义明确。</p>
+
+  <div class="sub-title">趋势五：颜值vs.耐用性——平台偏好分裂</div>
+  <div class="table-wrap mb-8">
+    <table class="data-table">
+      <thead><tr><th>维度</th><th>小红书用户偏好</th><th>B站用户偏好</th><th>产品设计含义</th></tr></thead>
+      <tbody>
+        <tr><td>核心动作</td><td>求链接/晒装备</td><td>防踩坑/实测评</td><td>颜值是入场券，耐用是门票</td></tr>
+        <tr><td>品类偏好</td><td>桌椅(152次)/天幕(103次)/充气泵(51次)</td><td>炉具(536次)/刀具(219次)/工具</td><td>女性美学需求≠全部用户</td></tr>
+        <tr class="highlight"><td>颜值权重</td><td>强驱动（"太好看了"/"高级感"）</td><td>被嫌"太干净""没实战感"</td><td>两套视觉语言服务两个受众</td></tr>
+        <tr><td>闲置态度</td><td>少提（仍在憧憬阶段）</td><td>大量吐槽（已购买验证阶段）</td><td>B站是产品真实反馈的主要渠道</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="table-note mono">// SOURCE: 小红书VoC N=2,737 (composite 0.79) + B站VoC N=3,369 (composite 0.77) · 2026-06</p>
+
+  <div class="sub-title">趋势六：套装化购买意愿明确但供给缺失</div>
+  <p>VoC数据显示用户频繁询问"套装推荐"，但市场主流仍为单品SKU；白牌卖家以单品竞价为主，缺乏有逻辑的套装组合。<strong>套装化定义产品内容是差异化且高效的进入策略</strong>——降低用户选择成本，提升客单价，同时解决"不知道买什么"的购前焦虑。</p>
+
+  <div class="sub-title">趋势七：工兵铲是有销量没品牌的特殊品类</div>
+  <p>工兵铲销售额指数36,746（电商第一），高于多功能钳（27,152）和充气泵，但品牌认知为零——消费者无法说出任何工兵铲品牌名。这是中国自驾装备市场中最奇特的结构：<strong>品类认知空白 × 购买行为成熟</strong>，是最适合品牌建立的入场口。</p>
+
+  <div class="insights-box">
+    <div class="insights-header">ANALYSIS OUTPUT — 市场趋势</div>
+    <div class="insight-row"><span class="insight-num">01</span><div class="insight-body"><div class="insight-text">双平台决策链已固化，意味着品牌需要同时运营两种内容：颜值种草（XHS）+ 防坑实测（Bilibili）</div><div class="insight-support">两平台VoC内容模式分析，2026-06</div></div></div>
+    <div class="insight-row"><span class="insight-num">02</span><div class="insight-body"><div class="insight-text">"降低使用门槛"是本阶段最高价值的产品命题，高于提升品质或增加功能</div><div class="insight-support">B站VoC"装备吃灰"信号赞213 · 核心洞察三，置信度高</div></div></div>
+    <div class="insight-row"><span class="insight-num">03</span><div class="insight-body"><div class="insight-text">工兵铲（电商第一，品牌零）是现阶段建立品牌认知的最低阻力切入点</div><div class="insight-support">电商SKU分析，销售额指数36,746 · 1,048条样本</div></div></div>
+  </div>
+</div>
+<!-- ===== SEC.05 进入挑战与风险 ===== -->
+<div class="section">
+  <div class="section-code mono">SEC.05</div>
+  <div class="section-title">新进入品牌 / 产品的挑战与风险</div>
+  <div class="section-divider"></div>
+
+  <div class="risk-card"><h4>R01 · 白牌价格战 — 毛利压缩风险</h4><p>85%白牌占比使¥100–200价格带长期处于低价竞争均衡；拼多多/抖音渠道可能存在&lt;¥100级白牌（本次数据未覆盖）进一步拉低心理价位。新进入品牌初期毛利保护困难，需要清晰的差异化叙事支撑溢价。（电商SKU分析1,048条，2026）</p></div>
+  <div class="risk-card"><h4>R02 · 品类认知空白 — 双刃剑</h4><p>消费者对"随车出行工具"无清晰品类认知，意味着品牌教育成本极高；同时也意味着先进入者有机会定义品类认知框架。但教育期往往长达2–3年，需要持续内容投入，资金需求不可忽视。（决策日志 2026-06-05）</p></div>
+  <div class="risk-card"><h4>R03 · 渠道分散 — 多平台运营压力</h4><p>种草在小红书，验证在B站，购买在淘宝/京东，可能还有拼多多/抖音购买行为——多渠道运营人力和预算需求超出小团队承受能力；各渠道内容逻辑差异大，复制粘贴效果极差。</p></div>
+  <div class="risk-card"><h4>R04 · 竞争壁垒：纳拓先发优势</h4><p>纳拓以25个SKU领跑本土品牌，已占据算法流量位置；即便品牌认知极弱，SKU数量本身构成搜索覆盖优势。新进入者若以单品切入，初期SEO流量争夺处于劣势。（电商SKU分析，2026）</p></div>
+  <div class="risk-card"><h4>R05 · 内容平台政策风险</h4><p>小红书是核心种草渠道，但平台对商业内容监管持续加强；KOL种草成本（达人合作费）年均涨幅显著，中小品牌内容营销ROI下降风险高。抖音算法变化也可能切断现有种草链路。</p></div>
+  <div class="risk-card"><h4>R06 · 用户教育成本 — "装备吃灰"阻断口碑</h4><p>如产品设计未能解决"使用门槛"问题，用户购买后高概率闲置→负口碑传播（B站大量踩坑内容）→品牌形象受损。这是一个反身性风险：越多人买了不用，品类整体声誉越差，增长越慢。（B站VoC，赞213信号）</p></div>
+  <div class="risk-card"><h4>R07 · 数据盲区：拼多多/抖音渠道未覆盖</h4><p>本次研究覆盖淘宝/天猫/京东+小红书+B站，未涉及拼多多和抖音电商。这两个平台可能存在不同的价格带分布和用户群，若其中有强势白牌，现有竞争格局判断需要修正。（决策日志风险评估，2026-06-09）</p></div>
+  <div class="risk-card"><h4>R08 · 知识产权与同质化</h4><p>中国户外工具品类专利壁垒极低；成功的产品设计在3–6个月内即可被大量复制；软质收纳等差异化点一旦成功，白牌跟进速度极快，先发优势窗口短暂。</p></div>
+  <div class="risk-card"><h4>R09 · 供应链质量控制</h4><p>本土制造成本优势明显，但质检一致性是长期隐患；户外工具安全性要求高（折叠刀/工兵铲刃口处理、充气泵电气安全），一旦出现质量事故，品牌声誉在内容平台的破坏速度远超建立速度。</p></div>
+  <div class="risk-card"><h4>R10 · 女性用户与男性用户的产品需求分裂</h4><p>小红书主导女性颜值需求，B站主导男性实用需求；同一SKU难以同时满足两类用户，单一产品定义的受众覆盖受限。分线运营成本高，但不分线则营销信息稀释。（双平台VoC对比分析，2026）</p></div>
+
+  <div class="insights-box">
+    <div class="insights-header">ANALYSIS OUTPUT — 风险优先级</div>
+    <div class="insight-row"><span class="insight-num">R01</span><div class="insight-body"><div class="insight-text">最高优先级风险：白牌价格战 + 渠道盲区（拼多多/抖音）</div><div class="insight-support">若拼多多/抖音存在&lt;¥100强势白牌 → 推翻条件触发，需重新评估价格带策略</div></div></div>
+    <div class="insight-row"><span class="insight-num">R02</span><div class="insight-body"><div class="insight-text">次高优先级：内容平台依赖 + "装备吃灰"口碑反身性风险</div><div class="insight-support">两者均可通过产品设计（降低使用门槛）+ 渠道多元化部分对冲</div></div></div>
+  </div>
+</div>
+<!-- ===== SEC.06 市场细分 ===== -->
+<div class="section">
+  <div class="section-code mono">SEC.06</div>
+  <div class="section-title">市场细分</div>
+  <div class="section-divider"></div>
+
+  <div class="sub-title">6.1 用户细分总览</div>
+  <div class="table-wrap mb-8">
+    <table class="data-table">
+      <thead><tr><th>细分人群</th><th>潜在规模</th><th>核心需求/痛点</th><th>典型触发场景</th><th>可达渠道</th><th>优先级</th></tr></thead>
+      <tbody>
+        <tr class="highlight">
+          <td><strong>① 家庭短途自驾（主力）</strong><br><span style="font-size:12px;color:var(--text-dim)">20–44岁，有子女，女性主导决策</span></td>
+          <td class="mono-cell">~4,000–6,000万家庭</td>
+          <td>颜值+实用兼顾；套装省心；收纳不占空间；孩子场景安全</td>
+          <td>节假日短途露营/野餐；学校课外活动；亲子户外体验</td>
+          <td>小红书种草→淘宝/天猫购买</td>
+          <td><span class="badge badge-yellow">P0</span></td>
+        </tr>
+        <tr class="highlight">
+          <td><strong>② NEV车主出行玩家</strong><br><span style="font-size:12px;color:var(--text-dim)">新能源车主，外放电场景驱动</span></td>
+          <td class="mono-cell">~2,000–3,000万户</td>
+          <td>外放电用电场景；12V/220V兼容装备；科技感产品</td>
+          <td>首次驾驶新能源车外出；发现外放电功能后寻找配套</td>
+          <td>抖音/B站开箱→天猫/品牌官方</td>
+          <td><span class="badge badge-yellow">P0</span></td>
+        </tr>
+        <tr>
+          <td><strong>③ 周末城郊轻露营用户</strong><br><span style="font-size:12px;color:var(--text-dim)">25–35岁，无子女/刚有孩子，颜值敏感</span></td>
+          <td class="mono-cell">~1,500–2,500万人</td>
+          <td>极简装备；好看好拍；不想太专业；低入门门槛</td>
+          <td>朋友圈露营照片刺激；小红书打卡内容激发</td>
+          <td>小红书→淘宝/闲鱼（二手验证后购新）</td>
+          <td><span class="badge badge-blue">P1</span></td>
+        </tr>
+        <tr>
+          <td><strong>④ 男性户外工具爱好者</strong><br><span style="font-size:12px;color:var(--text-dim)">28–45岁，工具收藏/性能导向</span></td>
+          <td class="mono-cell">~500–1,000万人</td>
+          <td>品质优先；实战性能；工具刀/钳的专业参数</td>
+          <td>B站评测触发；购前详细对比；价格相对不敏感</td>
+          <td>B站种草→京东/品牌直营</td>
+          <td><span class="badge badge-blue">P1</span></td>
+        </tr>
+        <tr>
+          <td><strong>⑤ 自驾长途探险用户</strong><br><span style="font-size:12px;color:var(--text-dim)">30–50岁，有越野/长途经验，装备成熟</span></td>
+          <td class="mono-cell">~200–500万人</td>
+          <td>高可靠性；专业级装备；愿意为品牌/认证付溢价</td>
+          <td>西藏/新疆/西北自驾路线规划</td>
+          <td>小众品牌官网/户外专业店/京东</td>
+          <td><span class="badge badge-gray">P2</span></td>
+        </tr>
+        <tr>
+          <td><strong>⑥ 露营新手「首购焦虑」用户</strong><br><span style="font-size:12px;color:var(--text-dim)">任何年龄，第一次装备决策</span></td>
+          <td class="mono-cell">每年新增~500–800万</td>
+          <td>不知道买什么；怕买错/买多；求套装清单</td>
+          <td>身边朋友开始露营；节日前冲动决策</td>
+          <td>小红书攻略→淘宝套装搜索</td>
+          <td><span class="badge badge-blue">P1</span></td>
+        </tr>
+        <tr>
+          <td><strong>⑦ 收纳痛点用户（跨人群）</strong><br><span style="font-size:12px;color:var(--text-dim)">已购装备，现有收纳方案不满意</span></td>
+          <td class="mono-cell">现有露营人口~20%估计</td>
+          <td>软质可压缩收纳；省空间；好找好取；防水</td>
+          <td>已买装备但无法整齐存放；出发前整理时间长</td>
+          <td>小红书搜索"收纳方案"→淘宝</td>
+          <td><span class="badge badge-blue">P1</span></td>
+        </tr>
+        <tr>
+          <td><strong>⑧ 礼品/送礼场景用户</strong><br><span style="font-size:12px;color:var(--text-dim)">节日送礼、企业礼品</span></td>
+          <td class="mono-cell">体量较小，节假日脉冲</td>
+          <td>包装精美；套装礼盒；品牌感强</td>
+          <td>节日/生日/男友送礼</td>
+          <td>淘宝礼品搜索→品牌旗舰店</td>
+          <td><span class="badge badge-gray">P2</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="table-note mono">// SOURCE: 潜在规模估算基于 Fastdata 6.08亿人次 / 易车报告 / 百分点NEV报告 / 小红书+B站 VoC行为分析。规模数字为区间估算，非调研直接数据。</p>
+
+  <div class="sub-title">6.2 优先细分深度分析（P0 × 2）</div>
+  <div class="grid-2 mb-24">
+    <div class="info-card">
+      <h4>① 家庭短途自驾（TAM最大，当前最可服务）</h4>
+      <ul>
+        <li><strong>TAM/SAM估算：</strong>4,000–6,000万家庭 × 8%采购率 × ¥300客单 ≈ ¥96–144亿 SAM</li>
+        <li><strong>核心JTBD：</strong>让孩子有趣 + 让出行省事 + 让装备好看能发朋友圈</li>
+        <li><strong>决策者：</strong>女性为主（54.6%，易车2024），但男性参与工具类选品</li>
+        <li><strong>关键信号：</strong>小红书高频词"桌子152次、天幕103次"→ 场景营造装备；"求推荐套装"→ 套装化需求强</li>
+        <li><strong>进入理由：</strong>规模最大、渠道最明确（小红书→淘宝）、内容营销ROI最高</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h4>② NEV车主出行玩家（增速最快，供给严重缺失）</h4>
+      <ul>
+        <li><strong>TAM/SAM估算：</strong>2,000–3,000万NEV车主 × 20%外出场景活跃率 × ¥400装备支出 ≈ ¥160–240亿 SAM</li>
+        <li><strong>核心JTBD：</strong>把外放电功能真正用起来；找到12V兼容的配套装备</li>
+        <li><strong>关键信号：</strong>百分点NEV报告外放电需求；VoC充气泵/饮水机12V供电痛点</li>
+        <li><strong>进入理由：</strong>明确品类空缺；"兼容NEV外放电"是无需额外研发的差异化标签；NEV保有量年增≥20%</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="insights-box">
+    <div class="insights-header">ANALYSIS OUTPUT — 细分优先级</div>
+    <div class="insight-row"><span class="insight-num">01</span><div class="insight-body"><div class="insight-text">家庭短途 + NEV车主是两个最优先进入细分，合计SAM估算¥250–390亿，且可共享产品线（车载+家庭兼容）</div><div class="insight-support">两细分用户行为高度重叠：有孩家庭NEV车主是最高价值交叉点</div></div></div>
+    <div class="insight-row"><span class="insight-num">02</span><div class="insight-body"><div class="insight-text">收纳痛点用户（细分⑦）是跨所有细分的横向机会，软质收纳产品可作为全线品类的引流品</div><div class="insight-support">B站VoC"软质省空间"赞93 · 电商收纳类销量数据验证</div></div></div>
+  </div>
+</div>
+<!-- ===== SEC.07 竞争与生态 ===== -->
+<div class="section">
+  <div class="section-code mono">SEC.07</div>
+  <div class="section-title">竞争与生态</div>
+  <div class="section-divider"></div>
+
+  <div class="sub-title">7.1 竞争结构三层模型</div>
+  <div class="table-wrap mb-8">
+    <table class="data-table">
+      <thead><tr><th>价格层</th><th>价格区间</th><th>SKU数量</th><th>代表品牌/产品</th><th>竞争特征</th><th>品牌格局</th></tr></thead>
+      <tbody>
+        <tr><td><span class="badge badge-gray">高端层</span></td><td class="mono-cell">¥300+</td><td class="mono-cell">极少</td><td>SOG ¥238、Leatherman、Victorinox</td><td>品牌溢价驱动；外资主导；消费者主动搜索</td><td>外资品牌已建立认知</td></tr>
+        <tr class="highlight"><td><span class="badge badge-yellow">主战场 ★</span></td><td class="mono-cell">¥100–200</td><td class="mono-cell">141</td><td>纳拓(¥172)、骆驼(折叠桌椅)、大量白牌</td><td>SKU数量竞争；算法流量；价格高度透明</td><td>白牌85%，品牌格局未形成</td></tr>
+        <tr><td><span class="badge badge-red">走量层</span></td><td class="mono-cell">&lt;¥100</td><td class="mono-cell">多</td><td>无品牌贴牌；拼多多低价款</td><td>极度价格战；无品牌价值；靠SKU数量走量</td><td>纯白牌，无投资价值</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="table-note mono">// SOURCE: 电商SKU分析 N=1,048 (淘宝/天猫/京东) · composite score 0.77 · 2026-06 · 注：拼多多/抖音数据缺失，走量层白牌规模可能被低估</p>
+
+  <div class="sub-title">7.2 主要竞争者分析</div>
+  <div class="table-wrap mb-8">
+    <table class="data-table">
+      <thead><tr><th>品牌</th><th>类型</th><th>SKU数</th><th>均价</th><th>强项品类</th><th>护城河</th><th>威胁等级</th></tr></thead>
+      <tbody>
+        <tr class="highlight">
+          <td><strong>纳拓 (Natuo)</strong></td>
+          <td><span class="badge badge-blue">本土</span></td>
+          <td class="mono-cell blue">25</td>
+          <td class="mono-cell">¥172</td>
+          <td>多品类覆盖；工具钳/充气泵/工兵铲</td>
+          <td>SKU数量领先；算法流量积累</td>
+          <td><span class="badge badge-yellow">中高</span></td>
+        </tr>
+        <tr>
+          <td><strong>SOG</strong></td>
+          <td><span class="badge badge-gray">外资</span></td>
+          <td class="mono-cell">少</td>
+          <td class="mono-cell">¥238</td>
+          <td>多功能工具钳（高端）</td>
+          <td>品牌认知；专业用户口碑</td>
+          <td><span class="badge badge-blue">中（高端层不重叠）</span></td>
+        </tr>
+        <tr>
+          <td><strong>骆驼</strong></td>
+          <td><span class="badge badge-blue">本土</span></td>
+          <td class="mono-cell">少</td>
+          <td class="mono-cell">—</td>
+          <td>折叠桌椅（有品牌认知）</td>
+          <td>户外品牌品类延伸；已有认知</td>
+          <td><span class="badge badge-blue">中（折叠桌椅重叠）</span></td>
+        </tr>
+        <tr>
+          <td><strong>Leatherman</strong></td>
+          <td><span class="badge badge-gray">外资</span></td>
+          <td class="mono-cell">少</td>
+          <td class="mono-cell">¥300+</td>
+          <td>多功能工具钳（顶端）</td>
+          <td>工匠品牌；全球认知；收藏价值</td>
+          <td><span class="badge badge-gray">低（价格层不重叠）</span></td>
+        </tr>
+        <tr>
+          <td><strong>无品牌白牌集群</strong></td>
+          <td><span class="badge badge-red">白牌</span></td>
+          <td class="mono-cell blue">~900+</td>
+          <td class="mono-cell">&lt;¥150</td>
+          <td>工兵铲/充气泵/工具钳低价款</td>
+          <td>价格；供应链规模</td>
+          <td><span class="badge badge-red">高（价格带直接竞争）</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="table-note mono">// SOURCE: 电商SKU分析 N=1,048 · 2026-06 · 注：纳拓护城河评估：SKU领先但品牌认知极弱，尚未建立消费者主动recall能力</p>
+
+  <div class="sub-title">7.3 产品品类电商表现对比</div>
+  <div class="table-wrap mb-8">
+    <table class="data-table">
+      <thead><tr><th>品类</th><th>销售额指数</th><th>排名</th><th>小红书提及</th><th>B站提及</th><th>推荐层级</th><th>品牌空白</th></tr></thead>
+      <tbody>
+        <tr class="highlight"><td><strong>工兵铲</strong></td><td class="mono-cell blue">36,746</td><td class="mono-cell">第一</td><td>低</td><td>低</td><td><span class="badge badge-yellow">Tier 2</span></td><td><span class="badge badge-green">极高 ★</span></td></tr>
+        <tr class="highlight"><td><strong>多功能工具钳</strong></td><td class="mono-cell blue">27,152</td><td class="mono-cell">第二</td><td>低频</td><td>219次</td><td><span class="badge badge-yellow">Tier 1</span></td><td><span class="badge badge-green">高</span></td></tr>
+        <tr><td>充气泵（车载）</td><td class="mono-cell">—</td><td class="mono-cell">—</td><td>51次</td><td>适中</td><td><span class="badge badge-yellow">Tier 1</span></td><td><span class="badge badge-blue">中</span></td></tr>
+        <tr><td>软质收纳</td><td class="mono-cell">畅销</td><td class="mono-cell">—</td><td>求派力肯730</td><td>赞93</td><td><span class="badge badge-yellow">Tier 1</span></td><td><span class="badge badge-green">高（软质蓝海）</span></td></tr>
+        <tr><td>折叠桌椅</td><td class="mono-cell">—</td><td class="mono-cell">—</td><td>152次</td><td>26次</td><td><span class="badge badge-gray">Tier 2可选</span></td><td><span class="badge badge-gray">中（骆驼有认知）</span></td></tr>
+        <tr><td>炊具/炉具</td><td class="mono-cell">烧烤畅销</td><td class="mono-cell">—</td><td>几乎不提</td><td>536次</td><td><span class="badge badge-gray">Tier 3（男性）</span></td><td><span class="badge badge-gray">中</span></td></tr>
+        <tr><td>即热饮水机（车载）</td><td class="mono-cell">—</td><td class="mono-cell">—</td><td>38次</td><td>少提</td><td><span class="badge badge-gray">Tier 3</span></td><td><span class="badge badge-green">高（12V缺口）</span></td></tr>
+        <tr><td>汽车应急工具</td><td class="mono-cell">冲突</td><td class="mono-cell">—</td><td>少提</td><td>少提</td><td><span class="badge badge-red">Tier 4 不建议</span></td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="table-note mono">// SOURCE: 电商SKU分析 N=1,048 · 小红书VoC N=2,737 · B站VoC N=3,369 · 数据期 2026-06</p>
+
+  <div class="insights-box">
+    <div class="insights-header">ANALYSIS OUTPUT — 竞争格局</div>
+    <div class="insight-row"><span class="insight-num">01</span><div class="insight-body"><div class="insight-text">纳拓是唯一值得认真对待的本土对手，但其护城河极弱——SKU数量领先不等于品牌壁垒</div><div class="insight-support">纳拓25 SKU、均价¥172，无消费者主动recall能力；电商SKU分析 2026</div></div></div>
+    <div class="insight-row"><span class="insight-num">02</span><div class="insight-body"><div class="insight-text">工兵铲（销售第一）是进入成本最低、品牌建立空间最大的单品切入口</div><div class="insight-support">销售额指数36,746 × 品牌认知≈0，完美的品牌白板场景</div></div></div>
+    <div class="insight-row"><span class="insight-num">03</span><div class="insight-body"><div class="insight-text">SOG/Leatherman的存在证明¥200+品牌溢价可实现，外资品牌已验证中国消费者愿意为品牌付费</div><div class="insight-support">SOG ¥238跑出高销量 · 核心洞察二</div></div></div>
+  </div>
+</div>
+<!-- ===== SEC.08 数据质量与空白 ===== -->
+<div class="section">
+  <div class="section-code mono">SEC.08</div>
+  <div class="section-title">数据质量评估与空白</div>
+  <div class="section-divider"></div>
+
+  <div class="sub-title">8.1 数据源质量总览</div>
+  <div class="table-wrap mb-8">
+    <table class="data-table">
+      <thead><tr><th>数据源</th><th>类型</th><th>样本量</th><th>Composite Score</th><th>质量评级</th><th>主要用途</th><th>局限性</th></tr></thead>
+      <tbody>
+        <tr class="highlight"><td><strong>小红书VoC</strong></td><td>用户评论/帖子</td><td class="mono-cell">N=2,737</td><td class="mono-cell blue">0.79</td><td><span class="badge badge-green">高</span></td><td>种草行为、颜值偏好、购买意愿</td><td>偏女性；憧憬阶段为主，未必真实购买</td></tr>
+        <tr class="highlight"><td><strong>B站VoC</strong></td><td>用户评论/测评</td><td class="mono-cell">N=3,369</td><td class="mono-cell blue">0.77</td><td><span class="badge badge-green">高</span></td><td>功能验证、踩坑信号、真实使用反馈</td><td>偏男性；活跃用户偏极客，非大众</td></tr>
+        <tr class="highlight"><td><strong>电商SKU分析</strong></td><td>竞品情报</td><td class="mono-cell">N=1,048 SKU</td><td class="mono-cell blue">0.77</td><td><span class="badge badge-green">高</span></td><td>价格带分布、竞品格局、销量对比</td><td>仅淘宝/天猫/京东，缺拼多多/抖音</td></tr>
+        <tr><td>Fastdata自驾报告</td><td>行业报告</td><td class="mono-cell">—</td><td class="mono-cell">0.74</td><td><span class="badge badge-blue">中高</span></td><td>市场规模、用户画像、出行人次</td><td>口径为"自驾游"宽口径，含非露营场景</td></tr>
+        <tr><td>百分点NEV报告</td><td>行业报告</td><td class="mono-cell">—</td><td class="mono-cell">0.63</td><td><span class="badge badge-blue">中</span></td><td>NEV用户装备需求、外放电关注度</td><td>样本量/方法论不透明</td></tr>
+        <tr><td>易车研究院报告</td><td>行业报告</td><td class="mono-cell">—</td><td class="mono-cell">0.64</td><td><span class="badge badge-blue">中</span></td><td>家庭出行频率、决策者性别</td><td>易车平台用户≠全体自驾游用户</td></tr>
+        <tr><td>Shanghai Jungle（55亿美元）</td><td>市场规模引用</td><td class="mono-cell">—</td><td class="mono-cell">0.65</td><td><span class="badge badge-blue">中</span></td><td>中国户外装备市场宽口径规模</td><td>来源为B端咨询机构，原始统计口径未披露</td></tr>
+        <tr><td>Fortune Business Insights</td><td>全球市场报告</td><td class="mono-cell">—</td><td class="mono-cell">0.60</td><td><span class="badge badge-yellow">中（谨慎使用）</span></td><td>全球CAGR、市场规模预测</td><td>商业研究机构，预测模型黑箱，需交叉验证</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="table-note mono">// 综合数据质量: 0.77（三核心来源跨渠道印证） · 五轴评估框架：权威度/证据类型/新鲜度/偏见风险/方法论严谨度</p>
+
+  <div class="sub-title">8.2 最稳健结论（多源一致，高置信度）</div>
+  <div class="grid-2 mb-16">
+    <div class="opp-card"><h4>✅ ¥100–200主战场 · 高置信</h4><p>三方印证（小红书心理价位、B站比价行为、电商SKU分布），结论稳健。</p></div>
+    <div class="opp-card"><h4>✅ 85%白牌占比 · 高置信</h4><p>四方印证（电商数据、VoC品牌recall测试、行业报告）。</p></div>
+    <div class="opp-card"><h4>✅ 双平台决策链 · 高置信</h4><p>小红书+B站行为数据交叉印证，信号一致性强。</p></div>
+    <div class="opp-card"><h4>✅ 工兵铲销售第一·品牌空白 · 高置信</h4><p>电商数据+双VoC品牌提及频率（近零）交叉确认。</p></div>
+  </div>
+
+  <div class="sub-title">8.3 数据缺口与验证建议</div>
+  <div class="table-wrap mb-8">
+    <table class="data-table">
+      <thead><tr><th>缺口</th><th>影响</th><th>建议验证方式</th><th>优先级</th></tr></thead>
+      <tbody>
+        <tr class="highlight"><td><strong>拼多多/抖音电商数据</strong></td><td>可能存在&lt;¥100白牌，影响价格带结论；抖音种草链路可能形成独立闭环</td><td>抖音/拼多多平台爬取或第三方数据工具（飞瓜/蝉妈妈）</td><td><span class="badge badge-red">P0 紧急</span></td></tr>
+        <tr><td>真实购买转化率</td><td>小红书种草→实际购买的真实漏斗数据缺失，TAM估算不确定性高</td><td>品牌后台数据 / 消费者调研（n≥200）</td><td><span class="badge badge-yellow">P1</span></td></tr>
+        <tr><td>B站用户性别构成</td><td>B站VoC偏男性，女性品类置信度受限；软质收纳等女性需求信号被低估风险</td><td>B站用户画像报告 / 小红书软质收纳专项VoC</td><td><span class="badge badge-yellow">P1</span></td></tr>
+        <tr><td>装备闲置率量化</td><td>"装备吃灰"是定性信号，缺乏量化（闲置率%、闲置时间）</td><td>消费者调研问卷（"上次使用该装备是多久前？"）</td><td><span class="badge badge-blue">P2</span></td></tr>
+        <tr><td>NEV车主装备支出</td><td>NEV用户装备支出无直接数据，SAM估算依赖假设</td><td>NEV车主社群调研 / 汽车厂商用户数据合作</td><td><span class="badge badge-blue">P2</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="table-note mono">// 推翻条件（决策日志 2026-06-09）: ① 拼多多/抖音发现&lt;¥100强势品牌 → 重新评估价格带 ② 产品测试显示闲置≠设计问题 → 降权"降低门槛"结论</p>
+
+  <div class="insights-box">
+    <div class="insights-header">ANALYSIS OUTPUT — 数据质量</div>
+    <div class="insight-row"><span class="insight-num">01</span><div class="insight-body"><div class="insight-text">核心结论（价格带/白牌/决策链/品类销量）置信度高，三核心数据源交叉印证，composite score均≥0.77</div><div class="insight-support">VoC 6,106条 + 电商 1,048 SKU，三源互证</div></div></div>
+    <div class="insight-row"><span class="insight-num">02</span><div class="insight-body"><div class="insight-text">最紧迫数据缺口：拼多多/抖音渠道数据。补充前，走量层(&lt;¥100)竞争强度存在低估风险</div><div class="insight-support">决策日志风险评估，2026-06-09</div></div></div>
+    <div class="insight-row"><span class="insight-num">03</span><div class="insight-body"><div class="insight-text">市场规模估算为三情景区间（¥120–1,080亿），基准¥360亿，不建议以单点数字做决策依据</div><div class="insight-support">自下而上可复算框架，见SEC.02</div></div></div>
+  </div>
+</div>
+
+</div><!-- END .main -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">MARKET RESEARCH OS</div>
+    <div class="footer-meta">
+      中国自驾露营出行装备市场分析报告 · REV.1.0<br>
+      生成日期: 2026-06-09 · 数据期: 2024–2026 · 仅供内部研究使用，禁止对外分发<br>
+      VoC数据来源: 小红书(N=2,737) + B站(N=3,369) + 电商SKU(N=1,048) · 综合数据质量评分: 0.77
+    </div>
+    <div class="footer-page">总计 8 节</div>
+  </div>
+  <div class="footer-yellow-bar"></div>
+</footer>
+
+</body>
+</html>
