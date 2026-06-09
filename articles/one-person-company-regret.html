@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>vibe coding让人人都能创业了，然后我后悔了 · 安祖羊</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0D1117;
+    --bg-secondary: #1A1A2E;
+    --bg-card: #161B22;
+    --accent: #E94560;
+    --accent-dim: rgba(233, 69, 96, 0.15);
+    --text: #F0F4F8;
+    --text-dim: #8B95A5;
+    --text-mute: #6B7280;
+    --gold: #FFD700;
+    --border: #0F3460;
+    --border-soft: rgba(15, 52, 96, 0.4);
+  }
+  html { scroll-behavior: smooth; }
+  html, body {
+    background: var(--bg-primary);
+    color: var(--text);
+    font-family: "PingFang SC", "Noto Sans SC", "Source Han Sans SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    background: radial-gradient(ellipse at top, #1A1A2E 0%, #0D1117 50%);
+    min-height: 100vh;
+  }
+
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(13, 17, 23, 0.7);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .nav-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 18px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+  }
+  .back-link:hover { color: var(--accent); }
+  .nav-brand { font-size: 14px; font-weight: 700; color: var(--accent); letter-spacing: 2px; }
+
+  .article-hero {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 100px 32px 60px;
+  }
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+    font-size: 12px;
+    color: var(--text-mute);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .meta-tag {
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 4px 10px;
+    border-radius: 2px;
+    background: var(--accent-dim);
+  }
+  .meta-divider { width: 30px; height: 1px; background: var(--border); }
+  .article-hero h1 {
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: -1.5px;
+    margin-bottom: 32px;
+    color: var(--text);
+  }
+  .article-hero .deck {
+    font-size: 18px;
+    color: var(--text-dim);
+    line-height: 1.7;
+    border-left: 3px solid var(--accent);
+    padding-left: 20px;
+    margin-bottom: 32px;
+  }
+
+  .article-body {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 32px 80px;
+    font-size: 17px;
+    line-height: 1.95;
+    color: rgba(240, 244, 248, 0.92);
+  }
+  .article-body p { margin-bottom: 1.6em; }
+  .article-body p.lead { font-size: 20px; font-weight: 500; color: var(--text); }
+  .article-body h2 {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--text);
+    margin: 60px 0 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-soft);
+    position: relative;
+  }
+  .article-body h2::before {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background: var(--accent);
+  }
+  .article-body hr { border: none; margin: 60px auto; width: 60px; height: 1px; background: var(--border); }
+  .article-body strong { color: var(--accent); font-weight: 700; }
+  .article-body blockquote {
+    border-left: 4px solid var(--accent);
+    padding: 16px 24px;
+    margin: 32px 0;
+    background: rgba(233, 69, 96, 0.05);
+    color: var(--text);
+    font-style: italic;
+    border-radius: 0 4px 4px 0;
+  }
+  .article-body .highlight {
+    background: linear-gradient(180deg, transparent 60%, rgba(255, 215, 0, 0.25) 60%);
+    padding: 0 4px;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* Punchy opening — short sentences on their own lines */
+  .article-body p.shot {
+    font-size: 32px;
+    font-weight: 900;
+    line-height: 1.3;
+    color: var(--text);
+    margin: 24px 0;
+    letter-spacing: -1px;
+  }
+  .article-body p.shot.accent { color: var(--accent); }
+
+  /* Three-pillar pattern */
+  .pillars {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin: 40px 0;
+  }
+  .pillar {
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    padding: 24px 28px;
+  }
+  .pillar-num {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .pillar h3 {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+  }
+  .pillar p { font-size: 15px; color: var(--text-dim); margin: 0; line-height: 1.7; }
+
+  .pull-quote {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 0 32px;
+    text-align: center;
+  }
+  .pull-quote blockquote {
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.4;
+    color: var(--text);
+    border: none;
+    background: none;
+    padding: 0;
+    font-style: normal;
+    letter-spacing: -0.5px;
+  }
+  .pull-quote blockquote::before {
+    content: '"';
+    display: block;
+    font-size: 80px;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: -20px;
+    font-family: Georgia, serif;
+  }
+
+  .end-cta {
+    max-width: 720px;
+    margin: 80px auto 0;
+    padding: 40px 32px;
+    border-top: 1px solid var(--border-soft);
+    text-align: center;
+  }
+  .end-cta p { color: var(--text-dim); font-size: 15px; margin-bottom: 8px; }
+  .end-cta .signature {
+    display: inline-block;
+    margin-top: 24px;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: 4px;
+  }
+
+  footer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 32px 60px;
+    border-top: 1px solid var(--border-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-brand { font-size: 14px; font-weight: 800; color: var(--accent); letter-spacing: 2px; }
+  .footer-meta { color: var(--text-mute); font-size: 12px; letter-spacing: 1px; }
+
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--gold) 100%);
+    z-index: 100;
+    transition: width 0.1s;
+  }
+
+  @media (max-width: 640px) {
+    .article-hero, .article-body, .end-cta { padding-left: 20px; padding-right: 20px; }
+    .article-hero { padding-top: 60px; padding-bottom: 40px; }
+    .article-body { font-size: 16px; }
+    .article-body p.shot { font-size: 24px; }
+    .pull-quote blockquote { font-size: 22px; }
+    .nav-inner { padding: 16px 20px; }
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+</style>
+</head>
+<body>
+
+  <div class="progress-bar" id="progress"></div>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="back-link" href="../index.html">← 返回首页</a>
+      <div class="nav-brand">安祖羊</div>
+    </div>
+  </nav>
+
+  <header class="article-hero">
+    <div class="article-meta">
+      <span class="meta-tag">赛道二</span>
+      <span class="meta-divider"></span>
+      <span>2026.05.09</span>
+      <span class="meta-divider"></span>
+      <span>约 1380 字</span>
+    </div>
+    <h1>vibe coding让人人都能创业了，<br>然后我后悔了</h1>
+    <p class="deck">"今日额度已用完"——我被我自己的Bot通知停工了。技术门槛低了，不代表你的机会多了。</p>
+  </header>
+
+  <article class="article-body">
+
+    <p class="shot">火了。</p>
+    <p class="shot">爆了。</p>
+    <p class="shot">刷屏了。</p>
+
+    <p>vibe coding让所有人都觉得，随手就能做出一个产品，随手就能创业。</p>
+
+    <p>然后，我后悔了。</p>
+
+    <p>不是后悔尝试。</p>
+
+    <p>是后悔自己当初没想清楚一件事：</p>
+
+    <p class="shot accent">技术门槛低了，不代表你的机会多了。</p>
+
+    <hr>
+
+    <h2>我跟风的那些日子</h2>
+
+    <p>最近一年，"一人公司"这个词几乎要变成新时代的成功学图腾了。</p>
+
+    <p>你会发现，朋友圈里、小红书里，到处都是"我用AI做了一个产品""我裸辞三个月，月入五万"。</p>
+
+    <p>看着看着，你就开始蠢蠢欲动。</p>
+
+    <p>然后你打开Claude，你打开Cursor，你觉得，就这？</p>
+
+    <p><strong>就这我也行。</strong></p>
+
+    <p>我也是这么想的。</p>
+
+    <p>说我自己吧。</p>
+
+    <p>我有15年的跨境营销经验，做过众筹，推过品牌，帮公司赚过钱，自己也创过业。</p>
+
+    <p>按理说，AI工具一出，我应该是最先跑起来的那种人。</p>
+
+    <p>然后呢？</p>
+
+    <p>我第一次用Claude做内容转换工具，前端做完了，API费用一出来，停了。</p>
+
+    <p>第二次搭信息聚合机器人，部署失败，重来，抓取失败，换API。</p>
+
+    <p>然后，月额度在两小时内耗完了。</p>
+
+    <p>系统给我弹了个提示："今日额度已用完。"</p>
+
+    <p><span class="highlight">我被我自己的Bot通知停工了。</span></p>
+
+    <p>你说这有多荒唐。</p>
+
+    <p>但我后来想明白了一件事。</p>
+
+    <p>我的问题不是工具没用好。</p>
+
+    <p><strong>我的问题是，我压根不知道我要解决什么问题。</strong></p>
+
+    <p>我看到别人做工具，我就想做工具。</p>
+
+    <p>我看到别人跑通了，我就觉得我也可以跑通。</p>
+
+    <p>这不是创业，这叫"自嗨式跟风"。</p>
+
+    <hr>
+
+    <h2>我见过太多这样的人</h2>
+
+    <p>梁璐，在AI创业圈待了整整一年。</p>
+
+    <p>做过AI玄学，做过企业logo动效，做过K12教学工具。</p>
+
+    <p>每次都是先把技术跑通，然后再找用户。</p>
+
+    <p>每次都失败。</p>
+
+    <p>她花了整整一年才弄清楚一件事：</p>
+
+    <p><strong>真正的问题从来不是产品，是需求。</strong></p>
+
+    <p>没有需求，技术再漂亮也是零。</p>
+
+    <hr>
+
+    <h2>那成功的人是怎么做的？</h2>
+
+    <p>我告诉你规律。</p>
+
+    <div class="pillars">
+      <div class="pillar">
+        <span class="pillar-num">第一条</span>
+        <h3>先有痛点，再有产品</h3>
+        <p>严肃，硅谷的创业者，自己管理信息太痛苦，就做了一个信息聚合网站。解决的是他自己的问题。用户一用，发现也是他们的问题。就这么简单。</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-num">第二条</span>
+        <h3>有别人复制不走的行业积累</h3>
+        <p>燕文，清华建筑系出身，做AI改简历工具。她凭什么做简历？因为她判断过几千份简历，她知道什么样的简历会被扔掉，什么样的会留下来。这个判断力，是她十几年积累出来的。你用同样的工具，做不出同样的产品。</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-num">第三条</span>
+        <h3>护城河不是会用AI，而是懂行业</h3>
+        <p>金灿，连续创业者，做AI语音回款SaaS。你觉得债务催收这个赛道好进吗？不好进。但他在这个行业耕耘了十年，他知道最大的痛点在哪，合规红线在哪，甲方要什么。十五分钟就拿到投资。为什么？因为他说的每一句话，都是投资人用钱也买不到的行业判断。</p>
+      </div>
+    </div>
+
+    <p>所以我后来想清楚了一个真相。</p>
+
+    <p>vibe coding这件事，它降低的只是<span class="highlight">技术门槛</span>。</p>
+
+    <p>它降不了的，是你的<span class="highlight">需求洞察力</span>，是你的<span class="highlight">行业积累</span>，是你对用户痛点的<span class="highlight">真实理解</span>。</p>
+
+    <p>你会发现，AI工具是个放大器。</p>
+
+    <p>它能放大你已经有的东西。</p>
+
+    <p><strong>但它放大不了一个不存在的东西。</strong></p>
+
+    <p>那些真正跑通一人公司的人，不是因为他们会用Claude，会用Cursor。</p>
+
+    <p>是因为他们在用AI之前，就已经知道：</p>
+
+    <p>我要解决什么问题，为什么只有我能解决，凭什么别人解决不了。</p>
+
+    <p>AI，只是让这件事变得更快、更便宜了。</p>
+
+    <p>很多人觉得，技术门槛低了，竞争少了。</p>
+
+    <p>其实反过来。</p>
+
+    <p>技术门槛一低，进场的人变多了，竞争更激烈了。</p>
+
+    <p>以前能做这件事的人很少，你还有时间。</p>
+
+    <p><strong>现在人人都能做，你的窗口期更短了。</strong></p>
+
+    <hr>
+
+    <h2>打开Claude之前，先回答这三个问题</h2>
+
+    <p>我不是叫你不要做一人公司。</p>
+
+    <p>是叫你在打开Claude之前，先回答三个问题：</p>
+
+    <p><strong>第一，你要解决的，是你自己真实踩过的坑，还是你"感觉"别人有这个需求？</strong></p>
+
+    <p><strong>第二，你在这件事上，有没有别人五年也学不走的积累？</strong></p>
+
+    <p><strong>第三，如果把AI工具拿走，你还剩下什么？</strong></p>
+
+    <p>答得上来，做。</p>
+
+    <p>答不上来，先别急着辞职。</p>
+
+  </article>
+
+  <div class="pull-quote">
+    <blockquote>AI时代，不是工具胜出的时代。<br>是那些有真实问题、有行业积累、有独特判断的人，<br>借着工具跑得更快的时代。<br><br>工具人人都有。<br>但门后面是什么，得你自己先想清楚。</blockquote>
+  </div>
+
+  <article class="article-body">
+
+    <hr>
+
+    <h2>结语</h2>
+
+    <p>vibe coding不是你的敌人。</p>
+
+    <p>它只是让你看清了一件事：</p>
+
+    <p>技术从来不是你的护城河，</p>
+
+    <p>只有你自己的积累才是。</p>
+
+  </article>
+
+  <div class="end-cta">
+    <p>今天的话题，你怎么想？</p>
+    <p>留言。转发。各平台可关注</p>
+    <div class="signature">— 安祖羊</div>
+  </div>
+
+  <footer>
+    <div class="footer-brand">安祖羊</div>
+    <div class="footer-meta">© 2026 ANZUYANG</div>
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      document.getElementById('progress').style.width = progress + '%';
+    });
+  </script>
+
+</body>
+</html>

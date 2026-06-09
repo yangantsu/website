@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中国消费精密工具 — 用户调研报告 2026</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --c1:#2563EB;--c1l:#EFF6FF;--c1t:#BFDBFE;
+  --c2:#DB2777;--c2l:#FDF2F8;--c2t:#FBCFE8;
+  --c3:#7C3AED;--c3l:#F5F3FF;--c3t:#DDD6FE;
+  --c4:#D97706;--c4l:#FFFBEB;--c4t:#FDE68A;
+  --c5:#059669;--c5l:#ECFDF5;--c5t:#A7F3D0;
+  --c6:#DC2626;--c6l:#FEF2F2;--c6t:#FECACA;
+  --bg:#F1F5F9;--card:#FFFFFF;--text:#1E293B;
+  --sub:#64748B;--border:#E2E8F0;--r:14px
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+a{text-decoration:none}
+
+/* ── LAYOUT ── */
+.wrap{max-width:1200px;margin:0 auto;padding:0 28px}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:18px}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+
+/* ── STICKY HEADER ── */
+.siteheader{background:#0F172A;color:#fff;padding:14px 0;position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(0,0,0,.35)}
+.siteheader .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.hd-brand{font-size:11px;color:#64748B;letter-spacing:.05em;text-transform:uppercase}
+.hd-title{font-size:14px;font-weight:700;color:#F1F5F9;margin-top:2px}
+.hd-nav{display:flex;gap:6px;flex-shrink:0}
+.hd-nav a{font-size:12px;color:#94A3B8;background:rgba(255,255,255,.07);padding:5px 12px;border-radius:20px;transition:all .18s;white-space:nowrap}
+.hd-nav a:hover{background:rgba(255,255,255,.14);color:#fff}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(140deg,#0F172A 0%,#1E3A8A 55%,#0F172A 100%);color:#fff;padding:60px 0 48px}
+.hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#60A5FA;margin-bottom:14px}
+.hero h1{font-size:34px;font-weight:800;line-height:1.25;margin-bottom:10px}
+.hero h1 span{color:#93C5FD}
+.hero-sub{color:#94A3B8;font-size:15px;margin-bottom:36px}
+.hero-stats{display:flex;gap:36px;flex-wrap:wrap}
+.hero-stat .n{font-size:30px;font-weight:800;color:#60A5FA;line-height:1}
+.hero-stat .l{font-size:11px;color:#94A3B8;margin-top:4px}
+
+/* ── SECTION CHROME ── */
+section{padding:60px 0}
+section.alt{background:#F8FAFC}
+.sec-eye{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#94A3B8;margin-bottom:6px}
+.sec-title{font-size:24px;font-weight:800;margin-bottom:8px}
+.sec-desc{color:var(--sub);max-width:660px;margin-bottom:36px;font-size:13.5px}
+
+/* ── PERSONA CARD ── */
+.pcard{background:var(--card);border-radius:var(--r);overflow:hidden;border:1px solid var(--border);box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.pcard-head{padding:20px 22px;color:#fff}
+.pcard-head .pid{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;opacity:.75;margin-bottom:4px}
+.pcard-head h3{font-size:19px;font-weight:800;margin-bottom:2px}
+.pcard-head .page{font-size:12px;opacity:.8}
+.pcard-body{padding:18px 22px 20px}
+.scale-row{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.scale-num{font-size:20px;font-weight:800;line-height:1}
+.scale-lbl{font-size:11px;color:var(--sub)}
+.scale-track{flex:1;height:7px;background:#F1F5F9;border-radius:4px;overflow:hidden}
+.scale-fill{height:100%;border-radius:4px}
+.meta-list{list-style:none}
+.meta-list li{display:flex;gap:10px;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px}
+.meta-list li:last-child{border:none}
+.meta-k{color:var(--sub);min-width:68px;flex-shrink:0}
+.meta-v{color:var(--text)}
+.tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.tag{font-size:11.5px;padding:3px 9px;border-radius:20px;font-weight:600}
+
+/* ── SCENARIO CARD ── */
+.scard{background:var(--card);border-radius:var(--r);border:1px solid var(--border);overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.scard-head{padding:14px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border)}
+.dot{width:11px;height:11px;border-radius:50%;flex-shrink:0}
+.scard-head h4{font-size:14px;font-weight:800}
+.scard-body{padding:16px 20px 20px}
+.blk-title{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--sub);margin-bottom:9px}
+.scene-ul{list-style:none}
+.scene-ul li{font-size:13px;padding:3px 0 3px 14px;position:relative;color:var(--text)}
+.scene-ul li::before{content:"▸";position:absolute;left:0;opacity:.4}
+.divider{border:none;border-top:1px solid var(--border);margin:14px 0}
+.pain-ul{list-style:none}
+.pain-li{font-size:13px;padding:6px 0 6px 24px;position:relative;border-bottom:1px dashed #F1F5F9;line-height:1.55}
+.pain-li:last-child{border:none}
+.pain-li::before{content:"!";position:absolute;left:0;top:6px;background:#FEF2F2;color:#DC2626;border-radius:50%;width:16px;height:16px;font-size:9.5px;font-weight:800;text-align:center;line-height:16px}
+
+/* ── FACTOR RANKING CARD ── */
+.fcard{background:var(--card);border-radius:var(--r);border:1px solid var(--border);overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.fcard-head{padding:14px 18px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+.fcard-head h4{font-size:14px;font-weight:800}
+.fcard-body{padding:4px 0 4px}
+.frow{display:flex;align-items:center;gap:12px;padding:9px 18px;border-bottom:1px solid #F8FAFC}
+.frow:last-child{border:none}
+.rank-num{width:26px;height:26px;border-radius:7px;font-size:12px;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.r1{background:#1E293B}.r2{background:#334155}.r3{background:#475569}.r4{background:#94A3B8}.r5{background:#CBD5E1;color:#475569}
+.fname{font-size:13px;flex:1;color:var(--text)}
+.fbar-wrap{width:70px;height:5px;background:#F1F5F9;border-radius:3px;overflow:hidden}
+.fbar{height:100%;border-radius:3px}
+
+/* ── PRD CARD ── */
+.prdcard{background:var(--card);border-radius:var(--r);border:1px solid var(--border);overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.prdcard-head{padding:14px 18px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+.prdcard-head h4{font-size:14px;font-weight:800;flex:1}
+.price-badge{font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;color:#fff}
+.prdcard-body{padding:14px 18px 18px}
+.prdcard-body ul{list-style:none}
+.prdcard-body li{font-size:12.5px;padding:4px 0 4px 14px;position:relative;line-height:1.55;color:var(--text)}
+.prdcard-body li::before{content:"·";position:absolute;left:2px;font-size:18px;line-height:14px;top:4px;color:var(--sub)}
+
+/* ── INSIGHT BOX ── */
+.ibox{background:linear-gradient(135deg,#0F172A,#1E3A8A);border-radius:var(--r);padding:24px 28px;color:#fff;margin-top:32px}
+.ibox h4{font-size:14px;font-weight:800;color:#93C5FD;margin-bottom:14px;text-transform:uppercase;letter-spacing:.06em}
+.ibox-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.ibox-item{background:rgba(255,255,255,.06);border-radius:10px;padding:14px 16px;border:1px solid rgba(255,255,255,.08)}
+.ibox-item .il{font-size:11px;color:#60A5FA;font-weight:700;margin-bottom:4px;text-transform:uppercase}
+.ibox-item .iv{font-size:13px;color:#E2E8F0;line-height:1.5}
+
+/* ── DATA NOTE ── */
+.data-note{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px 24px;margin-top:32px;font-size:12px;color:var(--sub);line-height:1.8}
+.data-note strong{color:var(--text)}
+
+/* ── FOOTER ── */
+footer{background:#0F172A;color:#475569;padding:28px 0;font-size:12px}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .hero h1{font-size:24px}
+  .hd-nav{display:none}
+  .grid-2,.grid-3{grid-template-columns:1fr}
+  .hero-stats{gap:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════ STICKY HEADER -->
+<header class="siteheader">
+  <div class="wrap">
+    <div>
+      <div class="hd-brand">Market Research OS · 中国消费精密工具</div>
+      <div class="hd-title">用户调研报告 — 六大消费者画像深度解析</div>
+    </div>
+    <nav class="hd-nav">
+      <a href="#s1">01 用户画像</a>
+      <a href="#s2">02 场景 &amp; 痛点</a>
+      <a href="#s3">03 决策因素</a>
+      <a href="#s4">04 产品 PRD</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════ HERO -->
+<div class="hero">
+  <div class="wrap">
+    <p class="hero-eyebrow">行业级用户研究报告 · 2026.06</p>
+    <h1>中国消费精密工具<br><span>用户调研报告</span></h1>
+    <p class="hero-sub">聚焦精密螺丝刀品类 · 基于跨平台2,487条VoC数据 · 六大消费者画像</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="n">2,487</div><div class="l">VoC总样本量</div></div>
+      <div class="hero-stat"><div class="n">6</div><div class="l">消费者细分画像</div></div>
+      <div class="hero-stat"><div class="n">4</div><div class="l">数据来源平台</div></div>
+      <div class="hero-stat"><div class="n">24+</div><div class="l">行业痛点识别</div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════ S1: 用户画像 -->
+<section id="s1">
+  <div class="wrap">
+    <div class="sec-eye">Section 01</div>
+    <h2 class="sec-title">用户画像全景</h2>
+    <p class="sec-desc">基于跨平台VoC分析（小红书729条 + 抖音91条 + B站1,589条 + 京东负评78条）与市场竞争情报推断识别出六大消费者细分。规模估算为方向性推算，非精确统计，以市场信号为基础。</p>
+
+    <div class="grid-2">
+
+      <!-- P1 -->
+      <div class="pcard">
+        <div class="pcard-head" style="background:linear-gradient(135deg,#2563EB,#1D4ED8)">
+          <div class="pid">Persona 01</div>
+          <h3>数码修复者</h3>
+          <div class="page">18–35岁 · 手机 / 笔电自修用户</div>
+        </div>
+        <div class="pcard-body">
+          <div class="scale-row">
+            <div><div class="scale-num" style="color:var(--c1)">30–35%</div><div class="scale-lbl">规模估算（最大细分）</div></div>
+            <div class="scale-track"><div class="scale-fill" style="width:33%;background:var(--c1)"></div></div>
+          </div>
+          <ul class="meta-list">
+            <li><span class="meta-k">核心场景</span><span class="meta-v">手机换电池、屏幕维修、笔电清灰升级</span></li>
+            <li><span class="meta-k">价格区间</span><span class="meta-v">¥100 – ¥300</span></li>
+            <li><span class="meta-k">渠道路径</span><span class="meta-v">B站/抖音教程 → 京东/天猫下单</span></li>
+            <li><span class="meta-k">品牌偏好</span><span class="meta-v">HOTO、小米、世达</span></li>
+            <li><span class="meta-k">核心诉求</span><span class="meta-v">精度够用 + 批头齐全 + 用完即收</span></li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag" style="background:var(--c1l);color:var(--c1)"># 批头规格完整</span>
+            <span class="tag" style="background:var(--c1l);color:var(--c1)"># 强磁性吸附</span>
+            <span class="tag" style="background:var(--c1l);color:var(--c1)"># 精密扭力</span>
+            <span class="tag" style="background:var(--c1l);color:var(--c1)"># 轻便手持</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- P2 -->
+      <div class="pcard">
+        <div class="pcard-head" style="background:linear-gradient(135deg,#DB2777,#BE185D)">
+          <div class="pid">Persona 02</div>
+          <h3>设计消费者</h3>
+          <div class="page">25–35岁 · 城市中产 · 小米生态用户（含女性群体）</div>
+        </div>
+        <div class="pcard-body">
+          <div class="scale-row">
+            <div><div class="scale-num" style="color:var(--c2)">20–25%</div><div class="scale-lbl">规模估算（第二大细分）</div></div>
+            <div class="scale-track"><div class="scale-fill" style="width:22%;background:var(--c2)"></div></div>
+          </div>
+          <ul class="meta-list">
+            <li><span class="meta-k">核心场景</span><span class="meta-v">家居组装、轻度维修、桌面整理展示</span></li>
+            <li><span class="meta-k">价格区间</span><span class="meta-v">¥200 – ¥500</span></li>
+            <li><span class="meta-k">渠道路径</span><span class="meta-v">小红书种草 → 小米有品 / 天猫旗舰</span></li>
+            <li><span class="meta-k">品牌偏好</span><span class="meta-v">HOTO、米家</span></li>
+            <li><span class="meta-k">核心诉求</span><span class="meta-v">颜值调性 + 收纳美感 + 使用门槛低</span></li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag" style="background:var(--c2l);color:var(--c2)"># 工业颜值</span>
+            <span class="tag" style="background:var(--c2l);color:var(--c2)"># 收纳美观</span>
+            <span class="tag" style="background:var(--c2l);color:var(--c2)"># 品牌调性</span>
+            <span class="tag" style="background:var(--c2l);color:var(--c2)"># 女性友好</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- P3 -->
+      <div class="pcard">
+        <div class="pcard-head" style="background:linear-gradient(135deg,#7C3AED,#5B21B6)">
+          <div class="pid">Persona 03</div>
+          <h3>电子爱好者</h3>
+          <div class="page">20–35岁 · 极客 / 键圈 / 游戏主机改装</div>
+        </div>
+        <div class="pcard-body">
+          <div class="scale-row">
+            <div><div class="scale-num" style="color:var(--c3)">13–15%</div><div class="scale-lbl">规模估算</div></div>
+            <div class="scale-track"><div class="scale-fill" style="width:14%;background:var(--c3)"></div></div>
+          </div>
+          <ul class="meta-list">
+            <li><span class="meta-k">核心场景</span><span class="meta-v">键盘客制化、主机拆改、模型/手办组装</span></li>
+            <li><span class="meta-k">价格区间</span><span class="meta-v">¥150 – ¥400</span></li>
+            <li><span class="meta-k">渠道路径</span><span class="meta-v">B站深度评测 → 京东 / 淘宝</span></li>
+            <li><span class="meta-k">品牌偏好</span><span class="meta-v">HOTO、世达、南旗</span></li>
+            <li><span class="meta-k">核心诉求</span><span class="meta-v">扭力精准可控 + 开放批头生态 + 耐用</span></li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag" style="background:var(--c3l);color:var(--c3)"># 扭矩控制精准</span>
+            <span class="tag" style="background:var(--c3l);color:var(--c3)"># 开放批头</span>
+            <span class="tag" style="background:var(--c3l);color:var(--c3)"># 批头完整</span>
+            <span class="tag" style="background:var(--c3l);color:var(--c3)"># 专业耐用</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- P4 -->
+      <div class="pcard">
+        <div class="pcard-head" style="background:linear-gradient(135deg,#D97706,#B45309)">
+          <div class="pid">Persona 04</div>
+          <h3>内容创作者</h3>
+          <div class="page">20–30岁 · 科技UP主 / 测评博主（高影响力小圈）</div>
+        </div>
+        <div class="pcard-body">
+          <div class="scale-row">
+            <div><div class="scale-num" style="color:var(--c4)">5–8%</div><div class="scale-lbl">规模小但影响力极高</div></div>
+            <div class="scale-track"><div class="scale-fill" style="width:6%;background:var(--c4)"></div></div>
+          </div>
+          <ul class="meta-list">
+            <li><span class="meta-k">核心场景</span><span class="meta-v">开箱测评、工作台展示、横评内容制作</span></li>
+            <li><span class="meta-k">价格区间</span><span class="meta-v">¥250 – ¥600</span></li>
+            <li><span class="meta-k">渠道路径</span><span class="meta-v">品牌寄样 / 京东自购 → B站/小红书发布</span></li>
+            <li><span class="meta-k">品牌偏好</span><span class="meta-v">HOTO（颜值最上镜）</span></li>
+            <li><span class="meta-k">核心诉求</span><span class="meta-v">颜值辨识度 + 差异化卖点 + 开箱惊喜感</span></li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag" style="background:var(--c4l);color:var(--c4)"># 上镜颜值</span>
+            <span class="tag" style="background:var(--c4l);color:var(--c4)"># 品牌辨识</span>
+            <span class="tag" style="background:var(--c4l);color:var(--c4)"># 开箱惊喜</span>
+            <span class="tag" style="background:var(--c4l);color:var(--c4)"># 差异化功能</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- P5 -->
+      <div class="pcard">
+        <div class="pcard-head" style="background:linear-gradient(135deg,#059669,#065F46)">
+          <div class="pid">Persona 05</div>
+          <h3>专业维修技师</h3>
+          <div class="page">30–50岁 · 电子 / 家电维修从业者</div>
+        </div>
+        <div class="pcard-body">
+          <div class="scale-row">
+            <div><div class="scale-num" style="color:var(--c5)">12–15%</div><div class="scale-lbl">规模估算</div></div>
+            <div class="scale-track"><div class="scale-fill" style="width:13%;background:var(--c5)"></div></div>
+          </div>
+          <ul class="meta-list">
+            <li><span class="meta-k">核心场景</span><span class="meta-v">维修门店日常作业、高频重复拆装</span></li>
+            <li><span class="meta-k">价格区间</span><span class="meta-v">¥80 – ¥250</span></li>
+            <li><span class="meta-k">渠道路径</span><span class="meta-v">京东 / 拼多多批量 → 线下五金采购</span></li>
+            <li><span class="meta-k">品牌偏好</span><span class="meta-v">世达、东成、南旗</span></li>
+            <li><span class="meta-k">核心诉求</span><span class="meta-v">工业级耐用 + 批头多样 + 稳定品控</span></li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag" style="background:var(--c5l);color:var(--c5)"># 工业耐用</span>
+            <span class="tag" style="background:var(--c5l);color:var(--c5)"># 批头多样</span>
+            <span class="tag" style="background:var(--c5l);color:var(--c5)"># 性价比</span>
+            <span class="tag" style="background:var(--c5l);color:var(--c5)"># 品控稳定</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- P6 -->
+      <div class="pcard">
+        <div class="pcard-head" style="background:linear-gradient(135deg,#DC2626,#991B1B)">
+          <div class="pid">Persona 06</div>
+          <h3>礼品采购者</h3>
+          <div class="page">30–45岁 · 节日 / 商务礼赠场景</div>
+        </div>
+        <div class="pcard-body">
+          <div class="scale-row">
+            <div><div class="scale-num" style="color:var(--c6)">8–10%</div><div class="scale-lbl">季节性高峰，AOV最高</div></div>
+            <div class="scale-track"><div class="scale-fill" style="width:9%;background:var(--c6)"></div></div>
+          </div>
+          <ul class="meta-list">
+            <li><span class="meta-k">核心场景</span><span class="meta-v">节日礼物、企业年会礼品、乔迁贺礼</span></li>
+            <li><span class="meta-k">价格区间</span><span class="meta-v">¥300 – ¥600（追求感知价值）</span></li>
+            <li><span class="meta-k">渠道路径</span><span class="meta-v">微信朋友圈 / 小红书推荐 → 天猫旗舰</span></li>
+            <li><span class="meta-k">品牌偏好</span><span class="meta-v">HOTO（礼品感最强）</span></li>
+            <li><span class="meta-k">核心诉求</span><span class="meta-v">有面子的包装 + 知名品牌 + 一套即用</span></li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag" style="background:var(--c6l);color:var(--c6)"># 礼品包装</span>
+            <span class="tag" style="background:var(--c6l);color:var(--c6)"># 品牌知名度</span>
+            <span class="tag" style="background:var(--c6l);color:var(--c6)"># 高感知价值</span>
+            <span class="tag" style="background:var(--c6l);color:var(--c6)"># 一套完整</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /grid-2 -->
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════ S2: 场景 & 痛点 -->
+<section id="s2" class="alt">
+  <div class="wrap">
+    <div class="sec-eye">Section 02</div>
+    <h2 class="sec-title">核心使用场景 &amp; 痛点矩阵</h2>
+    <p class="sec-desc">基于跨平台2,487条VoC数据提炼的真实场景与未满足需求。高赞评论（100+赞）标注为行业高置信度信号。</p>
+
+    <div class="grid-2">
+
+      <!-- P1 -->
+      <div class="scard">
+        <div class="scard-head">
+          <div class="dot" style="background:var(--c1)"></div>
+          <h4 style="color:var(--c1)">数码修复者</h4>
+        </div>
+        <div class="scard-body">
+          <div class="blk-title">🎯 核心场景</div>
+          <ul class="scene-ul">
+            <li>iPhone / Android 更换电池（健康度下降触发）</li>
+            <li>屏幕碎裂自修、前后盖拆装</li>
+            <li>笔记本清灰、加装内存 / SSD</li>
+            <li>游戏主机开膜（PS5 / Switch）</li>
+          </ul>
+          <div class="divider"></div>
+          <div class="blk-title">⚡ 主要痛点 / 未满足点</div>
+          <ul class="pain-ul">
+            <li class="pain-li">扭力不足——小螺丝无法有效拧动（抖音71赞高频投诉）</li>
+            <li class="pain-li">批头磁性快速消退，精密螺丝频繁脱落</li>
+            <li class="pain-li">批头非标锁定（HOTO 3.9mm），无法市场通用替换，消耗品补充困难</li>
+            <li class="pain-li">产品场景说明缺失，用户误判适用性，买后发现不对场</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- P2 -->
+      <div class="scard">
+        <div class="scard-head">
+          <div class="dot" style="background:var(--c2)"></div>
+          <h4 style="color:var(--c2)">设计消费者</h4>
+        </div>
+        <div class="scard-body">
+          <div class="blk-title">🎯 核心场景</div>
+          <ul class="scene-ul">
+            <li>宜家 / 网购家具组装（新居入住驱动）</li>
+            <li>家居轻度维修（门把手、灯具、置物架）</li>
+            <li>618 / 双11 大促好物囤货</li>
+            <li>桌面工作站美化收纳展示</li>
+          </ul>
+          <div class="divider"></div>
+          <div class="blk-title">⚡ 主要痛点 / 未满足点</div>
+          <ul class="pain-ul">
+            <li class="pain-li">"颜值高但不耐用"——外观满足，功能底线失守（小红书"中看不中用"高频评价）</li>
+            <li class="pain-li">购后吃灰效应——买了放抽屉不用（抖音132赞最高赞投诉），使用激活率极低</li>
+            <li class="pain-li">核心功能未被沟通——加磁 / 消磁功能大量用户完全不知道（抖音30赞信号）</li>
+            <li class="pain-li">女性友好属性被整行业忽视，品牌营销语言仍是"男生玩具"（小红书22条强主张）</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- P3 -->
+      <div class="scard">
+        <div class="scard-head">
+          <div class="dot" style="background:var(--c3)"></div>
+          <h4 style="color:var(--c3)">电子爱好者</h4>
+        </div>
+        <div class="scard-body">
+          <div class="blk-title">🎯 核心场景</div>
+          <ul class="scene-ul">
+            <li>客制化键盘改装（轴体更换、润轴）</li>
+            <li>游戏主机深度改装（PS5 / Switch 拆改）</li>
+            <li>模型 / 手办组装与维护</li>
+            <li>PCB 电路板辅助调整</li>
+          </ul>
+          <div class="divider"></div>
+          <div class="blk-title">⚡ 主要痛点 / 未满足点</div>
+          <ul class="pain-ul">
+            <li class="pain-li">批头跨品牌兼容性差——"南旗批头装不进小米"（B站240赞高赞核心痛点）</li>
+            <li class="pain-li">扭力控制精度不足，专业改装需逐级精准控制，现有产品档位太粗</li>
+            <li class="pain-li">高频使用批头磨损快，补充困难且型号不匹配（B站1228赞批头集中投诉）</li>
+            <li class="pain-li">品牌扭力虚标（绿林标5Nm实测0.5Nm），专业用户第一时间识破，信任崩塌</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- P4 -->
+      <div class="scard">
+        <div class="scard-head">
+          <div class="dot" style="background:var(--c4)"></div>
+          <h4 style="color:var(--c4)">内容创作者</h4>
+        </div>
+        <div class="scard-body">
+          <div class="blk-title">🎯 核心场景</div>
+          <ul class="scene-ul">
+            <li>产品开箱测评（B站 / 小红书 / 抖音发布）</li>
+            <li>科技好物横评与种草内容</li>
+            <li>桌面工作台美化展示与背景布置</li>
+            <li>品牌合作软植入内容</li>
+          </ul>
+          <div class="divider"></div>
+          <div class="blk-title">⚡ 主要痛点 / 未满足点</div>
+          <ul class="pain-ul">
+            <li class="pain-li">品类高度同质化——外观相近无差异，缺乏独特开箱卖点与内容故事</li>
+            <li class="pain-li">品牌不提供专属创作素材，KOC 拍摄门槛高，创作成本大</li>
+            <li class="pain-li">无限定色 / 联名款，每次评测都是"同一款"换颜色，观众审美疲劳</li>
+            <li class="pain-li">无早期样品独家渠道，首发优势无法建立，内容时效性受损</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- P5 -->
+      <div class="scard">
+        <div class="scard-head">
+          <div class="dot" style="background:var(--c5)"></div>
+          <h4 style="color:var(--c5)">专业维修技师</h4>
+        </div>
+        <div class="scard-body">
+          <div class="blk-title">🎯 核心场景</div>
+          <ul class="scene-ul">
+            <li>手机 / 笔电维修门店日常作业</li>
+            <li>家电上门维修（高频重复拆装）</li>
+            <li>企业 IT 设备运维</li>
+            <li>门店批量采购、员工工具配备</li>
+          </ul>
+          <div class="divider"></div>
+          <div class="blk-title">⚡ 主要痛点 / 未满足点</div>
+          <ul class="pain-ul">
+            <li class="pain-li">消费级产品耐用性不满足专业高频场景，半年内批次品控问题频发</li>
+            <li class="pain-li">批头消耗品补充渠道不稳定，断货 / 型号不匹配是日常困扰</li>
+            <li class="pain-li">同款不同批次质量差异大（HOTO / 东成均有反馈），工业稳定性缺失</li>
+            <li class="pain-li">无专属 B 端采购渠道，被迫以零售价批量购买，长期成本高</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- P6 -->
+      <div class="scard">
+        <div class="scard-head">
+          <div class="dot" style="background:var(--c6)"></div>
+          <h4 style="color:var(--c6)">礼品采购者</h4>
+        </div>
+        <div class="scard-body">
+          <div class="blk-title">🎯 核心场景</div>
+          <ul class="scene-ul">
+            <li>春节 / 生日 / 乔迁礼物选购</li>
+            <li>企业年会 / 员工福利批量礼品</li>
+            <li>男友 / 老公实用好物礼赠</li>
+            <li>毕业 / 入职纪念礼品</li>
+          </ul>
+          <div class="divider"></div>
+          <div class="blk-title">⚡ 主要痛点 / 未满足点</div>
+          <ul class="pain-ul">
+            <li class="pain-li">无专属礼品套装，普通产品包装体面感不足，"拿不出手"</li>
+            <li class="pain-li">¥300–600 礼品甜蜜区缺乏强品牌锚定，选择困难，决策成本高</li>
+            <li class="pain-li">无刻字 / 定制 / 礼品卡片等增值服务，缺乏用心感与仪式感</li>
+            <li class="pain-li">品牌故事叙事薄弱，送礼时无法自然"讲故事"，礼物无溢价感知</li>
+          </ul>
+        </div>
+      </div>
+
+    </div><!-- /grid-2 -->
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════ S3: 决策因素 -->
+<section id="s3">
+  <div class="wrap">
+    <div class="sec-eye">Section 03</div>
+    <h2 class="sec-title">产品决策因素优先级排序</h2>
+    <p class="sec-desc">基于VoC高赞信号与消费行为分析，各画像购买决策中产品因素的重要性排名（第1位 = 最关键）。</p>
+
+    <div class="grid-3">
+
+      <!-- P1 -->
+      <div class="fcard">
+        <div class="fcard-head">
+          <div class="dot" style="background:var(--c1)"></div>
+          <h4 style="color:var(--c1)">数码修复者</h4>
+        </div>
+        <div class="fcard-body">
+          <div class="frow"><span class="rank-num r1">1</span><span class="fname">批头规格完整度（60+颗，含冷门型号）</span><div class="fbar-wrap"><div class="fbar" style="width:100%;background:var(--c1)"></div></div></div>
+          <div class="frow"><span class="rank-num r2">2</span><span class="fname">磁性吸附能力（抗消磁设计）</span><div class="fbar-wrap"><div class="fbar" style="width:82%;background:var(--c1)"></div></div></div>
+          <div class="frow"><span class="rank-num r3">3</span><span class="fname">扭力精准控制（精密小螺丝可用）</span><div class="fbar-wrap"><div class="fbar" style="width:66%;background:var(--c1)"></div></div></div>
+          <div class="frow"><span class="rank-num r4">4</span><span class="fname">耐用性 / 批头品质（S2钢）</span><div class="fbar-wrap"><div class="fbar" style="width:50%;background:var(--c1)"></div></div></div>
+          <div class="frow"><span class="rank-num r5">5</span><span class="fname">性价比（¥100–300合理区间）</span><div class="fbar-wrap"><div class="fbar" style="width:34%;background:var(--c1)"></div></div></div>
+        </div>
+      </div>
+
+      <!-- P2 -->
+      <div class="fcard">
+        <div class="fcard-head">
+          <div class="dot" style="background:var(--c2)"></div>
+          <h4 style="color:var(--c2)">设计消费者</h4>
+        </div>
+        <div class="fcard-body">
+          <div class="frow"><span class="rank-num r1">1</span><span class="fname">外观 / 颜值 / 工业设计语言</span><div class="fbar-wrap"><div class="fbar" style="width:100%;background:var(--c2)"></div></div></div>
+          <div class="frow"><span class="rank-num r2">2</span><span class="fname">收纳系统美观性（磁吸/一体收纳）</span><div class="fbar-wrap"><div class="fbar" style="width:82%;background:var(--c2)"></div></div></div>
+          <div class="frow"><span class="rank-num r3">3</span><span class="fname">品牌调性 / 知名度（有面子）</span><div class="fbar-wrap"><div class="fbar" style="width:66%;background:var(--c2)"></div></div></div>
+          <div class="frow"><span class="rank-num r4">4</span><span class="fname">耐用性达标（功能底线不妥协）</span><div class="fbar-wrap"><div class="fbar" style="width:50%;background:var(--c2)"></div></div></div>
+          <div class="frow"><span class="rank-num r5">5</span><span class="fname">人体工学 / 手感（女性友好）</span><div class="fbar-wrap"><div class="fbar" style="width:34%;background:var(--c2)"></div></div></div>
+        </div>
+      </div>
+
+      <!-- P3 -->
+      <div class="fcard">
+        <div class="fcard-head">
+          <div class="dot" style="background:var(--c3)"></div>
+          <h4 style="color:var(--c3)">电子爱好者</h4>
+        </div>
+        <div class="fcard-body">
+          <div class="frow"><span class="rank-num r1">1</span><span class="fname">扭力档位精准控制（5档以上）</span><div class="fbar-wrap"><div class="fbar" style="width:100%;background:var(--c3)"></div></div></div>
+          <div class="frow"><span class="rank-num r2">2</span><span class="fname">批头完整度（100+颗含稀有型号）</span><div class="fbar-wrap"><div class="fbar" style="width:82%;background:var(--c3)"></div></div></div>
+          <div class="frow"><span class="rank-num r3">3</span><span class="fname">批头开放兼容（标准1/4英寸生态）</span><div class="fbar-wrap"><div class="fbar" style="width:66%;background:var(--c3)"></div></div></div>
+          <div class="frow"><span class="rank-num r4">4</span><span class="fname">耐用性 / 品控稳定性</span><div class="fbar-wrap"><div class="fbar" style="width:50%;background:var(--c3)"></div></div></div>
+          <div class="frow"><span class="rank-num r5">5</span><span class="fname">性价比（不溢价但拒绝虚标）</span><div class="fbar-wrap"><div class="fbar" style="width:34%;background:var(--c3)"></div></div></div>
+        </div>
+      </div>
+
+      <!-- P4 -->
+      <div class="fcard">
+        <div class="fcard-head">
+          <div class="dot" style="background:var(--c4)"></div>
+          <h4 style="color:var(--c4)">内容创作者</h4>
+        </div>
+        <div class="fcard-body">
+          <div class="frow"><span class="rank-num r1">1</span><span class="fname">外观上镜性 / 颜值辨识度</span><div class="fbar-wrap"><div class="fbar" style="width:100%;background:var(--c4)"></div></div></div>
+          <div class="frow"><span class="rank-num r2">2</span><span class="fname">品牌知名度 / 受众熟悉度</span><div class="fbar-wrap"><div class="fbar" style="width:82%;background:var(--c4)"></div></div></div>
+          <div class="frow"><span class="rank-num r3">3</span><span class="fname">开箱体验 / 包装设计惊喜感</span><div class="fbar-wrap"><div class="fbar" style="width:66%;background:var(--c4)"></div></div></div>
+          <div class="frow"><span class="rank-num r4">4</span><span class="fname">差异化功能卖点（内容素材）</span><div class="fbar-wrap"><div class="fbar" style="width:50%;background:var(--c4)"></div></div></div>
+          <div class="frow"><span class="rank-num r5">5</span><span class="fname">功能基线过关（不影响测评结论）</span><div class="fbar-wrap"><div class="fbar" style="width:34%;background:var(--c4)"></div></div></div>
+        </div>
+      </div>
+
+      <!-- P5 -->
+      <div class="fcard">
+        <div class="fcard-head">
+          <div class="dot" style="background:var(--c5)"></div>
+          <h4 style="color:var(--c5)">专业维修技师</h4>
+        </div>
+        <div class="fcard-body">
+          <div class="frow"><span class="rank-num r1">1</span><span class="fname">耐用性 / 工业级品控稳定</span><div class="fbar-wrap"><div class="fbar" style="width:100%;background:var(--c5)"></div></div></div>
+          <div class="frow"><span class="rank-num r2">2</span><span class="fname">批头多样性（全场景覆盖）</span><div class="fbar-wrap"><div class="fbar" style="width:82%;background:var(--c5)"></div></div></div>
+          <div class="frow"><span class="rank-num r3">3</span><span class="fname">磁性持久稳定（高频使用不退磁）</span><div class="fbar-wrap"><div class="fbar" style="width:66%;background:var(--c5)"></div></div></div>
+          <div class="frow"><span class="rank-num r4">4</span><span class="fname">扭力实际达标（无虚标）</span><div class="fbar-wrap"><div class="fbar" style="width:50%;background:var(--c5)"></div></div></div>
+          <div class="frow"><span class="rank-num r5">5</span><span class="fname">性价比 / B端采购便利性</span><div class="fbar-wrap"><div class="fbar" style="width:34%;background:var(--c5)"></div></div></div>
+        </div>
+      </div>
+
+      <!-- P6 -->
+      <div class="fcard">
+        <div class="fcard-head">
+          <div class="dot" style="background:var(--c6)"></div>
+          <h4 style="color:var(--c6)">礼品采购者</h4>
+        </div>
+        <div class="fcard-body">
+          <div class="frow"><span class="rank-num r1">1</span><span class="fname">品牌知名度（送出去有面子）</span><div class="fbar-wrap"><div class="fbar" style="width:100%;background:var(--c6)"></div></div></div>
+          <div class="frow"><span class="rank-num r2">2</span><span class="fname">外观 / 颜值（高感知价值）</span><div class="fbar-wrap"><div class="fbar" style="width:82%;background:var(--c6)"></div></div></div>
+          <div class="frow"><span class="rank-num r3">3</span><span class="fname">包装设计 / 礼品套装完整度</span><div class="fbar-wrap"><div class="fbar" style="width:66%;background:var(--c6)"></div></div></div>
+          <div class="frow"><span class="rank-num r4">4</span><span class="fname">价格区间适配（¥300–600 礼品带）</span><div class="fbar-wrap"><div class="fbar" style="width:50%;background:var(--c6)"></div></div></div>
+          <div class="frow"><span class="rank-num r5">5</span><span class="fname">实用性 / 送出去会被真正使用</span><div class="fbar-wrap"><div class="fbar" style="width:34%;background:var(--c6)"></div></div></div>
+        </div>
+      </div>
+
+    </div><!-- /grid-3 -->
+
+    <!-- Cross-persona insight -->
+    <div class="ibox">
+      <h4>跨画像规律洞察</h4>
+      <div class="ibox-grid">
+        <div class="ibox-item">
+          <div class="il">功能派（技能型）</div>
+          <div class="iv">数码修复者 + 电子爱好者 + 专业技师 — 三组共同优先功能参数，外观排名垫底</div>
+        </div>
+        <div class="ibox-item">
+          <div class="il">颜值派（审美型）</div>
+          <div class="iv">设计消费者 + 内容创作者 — 外观均为第#1，但功能底线不可妥协（高赞负评证明）</div>
+        </div>
+        <div class="ibox-item">
+          <div class="il">唯一跨全画像因素</div>
+          <div class="iv">耐用性 / 品控 — 所有6个画像均在Top5，是行业最小公约数，也是最大缺口</div>
+        </div>
+        <div class="ibox-item">
+          <div class="il">品牌力分化信号</div>
+          <div class="iv">礼品采购者 #1 / 内容创作者 #2，但技能型三组完全不在乎品牌名，只看参数与品控</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════ S4: 产品 PRD -->
+<section id="s4" class="alt">
+  <div class="wrap">
+    <div class="sec-eye">Section 04</div>
+    <h2 class="sec-title">各画像产品 PRD 建议</h2>
+    <p class="sec-desc">基于画像核心诉求与痛点提炼的基础产品方向。各 PRD 仅作方向性参考，不含详细工程规格。</p>
+
+    <div class="grid-3">
+
+      <!-- P1 PRD -->
+      <div class="prdcard">
+        <div class="prdcard-head">
+          <div class="dot" style="background:var(--c1)"></div>
+          <h4 style="color:var(--c1)">数码修复者 PRD</h4>
+          <span class="price-badge" style="background:var(--c1)">¥150–280</span>
+        </div>
+        <div class="prdcard-body">
+          <ul>
+            <li>精密扭力控制（0.05–0.5 Nm 可调，手机主板级精度）</li>
+            <li>完整批头套装（60+ 颗，覆盖苹果五星 / 三角 / Y 型冷门型号，S2 钢）</li>
+            <li>强磁吸附 + 抗退磁设计，持久保磁 12 个月以上</li>
+            <li>标准 1/4 英寸批头接口，全市场开放兼容，可随时补充消耗品</li>
+            <li>机身 &lt;200g，单手操作，USB-C 快充，续航 300+ 次</li>
+            <li>包装标注场景适配表（手机型号 / 笔电型号清单），降低误购率</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- P2 PRD -->
+      <div class="prdcard">
+        <div class="prdcard-head">
+          <div class="dot" style="background:var(--c2)"></div>
+          <h4 style="color:var(--c2)">设计消费者 PRD</h4>
+          <span class="price-badge" style="background:var(--c2)">¥249–499</span>
+        </div>
+        <div class="prdcard-body">
+          <ul>
+            <li>工业设计优先，金属质感机身，3 色系可选（哑光黑 / 雾银 / 暖白）</li>
+            <li>磁吸式一体收纳底座，批头嵌入式排列，桌面展示即美观</li>
+            <li>功能底线达标：扭力真实可用，批头 30+ 颗覆盖日常家居场景</li>
+            <li>加磁 / 消磁功能显眼标注 + 开箱说明卡，首次使用零门槛</li>
+            <li>女性友好：握感细化（直径 ≤28mm），重量 ≤150g</li>
+            <li>礼品级包装作为标配，配简短品牌故事卡片</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- P3 PRD -->
+      <div class="prdcard">
+        <div class="prdcard-head">
+          <div class="dot" style="background:var(--c3)"></div>
+          <h4 style="color:var(--c3)">电子爱好者 PRD</h4>
+          <span class="price-badge" style="background:var(--c3)">¥199–399</span>
+        </div>
+        <div class="prdcard-body">
+          <ul>
+            <li>五档精准扭力（0.1 / 0.3 / 0.5 / 1.0 / 2.0 Nm），档位清晰物理标注</li>
+            <li>标准 1/4 英寸批头接口，全球兼容，拒绝专有锁定</li>
+            <li>100+ 颗批头（含键盘轴体 / 游戏主机专用型号），透明分类收纳盒</li>
+            <li>电动 + 手动棘轮双模切换，狭窄空间手动精操作</li>
+            <li>铝合金机身，散热稳定，高频使用不发烫</li>
+            <li>参数真实，扭力 / 转速数据附第三方检测报告，建立专业信任</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- P4 PRD -->
+      <div class="prdcard">
+        <div class="prdcard-head">
+          <div class="dot" style="background:var(--c4)"></div>
+          <h4 style="color:var(--c4)">内容创作者 PRD</h4>
+          <span class="price-badge" style="background:var(--c4)">¥299–599</span>
+        </div>
+        <div class="prdcard-body">
+          <ul>
+            <li>标志性视觉设计语言，高光泽表面 + 品牌 Logo 居中，镜头取景友好</li>
+            <li>季度限定色 / 年度联名款发布机制，每次测评内容自带新鲜感</li>
+            <li>磁吸天地盖开箱包装，开箱仪式感强，无需二次布景</li>
+            <li>品牌提供官方内容素材包（高清产品图 / 3D 渲染 / 场景背景板）</li>
+            <li>功能基线全部达标（扭力 / 批头 / 磁性），确保测评结论正面</li>
+            <li>创作者合作计划：首发独家寄样 + 专属折扣码</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- P5 PRD -->
+      <div class="prdcard">
+        <div class="prdcard-head">
+          <div class="dot" style="background:var(--c5)"></div>
+          <h4 style="color:var(--c5)">专业维修技师 PRD</h4>
+          <span class="price-badge" style="background:var(--c5)">¥129–239</span>
+        </div>
+        <div class="prdcard-body">
+          <ul>
+            <li>工业级寿命认证：50,000 次拨拍循环，批头磨损周期公开标注</li>
+            <li>标准 1/4 英寸接口，全市场批头兼容，消耗品随时可补</li>
+            <li>200+ 颗批头大容量收纳盒，按场景分区（手机 / 笔电 / 家电），快速取用</li>
+            <li>单手快换机构，批头更换 &lt;3 秒，不中断工作流</li>
+            <li>电池 1000+ 充放循环，超长使用寿命，降低综合采购成本</li>
+            <li>B 端企业采购渠道（10 台起批，专属报价），配发票</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- P6 PRD -->
+      <div class="prdcard">
+        <div class="prdcard-head">
+          <div class="dot" style="background:var(--c6)"></div>
+          <h4 style="color:var(--c6)">礼品采购者 PRD</h4>
+          <span class="price-badge" style="background:var(--c6)">¥329–599</span>
+        </div>
+        <div class="prdcard-body">
+          <ul>
+            <li>礼品套装一体化：工具主体 + 批头盒 + 收纳袋 + 礼品外包装，无需二次包装</li>
+            <li>天地盖磁吸礼盒，内衬植绒托盘，高端感不输奢侈品配件</li>
+            <li>知名品牌 LOGO 正面呈现，受赠者可立即识别品牌价值</li>
+            <li>节日版 / 企业定制版（Logo 压印 / 专属礼品卡），最低 20 件起定制</li>
+            <li>附品牌故事卡片（中英双语），便于送礼时自然讲述"用心感"</li>
+            <li>功能实用性保障：至少 30 颗批头覆盖家用全场景，确保礼物真正被使用</li>
+          </ul>
+        </div>
+      </div>
+
+    </div><!-- /grid-3 -->
+
+    <!-- Data Note -->
+    <div class="data-note">
+      <strong>⚠️ 数据说明</strong> — 本报告基于多渠道VoC综合分析（小红书729条 + 抖音91条 + B站1,589条 + 京东负评78条，共2,487条样本，2025–2026年）。用户画像规模估算为<strong>方向性推算</strong>，非精确市场调研数据（源文件 composite_score: 0.50–0.58，quality_warning: true）。产品PRD为策略方向性建议，需结合工程可行性与成本验证。京东负评仅用于产品缺陷映射，不代表整体口碑。所有数据应结合定量调研进行验证后用于产品决策。
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════ FOOTER -->
+<footer>
+  <div class="wrap">
+    <div>Market Research OS · 中国消费精密工具行业情报库</div>
+    <div style="color:#334155">报告生成日期：2026-06-08 · 数据截至 2026-06-04</div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>米家精修套装2 — 产品决策简报</title>
+<style>
+  :root {
+    --bg: #f7f8fc;
+    --surface: #ffffff;
+    --surface2: #f1f4fb;
+    --border: #e4e8f2;
+    --accent: #ff6900;
+    --accent2: #ff9500;
+    --blue: #1a73e8;
+    --green: #0f9d58;
+    --red: #d93025;
+    --purple: #7c3aed;
+    --text1: #0d1117;
+    --text2: #4a5568;
+    --text3: #94a3b8;
+    --radius: 14px;
+    --radius-sm: 8px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif; background: var(--bg); color: var(--text1); }
+
+  /* ── HEADER ── */
+  .header { background: #0d1117; padding: 40px; position: relative; overflow: hidden; }
+  .header::before { content: ''; position: absolute; top: -80px; right: -80px; width: 320px; height: 320px; background: radial-gradient(circle, rgba(255,105,0,0.15) 0%, transparent 70%); }
+  .header-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+  .header h1 { font-size: 28px; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 10px; }
+  .header-sub { font-size: 13px; color: #64748b; margin-bottom: 24px; line-height: 1.6; }
+  .header-meta { display: flex; gap: 20px; flex-wrap: wrap; }
+  .meta-item { display: flex; flex-direction: column; gap: 2px; }
+  .meta-label { font-size: 10px; color: #475569; text-transform: uppercase; letter-spacing: 0.08em; }
+  .meta-value { font-size: 13px; font-weight: 700; color: #e2e8f0; }
+
+  /* ── ALERT BANNER ── */
+  .alert { background: linear-gradient(135deg, rgba(255,105,0,0.12), rgba(255,149,0,0.08)); border: 1px solid rgba(255,105,0,0.3); border-left: 4px solid var(--accent); padding: 16px 20px; margin: 0; display: flex; gap: 14px; align-items: flex-start; }
+  .alert-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+  .alert-title { font-size: 13px; font-weight: 700; color: #92400e; margin-bottom: 4px; }
+  .alert-body { font-size: 12px; color: #78350f; line-height: 1.6; }
+
+  /* ── LAYOUT ── */
+  .main { max-width: 1100px; margin: 0 auto; padding: 32px 24px 64px; }
+  .section { margin-bottom: 40px; }
+  .section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); }
+  .card-title { font-size: 14px; font-weight: 700; color: var(--text1); margin-bottom: 4px; }
+  .card-sub { font-size: 12px; color: var(--text2); margin-bottom: 18px; line-height: 1.5; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+  /* ── DILEMMA DIAGRAM ── */
+  .dilemma { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow); }
+  .dilemma-flow { display: flex; align-items: center; gap: 0; margin: 20px 0; }
+  .dilemma-node { flex: 1; background: var(--surface2); border-radius: var(--radius-sm); padding: 16px; text-align: center; position: relative; }
+  .dilemma-node.trigger { background: rgba(26,115,232,0.08); border: 1px solid rgba(26,115,232,0.2); }
+  .dilemma-node.risk { background: rgba(217,48,37,0.08); border: 1px solid rgba(217,48,37,0.2); }
+  .dilemma-node.outcome { background: rgba(15,157,88,0.08); border: 1px solid rgba(15,157,88,0.2); }
+  .dilemma-arrow { width: 32px; flex-shrink: 0; text-align: center; color: var(--text3); font-size: 18px; }
+  .dilemma-node-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 6px; }
+  .dilemma-node-title.blue { color: var(--blue); }
+  .dilemma-node-title.red { color: var(--red); }
+  .dilemma-node-title.green { color: var(--green); }
+  .dilemma-node-body { font-size: 12px; color: var(--text2); line-height: 1.5; }
+  .dilemma-math { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 20px; padding: 14px; background: #fef9f0; border-radius: var(--radius-sm); border: 1px solid rgba(255,149,0,0.2); }
+  .math-item { text-align: center; }
+  .math-num { font-size: 28px; font-weight: 800; }
+  .math-num.blue { color: var(--blue); }
+  .math-num.red { color: var(--red); }
+  .math-num.green { color: var(--green); }
+  .math-label { font-size: 10px; color: var(--text3); }
+  .math-op { font-size: 24px; color: var(--text3); font-weight: 300; }
+  .math-eq { font-size: 24px; color: var(--text3); font-weight: 300; }
+  .math-result { text-align: center; padding: 8px 16px; background: rgba(217,48,37,0.08); border-radius: 8px; }
+  .math-result-num { font-size: 32px; font-weight: 900; color: var(--red); }
+  .math-result-label { font-size: 10px; color: #991b1b; }
+
+  /* ── USER SEGMENT BARS ── */
+  .seg-list { display: flex; flex-direction: column; gap: 10px; }
+  .seg-item { display: flex; align-items: center; gap: 12px; }
+  .seg-label { font-size: 12px; font-weight: 600; color: var(--text1); width: 140px; flex-shrink: 0; }
+  .seg-bar-wrap { flex: 1; background: var(--surface2); border-radius: 20px; height: 28px; overflow: hidden; position: relative; }
+  .seg-bar { height: 100%; border-radius: 20px; display: flex; align-items: center; padding: 0 10px; gap: 6px; transition: width 0.3s; }
+  .seg-bar-pct { font-size: 11px; font-weight: 800; color: #fff; white-space: nowrap; }
+  .seg-bar-desc { font-size: 10px; color: rgba(255,255,255,0.8); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .seg-tag { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
+  .tag-covered { background: rgba(15,157,88,0.1); color: #065f46; }
+  .tag-gap { background: rgba(217,48,37,0.1); color: #991b1b; }
+  .tag-partial { background: rgba(245,158,11,0.12); color: #92400e; }
+
+  /* ── COMPETITOR SPECS ── */
+  .spec-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .spec-table th { background: #0d1117; color: #94a3b8; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; padding: 8px 10px; text-align: left; }
+  .spec-table th.highlight { color: var(--accent); }
+  .spec-table td { padding: 9px 10px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .spec-table tr:last-child td { border-bottom: none; }
+  .spec-table tr.mijia-row td { background: rgba(255,105,0,0.04); font-weight: 600; }
+  .spec-table tr:hover td { background: var(--surface2); }
+  .spec-chip { display: inline-flex; align-items: center; padding: 2px 7px; border-radius: 4px; font-size: 10px; font-weight: 700; }
+  .chip-good { background: rgba(15,157,88,0.1); color: #065f46; }
+  .chip-bad { background: rgba(217,48,37,0.1); color: #991b1b; }
+  .chip-ok { background: rgba(245,158,11,0.1); color: #92400e; }
+  .spec-brand { font-weight: 700; }
+  .spec-brand.mijia { color: var(--accent); }
+
+  /* ── OPTIONS EVALUATION ── */
+  .option-card { border-radius: var(--radius); overflow: hidden; border: 2px solid var(--border); background: var(--surface); box-shadow: var(--shadow); }
+  .option-card.recommended { border-color: var(--green); }
+  .option-header { padding: 16px 20px 14px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .option-header.opt1 { background: rgba(124,58,237,0.04); }
+  .option-header.opt2 { background: rgba(15,157,88,0.05); }
+  .option-header.opt3 { background: rgba(26,115,232,0.04); }
+  .option-num { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text3); margin-bottom: 4px; }
+  .option-title { font-size: 14px; font-weight: 800; color: var(--text1); }
+  .option-subtitle { font-size: 11px; color: var(--text2); margin-top: 3px; }
+  .option-verdict { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+  .verdict-badge { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
+  .verdict-high { background: rgba(217,48,37,0.1); color: var(--red); }
+  .verdict-low { background: rgba(15,157,88,0.1); color: var(--green); }
+  .verdict-mid { background: rgba(245,158,11,0.1); color: #b45309; }
+  .recommended-badge { font-size: 10px; font-weight: 700; background: var(--green); color: #fff; padding: 3px 10px; border-radius: 20px; }
+  .option-body { padding: 16px 20px; }
+  .option-row { display: flex; gap: 12px; margin-bottom: 12px; }
+  .option-row:last-child { margin-bottom: 0; }
+  .option-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+  .option-row-title { font-size: 12px; font-weight: 700; color: var(--text1); margin-bottom: 3px; }
+  .option-row-body { font-size: 11px; color: var(--text2); line-height: 1.6; }
+  .score-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+  .score-item { flex: 1; min-width: 80px; background: var(--surface2); border-radius: 6px; padding: 8px 10px; text-align: center; }
+  .score-val { font-size: 18px; font-weight: 800; }
+  .score-label { font-size: 9px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
+  .score-green { color: var(--green); }
+  .score-red { color: var(--red); }
+  .score-amber { color: #b45309; }
+  .score-blue { color: var(--blue); }
+
+  /* ── MARKET SIGNALS ── */
+  .signal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .signal-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; position: relative; overflow: hidden; }
+  .signal-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .sig-blue::before { background: var(--blue); }
+  .sig-green::before { background: var(--green); }
+  .sig-amber::before { background: #f59e0b; }
+  .sig-red::before { background: var(--red); }
+  .sig-purple::before { background: var(--purple); }
+  .sig-orange::before { background: var(--accent); }
+  .signal-num { font-size: 26px; font-weight: 900; margin-bottom: 2px; }
+  .signal-num.blue { color: var(--blue); }
+  .signal-num.green { color: var(--green); }
+  .signal-num.amber { color: #d97706; }
+  .signal-num.red { color: var(--red); }
+  .signal-num.purple { color: var(--purple); }
+  .signal-num.orange { color: var(--accent); }
+  .signal-title { font-size: 12px; font-weight: 700; color: var(--text1); margin-bottom: 4px; }
+  .signal-body { font-size: 11px; color: var(--text2); line-height: 1.5; }
+  .signal-quote { font-size: 11px; color: var(--text3); font-style: italic; margin-top: 6px; padding: 6px 10px; background: var(--surface2); border-radius: 4px; border-left: 2px solid var(--border); }
+
+  /* ── DEFECT MAP ── */
+  .defect-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .defect-name { font-size: 12px; font-weight: 600; color: var(--text1); width: 120px; flex-shrink: 0; }
+  .defect-track { flex: 1; background: var(--surface2); border-radius: 4px; height: 22px; overflow: hidden; }
+  .defect-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding: 0 8px; }
+  .defect-val { font-size: 10px; font-weight: 700; color: #fff; }
+  .defect-note { font-size: 10px; color: var(--text3); width: 160px; flex-shrink: 0; }
+
+  /* ── RECOMMENDATION BOX ── */
+  .rec-box { background: linear-gradient(135deg, #0d1117 0%, #1a2035 100%); border-radius: var(--radius); padding: 28px 32px; color: #fff; position: relative; overflow: hidden; }
+  .rec-box::before { content: ''; position: absolute; top: -60px; right: -60px; width: 200px; height: 200px; background: radial-gradient(circle, rgba(15,157,88,0.2) 0%, transparent 70%); }
+  .rec-eyebrow { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #4ade80; margin-bottom: 12px; }
+  .rec-title { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 8px; line-height: 1.3; }
+  .rec-sub { font-size: 13px; color: #94a3b8; margin-bottom: 24px; line-height: 1.6; }
+  .rec-actions { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .rec-action { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-sm); padding: 14px 16px; }
+  .rec-action-badge { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; display: inline-block; }
+  .badge-p0 { background: rgba(217,48,37,0.3); color: #fca5a5; }
+  .badge-p1 { background: rgba(245,158,11,0.25); color: #fcd34d; }
+  .badge-p2 { background: rgba(15,157,88,0.25); color: #6ee7b7; }
+  .rec-action-title { font-size: 12px; font-weight: 700; color: #e2e8f0; margin-bottom: 4px; }
+  .rec-action-body { font-size: 11px; color: #94a3b8; line-height: 1.5; }
+
+  /* ── FOOTNOTE ── */
+  .footnote { background: #0d1117; padding: 16px 24px; text-align: center; font-size: 11px; color: #334155; }
+
+  @media (max-width: 768px) {
+    .grid-2, .grid-3, .rec-actions { grid-template-columns: 1fr; }
+    .signal-grid { grid-template-columns: 1fr 1fr; }
+    .dilemma-flow { flex-direction: column; }
+    .dilemma-arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-eyebrow">内部决策简报 · 保密</div>
+  <h1>米家精修套装2代<br>我们该怎么推进？</h1>
+  <div class="header-sub">基于 2,487条跨平台VoC + 1,055条电商数据 + 1,310条媒介监测<br>对三个产品方向的市场数据评估</div>
+  <div class="header-meta">
+    <div class="meta-item"><div class="meta-label">报告日期</div><div class="meta-value">2026-06-05</div></div>
+    <div class="meta-item"><div class="meta-label">数据来源</div><div class="meta-value">小红书/抖音/B站/京东/JD+TB电商</div></div>
+    <div class="meta-item"><div class="meta-label">受众</div><div class="meta-value">产品团队内部</div></div>
+    <div class="meta-item"><div class="meta-label">决策问题</div><div class="meta-value">新品策略 × 老品保护</div></div>
+  </div>
+</div>
+
+<!-- ALERT -->
+<div class="alert">
+  <div class="alert-icon">⚠️</div>
+  <div>
+    <div class="alert-title">核心困局：米家要求迭代，但迭代逻辑对我们不利</div>
+    <div class="alert-body">老品（精修1代）是现金奶牛，JD已售70万+，98%好评，毛利健康。直接迭代因售价上升+配件指向性增强，用户群收窄，1+1预计只能做到0.8。我们需要一个既能满足小米迭代需求、又能保住老品坑位的方案。</div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ══ SECTION 1: DILEMMA ══ -->
+  <div class="section">
+    <div class="section-label">第一章 · 问题定义</div>
+    <div class="dilemma">
+      <div class="card-title">迭代困局可视化</div>
+      <div class="card-sub">为什么"直接迭代"是我们最不想走的路</div>
+      <div class="dilemma-flow">
+        <div class="dilemma-node trigger">
+          <div class="dilemma-node-title blue">小米要求</div>
+          <div class="dilemma-node-body">精修套装2代<br>¥199划线价<br>配件数量↑<br>功能指向性↑</div>
+        </div>
+        <div class="dilemma-arrow">→</div>
+        <div class="dilemma-node risk">
+          <div class="dilemma-node-title red">直接迭代的风险</div>
+          <div class="dilemma-node-body">售价上升→用户群收窄<br>配件越多→场景越窄<br>老品SKU→大概率EOL<br>产品重合度高</div>
+        </div>
+        <div class="dilemma-arrow">→</div>
+        <div class="dilemma-node outcome">
+          <div class="dilemma-node-title green">我们的目标</div>
+          <div class="dilemma-node-body">新品上市<br>老品坑位保留<br>整体GMV增长<br>而非替代</div>
+        </div>
+      </div>
+      <div class="dilemma-math">
+        <div class="math-item">
+          <div class="math-num blue">1.0</div>
+          <div class="math-label">老品现状</div>
+        </div>
+        <div class="math-op">+</div>
+        <div class="math-item">
+          <div class="math-num blue">1.0</div>
+          <div class="math-label">新品理想</div>
+        </div>
+        <div class="math-eq">≠</div>
+        <div class="math-result">
+          <div class="math-result-num">0.8</div>
+          <div class="math-result-label">直接迭代的现实预估<br>（老品EOL + 用户群收窄）</div>
+        </div>
+        <div class="math-op" style="color:#0f9d58;">→</div>
+        <div class="math-result" style="background:rgba(15,157,88,0.08);border:1px solid rgba(15,157,88,0.2);">
+          <div class="math-result-num" style="color:var(--green);">1.5+</div>
+          <div class="math-result-label" style="color:#065f46;">差异化新品 + 保留老品<br>（我们需要找到的路径）</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 2: USER SEGMENTATION ══ -->
+  <div class="section">
+    <div class="section-label">第二章 · 用户分层</div>
+    <div class="card">
+      <div class="card-title">市场存在清晰的用户自发分层——但产品没有跟上</div>
+      <div class="card-sub">VoC原声："从实用性考虑选南旗，偶尔拆的用户小米够用" —— B站155赞 · 用户已经自己做了分层，我们只需要服务好每一层</div>
+      <div class="seg-list">
+
+        <div class="seg-item">
+          <div class="seg-label">家庭备用（低频）</div>
+          <div class="seg-bar-wrap">
+            <div class="seg-bar" style="width:42%;background:linear-gradient(90deg,#1a73e8,#4a9eff);">
+              <span class="seg-bar-pct">40–45%</span>
+              <span class="seg-bar-desc">¥39–100 · 够用就行 · 吃灰效应严重</span>
+            </div>
+          </div>
+          <span class="seg-tag tag-covered">✓ 老品覆盖</span>
+        </div>
+
+        <div class="seg-item">
+          <div class="seg-label">设计敏感消费者</div>
+          <div class="seg-bar-wrap">
+            <div class="seg-bar" style="width:22%;background:linear-gradient(90deg,#7c3aed,#a78bfa);">
+              <span class="seg-bar-pct">20–25%</span>
+              <span class="seg-bar-desc">¥200–500 · 颜值+耐用缺一不可</span>
+            </div>
+          </div>
+          <span class="seg-tag tag-gap">✗ 市场空白</span>
+        </div>
+
+        <div class="seg-item">
+          <div class="seg-label">专业维修技师</div>
+          <div class="seg-bar-wrap">
+            <div class="seg-bar" style="width:17%;background:linear-gradient(90deg,#475569,#64748b);">
+              <span class="seg-bar-pct">15–20%</span>
+              <span class="seg-bar-desc">¥80–250 · 耐用>一切 · 南旗/博世主导</span>
+            </div>
+          </div>
+          <span class="seg-tag tag-gap">✗ 米家不被认可</span>
+        </div>
+
+        <div class="seg-item">
+          <div class="seg-label">数码DIY发烧友</div>
+          <div class="seg-bar-wrap">
+            <div class="seg-bar" style="width:12%;background:linear-gradient(90deg,#0f9d58,#34d399);">
+              <span class="seg-bar-pct">10–15%</span>
+              <span class="seg-bar-desc">¥100–300 · 精度+批头全+S2钢</span>
+            </div>
+          </div>
+          <span class="seg-tag tag-partial">△ 老品勉强覆盖</span>
+        </div>
+
+        <div class="seg-item">
+          <div class="seg-label">手工/键盘/模型</div>
+          <div class="seg-bar-wrap">
+            <div class="seg-bar" style="width:7%;background:linear-gradient(90deg,#f59e0b,#fcd34d);">
+              <span class="seg-bar-pct">5–10%</span>
+              <span class="seg-bar-desc">¥280–500 · 配件+场景+社区分享</span>
+            </div>
+          </div>
+          <span class="seg-tag tag-gap">✗ 无产品服务</span>
+        </div>
+
+        <div class="seg-item">
+          <div class="seg-label">礼品采购</div>
+          <div class="seg-bar-wrap">
+            <div class="seg-bar" style="width:4%;background:linear-gradient(90deg,#ff6900,#ff9500);">
+              <span class="seg-bar-pct">3–5%</span>
+              <span class="seg-bar-desc">价格不敏感 · 高感知价值 · 包装叙事</span>
+            </div>
+          </div>
+          <span class="seg-tag tag-gap">✗ 供给端空白</span>
+        </div>
+
+      </div>
+      <div style="margin-top:16px;padding:12px 16px;background:rgba(255,105,0,0.05);border:1px solid rgba(255,105,0,0.2);border-radius:8px;">
+        <div style="font-size:12px;color:#92400e;line-height:1.7;">
+          <strong>关键洞察：</strong>老品（精修1代）的核心用户是<strong>家庭备用层（40–45%）</strong>，精修套装2代如果增加配件+提高售价，是在往<strong>数码DIY发烧友层</strong>走——这两层的核心诉求截然不同。强行迭代会丢失老用户，但又打不过专业竞品，夹在中间。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 3: COMPETITOR SPECS ══ -->
+  <div class="section">
+    <div class="section-label">第三章 · 竞品参数地图</div>
+    <div class="card">
+      <div class="card-title">精修电动螺丝刀参数对比 — 我们在哪里落后？</div>
+      <div class="card-sub">来源：Design One Page 竞品分析 + VoC数据交叉验证</div>
+      <div style="overflow-x:auto;">
+        <table class="spec-table">
+          <thead>
+            <tr>
+              <th>品牌</th>
+              <th>售价</th>
+              <th>最大扭力</th>
+              <th>档位数</th>
+              <th>转速</th>
+              <th>电池</th>
+              <th class="highlight">批头工艺</th>
+              <th>批头数</th>
+              <th>照明</th>
+              <th>VoC评价</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="mijia-row">
+              <td><span class="spec-brand mijia">米家1代 ★</span></td>
+              <td>¥199</td>
+              <td>0.4N.m</td>
+              <td><span class="spec-chip chip-ok">4档</span></td>
+              <td>200r/min</td>
+              <td>800mAh</td>
+              <td><span class="spec-chip chip-bad">电镀铬 ⚠️</span></td>
+              <td>32个</td>
+              <td>✓</td>
+              <td><span class="spec-chip chip-bad">生锈/磁吸失效</span></td>
+            </tr>
+            <tr>
+              <td><span class="spec-brand">范泰克</span></td>
+              <td>¥329</td>
+              <td><strong>0.6N.m</strong></td>
+              <td><span class="spec-chip chip-good">5档</span></td>
+              <td><strong>270r/min</strong></td>
+              <td>800mAh</td>
+              <td><span class="spec-chip chip-good">磷酸锌</span></td>
+              <td><strong>50个</strong></td>
+              <td>✓</td>
+              <td><span class="spec-chip chip-ok">中性偏正</span></td>
+            </tr>
+            <tr>
+              <td><span class="spec-brand">杜克E3</span></td>
+              <td>¥109</td>
+              <td>0.2N.m</td>
+              <td>2档</td>
+              <td>150/210</td>
+              <td>650mAh</td>
+              <td><span class="spec-chip chip-good">磷酸锌</span></td>
+              <td>25个</td>
+              <td>✗</td>
+              <td><span class="spec-chip chip-bad">同心度差/无LED</span></td>
+            </tr>
+            <tr>
+              <td><span class="spec-brand">杜克高配</span></td>
+              <td>¥179</td>
+              <td>0.4N.m</td>
+              <td><span class="spec-chip chip-ok">3档</span></td>
+              <td>230r/min</td>
+              <td>650mAh</td>
+              <td><span class="spec-chip chip-good">磷酸锌</span></td>
+              <td>86个</td>
+              <td>✗</td>
+              <td><span class="spec-chip chip-ok">中性</span></td>
+            </tr>
+            <tr>
+              <td><span class="spec-brand">绿林低配</span></td>
+              <td>¥159</td>
+              <td>0.5N.m</td>
+              <td><span class="spec-chip chip-ok">3档</span></td>
+              <td>160r/min</td>
+              <td>1300mAh</td>
+              <td><span class="spec-chip chip-good">磷酸锌</span></td>
+              <td>64个</td>
+              <td>✓</td>
+              <td><span class="spec-chip chip-bad">扭力虚标</span></td>
+            </tr>
+            <tr>
+              <td><span class="spec-brand">吉米</span></td>
+              <td>¥180</td>
+              <td>0.3N.m</td>
+              <td><span class="spec-chip chip-ok">3档</span></td>
+              <td>160–180</td>
+              <td>350mAh</td>
+              <td><span class="spec-chip chip-good">磷酸锌</span></td>
+              <td>58个</td>
+              <td>✗</td>
+              <td><span class="spec-chip chip-ok">中性</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top:16px;padding:12px 16px;background:rgba(217,48,37,0.05);border:1px solid rgba(217,48,37,0.15);border-radius:8px;">
+        <div style="font-size:12px;color:#991b1b;line-height:1.7;">
+          <strong>⚠️ 批头工艺是当前最大隐患：</strong>竞品清一色磷酸锌工艺，米家1代是电镀铬——这直接导致VoC里"生锈"、"批头变形"投诉。B站"批头/钢口"关键词 <strong>103条·1,228赞</strong>，是全平台最高频功能词。无论选哪个方案，批头工艺必须在近期修复。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 4: MARKET SIGNALS ══ -->
+  <div class="section">
+    <div class="section-label">第四章 · 关键市场信号</div>
+    <div class="signal-grid">
+
+      <div class="signal-card sig-red">
+        <div class="signal-num red">839</div>
+        <div class="signal-title">B站最高赞评论</div>
+        <div class="signal-body">直指米家是"花瓶"，用户口碑定型已经完成。</div>
+        <div class="signal-quote">"小米就是花瓶，好看不实用，还是南旗好用"</div>
+      </div>
+
+      <div class="signal-card sig-orange">
+        <div class="signal-num orange">1,228</div>
+        <div class="signal-title">批头相关B站赞数</div>
+        <div class="signal-body">103条"批头/钢口"评论，是全品类最高频功能词，直接对应磷酸锌升级机会。</div>
+      </div>
+
+      <div class="signal-card sig-blue">
+        <div class="signal-num blue">221</div>
+        <div class="signal-title">PC装机有机提及</div>
+        <div class="signal-body">NGA/中关村在线/3DMGAME自发提及，AVE ¥758万，无品牌系统占据。</div>
+        <div class="signal-quote">"装机标配工具" — 用户自发认定</div>
+      </div>
+
+      <div class="signal-card sig-purple">
+        <div class="signal-num purple">¥432</div>
+        <div class="signal-title">HOTO中位价</div>
+        <div class="signal-body">唯一溢价设计品牌，¥183直接跳到¥432，中间¥200–350是真空区。</div>
+      </div>
+
+      <div class="signal-card sig-green">
+        <div class="signal-num green">0.4%</div>
+        <div class="signal-title">礼品场景供给缺口</div>
+        <div class="signal-body">TB标题礼品词仅2条/515，小红书4条，三平台一致——供给空白不等于需求不存在。</div>
+        <div class="signal-quote">"太便宜了看不上，¥6099我直接下单" — 高溢价消费力已验证</div>
+      </div>
+
+      <div class="signal-card sig-amber">
+        <div class="signal-num amber">132</div>
+        <div class="signal-title">吃灰效应赞数</div>
+        <div class="signal-body">抖音最高赞评论，说明老品用户中存在大量购买激活失败——这是老品的长期口碑隐患。</div>
+        <div class="signal-quote">"以前买了一个，还在抽屉吃灰"</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ SECTION 5: THREE OPTIONS ══ -->
+  <div class="section">
+    <div class="section-label">第五章 · 三个方案评估</div>
+    <div class="grid-3">
+
+      <!-- Option 1 -->
+      <div class="option-card">
+        <div class="option-header opt1">
+          <div>
+            <div class="option-num">方案 01</div>
+            <div class="option-title">3合1多功能套装</div>
+            <div class="option-subtitle">螺丝刀 + Mini电钻 + 电磨，齿轮箱切换</div>
+          </div>
+          <div class="option-verdict">
+            <span class="verdict-badge verdict-high">风险：高</span>
+          </div>
+        </div>
+        <div class="option-body">
+          <div class="option-row">
+            <div class="option-icon">❌</div>
+            <div>
+              <div class="option-row-title">方向与用户诉求相反</div>
+              <div class="option-row-body">VoC里用户要的是"更专、更精准"——在精密场景里做对，而不是一机多用。多功能方向指向通用家用场景，已被现有大尺寸工具箱覆盖。</div>
+            </div>
+          </div>
+          <div class="option-row">
+            <div class="option-icon">❌</div>
+            <div>
+              <div class="option-row-title">成本撑不住定价</div>
+              <div class="option-row-body">铝筒+齿轮箱成本极高，难以支撑¥199–249售价。要么毛利压缩，要么定价偏高失去竞争力。两者皆是坏结果。</div>
+            </div>
+          </div>
+          <div class="option-row">
+            <div class="option-icon">❌</div>
+            <div>
+              <div class="option-row-title">配件增多 → 用户群收窄</div>
+              <div class="option-row-body">产品经理自己的判断已经验证这一点。电商数据也显示：¥150+的多功能产品用户群天然比¥99家用品小。</div>
+            </div>
+          </div>
+          <div class="score-row">
+            <div class="score-item"><div class="score-val score-red">高</div><div class="score-label">实现难度</div></div>
+            <div class="score-item"><div class="score-val score-red">高</div><div class="score-label">成本压力</div></div>
+            <div class="score-item"><div class="score-val score-red">低</div><div class="score-label">市场验证度</div></div>
+            <div class="score-item"><div class="score-val score-red">否</div><div class="score-label">保留老品</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Option 2 -->
+      <div class="option-card recommended">
+        <div class="option-header opt2">
+          <div>
+            <div class="option-num">方案 02 ★</div>
+            <div class="option-title">桌面精修站</div>
+            <div class="option-subtitle">Mini工具箱 · 数码维修/PC装机专属场景</div>
+          </div>
+          <div class="option-verdict">
+            <span class="verdict-badge verdict-low">风险：低—中</span>
+            <span class="recommended-badge">推荐方向</span>
+          </div>
+        </div>
+        <div class="option-body">
+          <div class="option-row">
+            <div class="option-icon">✅</div>
+            <div>
+              <div class="option-row-title">场景区隔足够清晰，老品可保留</div>
+              <div class="option-row-body">定位"桌面精修站"（PC装机/手机维修/键盘改装），与老品"家用通用"形成清晰区隔。用户群不重叠，老品EOL风险最小。</div>
+            </div>
+          </div>
+          <div class="option-row">
+            <div class="option-icon">✅</div>
+            <div>
+              <div class="option-row-title">有机市场信号最强</div>
+              <div class="option-row-body">PC装机是媒介监测最大有机场景（221条，AVE¥758万），无品牌占据。数码维修场景VoC购买力强、价格敏感度低，¥199–249有支撑。</div>
+            </div>
+          </div>
+          <div class="option-row">
+            <div class="option-icon">✅</div>
+            <div>
+              <div class="option-row-title">附加礼品场景机会</div>
+              <div class="option-row-body">精修工具箱的收纳设计天然具有礼品属性。三平台礼品供给空白（0.4%），是一个低投入高回报的附加定位。</div>
+            </div>
+          </div>
+          <div class="option-row">
+            <div class="option-icon">⚠️</div>
+            <div>
+              <div class="option-row-title">命名和定位需要刻意区隔</div>
+              <div class="option-row-body">不能叫"Mini工具箱"——会直接与米家现有工具箱（¥129）产生比较。需要用场景词锚定：数码维修/桌面精修/PC装机套装。</div>
+            </div>
+          </div>
+          <div class="score-row">
+            <div class="score-item"><div class="score-val score-green">中</div><div class="score-label">实现难度</div></div>
+            <div class="score-item"><div class="score-val score-green">可控</div><div class="score-label">成本压力</div></div>
+            <div class="score-item"><div class="score-val score-green">高</div><div class="score-label">市场验证度</div></div>
+            <div class="score-item"><div class="score-val score-green">是</div><div class="score-label">保留老品</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Option 3 -->
+      <div class="option-card">
+        <div class="option-header opt3">
+          <div>
+            <div class="option-num">方案 03</div>
+            <div class="option-title">老品微迭代</div>
+            <div class="option-subtitle">性能提升：扭力↑·档位↑·电量显示改善</div>
+          </div>
+          <div class="option-verdict">
+            <span class="verdict-badge verdict-mid">风险：中</span>
+          </div>
+        </div>
+        <div class="option-body">
+          <div class="option-row">
+            <div class="option-icon">✅</div>
+            <div>
+              <div class="option-row-title">痛点明确，有VoC数据支撑</div>
+              <div class="option-row-body">扭力不足（4平台高置信度）、档位少、电量显示模糊——这些问题都是用户真实投诉，修复后可提升好评率。</div>
+            </div>
+          </div>
+          <div class="option-row">
+            <div class="option-icon">⚠️</div>
+            <div>
+              <div class="option-row-title">不解决批头工艺 = 治标不治本</div>
+              <div class="option-row-body">竞品全部使用磷酸锌，米家是电镀铬。批头生锈/变形是B站第一高频负评（1,228赞）。其他参数升级但批头工艺不变，长期NPS仍会继续被侵蚀。</div>
+            </div>
+          </div>
+          <div class="option-row">
+            <div class="option-icon">⚠️</div>
+            <div>
+              <div class="option-row-title">无法满足小米的迭代需求</div>
+              <div class="option-row-body">微迭代在小米产品路标上可能被定义为"维护更新"而非"新品"，不能提供新坑位，不符合小米对套装2代的期望。</div>
+            </div>
+          </div>
+          <div class="option-row">
+            <div class="option-icon">💡</div>
+            <div>
+              <div class="option-row-title">可作为老品并行策略</div>
+              <div class="option-row-body">在推进方案2的同时，将微迭代作为老品的静默升级（改批头工艺+5档扭矩）保持竞争力，两者并行执行成本最低。</div>
+            </div>
+          </div>
+          <div class="score-row">
+            <div class="score-item"><div class="score-val score-green">低</div><div class="score-label">实现难度</div></div>
+            <div class="score-item"><div class="score-val score-green">低</div><div class="score-label">成本压力</div></div>
+            <div class="score-item"><div class="score-val score-amber">中</div><div class="score-label">市场验证度</div></div>
+            <div class="score-item"><div class="score-val score-green">是</div><div class="score-label">保留老品</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ SECTION 6: DEFECT MAP ══ -->
+  <div class="section">
+    <div class="section-label">附录 · 产品缺陷地图（跨平台验证）</div>
+    <div class="card">
+      <div class="card-title">行业通病 — 哪些痛点是机会，哪些是雷</div>
+      <div class="card-sub">来源：京东负评78条 + B站1,589条 + 抖音91条 + 小红书729条，四平台交叉验证</div>
+
+      <div style="margin-bottom:12px;">
+        <div class="defect-row">
+          <div class="defect-name">扭力不足</div>
+          <div class="defect-track"><div class="defect-fill" style="width:90%;background:#d93025;"><span class="defect-val">4平台 · 高置信度 · 18条+481赞+71赞</span></div></div>
+          <div class="defect-note">行业通病 → 差异化机会</div>
+        </div>
+        <div class="defect-row">
+          <div class="defect-name">批头变形/生锈</div>
+          <div class="defect-track"><div class="defect-fill" style="width:85%;background:#d93025;"><span class="defect-val">4平台 · 高置信度 · 103条·1228赞</span></div></div>
+          <div class="defect-note">磷酸锌升级可解决</div>
+        </div>
+        <div class="defect-row">
+          <div class="defect-name">整体耐用性差</div>
+          <div class="defect-track"><div class="defect-fill" style="width:80%;background:#ff6900;"><span class="defect-val">4平台 · 高置信度 · "花瓶"839赞</span></div></div>
+          <div class="defect-note">品牌层面的根本问题</div>
+        </div>
+        <div class="defect-row">
+          <div class="defect-name">磁性快速消退</div>
+          <div class="defect-track"><div class="defect-fill" style="width:60%;background:#f59e0b;"><span class="defect-val">3平台 · 中置信度 · 京东7条</span></div></div>
+          <div class="defect-note">行业通病 → 加磁器教育机会</div>
+        </div>
+        <div class="defect-row">
+          <div class="defect-name">电池寿命短</div>
+          <div class="defect-track"><div class="defect-fill" style="width:45%;background:#f59e0b;"><span class="defect-val">3平台 · 中置信度 · 抖音17赞</span></div></div>
+          <div class="defect-note">长期口碑定时炸弹</div>
+        </div>
+        <div class="defect-row">
+          <div class="defect-name">批头数量不足</div>
+          <div class="defect-track"><div class="defect-fill" style="width:40%;background:#7c3aed;"><span class="defect-val">2平台 · "24种不够用"</span></div></div>
+          <div class="defect-note">套装定义问题</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ RECOMMENDATION ══ -->
+  <div class="section">
+    <div class="section-label">结论 · 推荐路径</div>
+    <div class="rec-box">
+      <div class="rec-eyebrow">基于数据的推荐方向</div>
+      <div class="rec-title">方案2 + 方案3并行<br>「桌面精修站」新品 × 老品静默升级</div>
+      <div class="rec-sub">新品做数码维修/PC装机场景，与老品家用定位形成清晰区隔，老品坑位最大概率得以保留。同时将老品批头工艺从电镀铬升级为磷酸锌，消除最大口碑隐患。两者并行是投入产出比最优的路径。</div>
+      <div class="rec-actions">
+        <div class="rec-action">
+          <span class="rec-action-badge badge-p0">P0 · 无论选哪个方案</span>
+          <div class="rec-action-title">批头工艺必须升级</div>
+          <div class="rec-action-body">电镀铬→磷酸锌，这是当前竞品唯一全面领先米家的工艺指标，也是生锈/变形负评的根源。改动成本低，口碑影响高。</div>
+        </div>
+        <div class="rec-action">
+          <span class="rec-action-badge badge-p1">P1 · 新品定位</span>
+          <div class="rec-action-title">场景词锚定，不叫"工具箱"</div>
+          <div class="rec-action-body">用"数码维修套装"/"PC装机精修站"定义产品，避免与现有米家工具箱¥129形成直接比较，同时锚定PC装机这个最大有机讨论场景。</div>
+        </div>
+        <div class="rec-action">
+          <span class="rec-action-badge badge-p2">P2 · 中期叙事</span>
+          <div class="rec-action-title">礼品场景作为第二增量</div>
+          <div class="rec-action-body">精修工具套装的收纳盒天然具备礼品属性。三平台供给空白（0.4%）、HOTO¥1,099高价已验证消费力。需要的是礼品叙事和包装，不是降价。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footnote">
+  市场研究OS · 内部决策简报 · 保密文件 · 2026-06-05 · 数据来源：2,487条VoC（小红书/抖音/B站/京东）+ 1,055条电商listing（JD+TB）+ 1,310条媒介监测（Meltwater）
+</div>
+
+</body>
+</html>

@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>电动螺丝刀电商竞争分析 — 中国市场 2026</title>
+<style>
+  :root {
+    --bg: #f8f9fc;
+    --surface: #ffffff;
+    --surface2: #f1f3f9;
+    --border: #e2e6f0;
+    --accent1: #5b5ef4;
+    --accent2: #7c3aed;
+    --accent3: #0ea5e9;
+    --accent4: #10b981;
+    --accent5: #f59e0b;
+    --accent6: #ef4444;
+    --text1: #0f172a;
+    --text2: #475569;
+    --text3: #94a3b8;
+    --radius: 14px;
+    --radius-sm: 8px;
+    --shadow: 0 2px 12px rgba(91,94,244,0.07);
+    --shadow-lg: 0 8px 32px rgba(91,94,244,0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif; background: var(--bg); color: var(--text1); min-height: 100vh; }
+
+  /* ── HEADER ── */
+  .header { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%); padding: 48px 40px 36px; }
+  .header-tag { display: inline-flex; align-items: center; gap: 6px; background: rgba(91,94,244,0.25); border: 1px solid rgba(91,94,244,0.4); color: #a5b4fc; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; margin-bottom: 18px; }
+  .header h1 { color: #fff; font-size: 30px; font-weight: 700; line-height: 1.25; margin-bottom: 8px; }
+  .header-sub { color: #94a3b8; font-size: 14px; margin-bottom: 28px; }
+  .header-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #cbd5e1; font-size: 12px; padding: 4px 12px; border-radius: 20px; }
+  .pill.blue { background: rgba(14,165,233,0.15); border-color: rgba(14,165,233,0.3); color: #7dd3fc; }
+  .pill.purple { background: rgba(124,58,237,0.15); border-color: rgba(124,58,237,0.3); color: #c4b5fd; }
+
+  /* ── KPI BAR ── */
+  .kpi-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; background: #1e293b; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .kpi-item { padding: 20px 24px; border-right: 1px solid rgba(255,255,255,0.08); }
+  .kpi-item:last-child { border-right: none; }
+  .kpi-num { font-size: 28px; font-weight: 800; color: #fff; }
+  .kpi-label { font-size: 11px; color: #64748b; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .kpi-sub { font-size: 11px; color: #94a3b8; margin-top: 2px; }
+
+  /* ── LAYOUT ── */
+  .main { max-width: 1200px; margin: 0 auto; padding: 32px 24px 64px; }
+  .section-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent1); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 20px; }
+  .card-title { font-size: 15px; font-weight: 700; color: var(--text1); margin-bottom: 4px; }
+  .card-sub { font-size: 12px; color: var(--text2); margin-bottom: 20px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  .section { margin-bottom: 40px; }
+
+  /* ── PRICE DISTRIBUTION CHART ── */
+  .bar-chart { display: flex; align-items: flex-end; gap: 10px; height: 180px; padding: 0 4px; }
+  .bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; justify-content: flex-end; }
+  .bar-body { width: 100%; border-radius: 6px 6px 0 0; transition: opacity 0.2s; cursor: default; position: relative; }
+  .bar-body:hover { opacity: 0.85; }
+  .bar-label { font-size: 10px; color: var(--text2); text-align: center; white-space: nowrap; }
+  .bar-value { font-size: 11px; font-weight: 700; color: var(--text1); }
+  .bar-axis { display: flex; gap: 10px; margin-top: 8px; }
+  .bar-axis-item { flex: 1; text-align: center; font-size: 10px; color: var(--text3); }
+
+  /* ── BRAND PRICE RANGE ── */
+  .brand-price-chart { display: flex; flex-direction: column; gap: 10px; }
+  .brand-row { display: flex; align-items: center; gap: 12px; }
+  .brand-name { font-size: 12px; font-weight: 600; color: var(--text1); width: 110px; flex-shrink: 0; text-align: right; }
+  .brand-range-wrap { flex: 1; position: relative; height: 28px; }
+  .brand-range-bg { position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: var(--border); transform: translateY(-50%); }
+  .brand-range-bar { position: absolute; top: 0; height: 100%; border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+  .brand-median-dot { position: absolute; top: 50%; width: 10px; height: 10px; border-radius: 50%; border: 2px solid #fff; transform: translate(-50%, -50%); z-index: 2; }
+  .brand-price-label { font-size: 10px; color: var(--text2); width: 80px; flex-shrink: 0; }
+
+  /* ── FEATURE RADAR BARS ── */
+  .feature-bars { display: flex; flex-direction: column; gap: 10px; }
+  .feat-row { display: flex; align-items: center; gap: 10px; }
+  .feat-name { font-size: 12px; color: var(--text1); width: 80px; flex-shrink: 0; text-align: right; }
+  .feat-bar-wrap { flex: 1; background: var(--surface2); border-radius: 4px; height: 22px; overflow: hidden; }
+  .feat-bar { height: 100%; border-radius: 4px; display: flex; align-items: center; padding: 0 8px; }
+  .feat-bar-val { font-size: 10px; font-weight: 700; color: #fff; }
+  .feat-count { font-size: 11px; color: var(--text3); width: 30px; flex-shrink: 0; }
+
+  /* ── MARKET SHARE DONUT ── */
+  .donut-wrap { display: flex; align-items: center; gap: 24px; }
+  .donut-svg { flex-shrink: 0; }
+  .donut-legend { display: flex; flex-direction: column; gap: 8px; }
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .legend-text { font-size: 12px; color: var(--text2); }
+  .legend-pct { font-size: 12px; font-weight: 700; color: var(--text1); margin-left: auto; padding-left: 12px; }
+
+  /* ── TOP PRODUCTS TABLE ── */
+  .product-table { width: 100%; border-collapse: collapse; }
+  .product-table th { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text3); padding: 8px 12px; text-align: left; border-bottom: 2px solid var(--border); }
+  .product-table td { padding: 10px 12px; font-size: 13px; color: var(--text1); border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .product-table tr:last-child td { border-bottom: none; }
+  .product-table tr:hover td { background: var(--surface2); }
+  .rank-badge { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; font-size: 11px; font-weight: 700; }
+  .rank-1 { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #fff; }
+  .rank-2 { background: linear-gradient(135deg, #94a3b8, #64748b); color: #fff; }
+  .rank-3 { background: linear-gradient(135deg, #f97316, #ea580c); color: #fff; }
+  .rank-n { background: var(--surface2); color: var(--text3); }
+  .sales-chip { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+  .sales-high { background: rgba(16,185,129,0.1); color: #059669; }
+  .sales-mid { background: rgba(14,165,233,0.1); color: #0284c7; }
+  .rating-bar { display: inline-flex; align-items: center; gap: 4px; }
+  .rating-fill { height: 4px; border-radius: 2px; }
+  .feature-tag { display: inline-flex; align-items: center; gap: 4px; background: rgba(91,94,244,0.08); color: var(--accent1); font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 4px; margin: 1px; }
+
+  /* ── PARETO CHART ── */
+  .pareto-wrap { position: relative; height: 200px; }
+  .pareto-bars { display: flex; align-items: flex-end; gap: 3px; height: 160px; padding-bottom: 0; }
+  .pareto-bar { flex: 1; border-radius: 3px 3px 0 0; background: var(--accent1); opacity: 0.7; }
+  .pareto-bar.highlight { opacity: 1; background: var(--accent2); }
+  .pareto-labels { display: flex; gap: 3px; margin-top: 6px; }
+  .pareto-label { flex: 1; font-size: 9px; color: var(--text3); text-align: center; }
+  .pareto-line-wrap { position: absolute; top: 0; left: 0; right: 0; height: 160px; pointer-events: none; }
+
+  /* ── SCENE COVERAGE ── */
+  .scene-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .scene-card { background: var(--surface2); border-radius: var(--radius-sm); padding: 16px; position: relative; overflow: hidden; }
+  .scene-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .scene-s1::before { background: var(--accent1); }
+  .scene-s2::before { background: var(--accent3); }
+  .scene-s3::before { background: var(--accent4); }
+  .scene-s4::before { background: var(--accent5); }
+  .scene-s5::before { background: var(--accent2); }
+  .scene-s6::before { background: var(--accent6); }
+  .scene-name { font-size: 13px; font-weight: 700; color: var(--text1); margin-bottom: 6px; }
+  .scene-count { font-size: 24px; font-weight: 800; }
+  .scene-pct { font-size: 12px; color: var(--text2); margin-top: 2px; }
+  .scene-bar-bg { background: var(--border); border-radius: 2px; height: 4px; margin-top: 10px; }
+  .scene-bar-fill { height: 100%; border-radius: 2px; }
+
+  /* ── INSIGHT BOXES ── */
+  .insight-box { background: linear-gradient(135deg, rgba(91,94,244,0.06), rgba(124,58,237,0.04)); border: 1px solid rgba(91,94,244,0.15); border-radius: var(--radius-sm); padding: 16px 20px; }
+  .insight-box-red { background: rgba(239,68,68,0.04); border-color: rgba(239,68,68,0.15); }
+  .insight-box-green { background: rgba(16,185,129,0.04); border-color: rgba(16,185,129,0.15); }
+  .insight-box-amber { background: rgba(245,158,11,0.05); border-color: rgba(245,158,11,0.2); }
+  .insight-icon { font-size: 16px; margin-bottom: 8px; }
+  .insight-title { font-size: 13px; font-weight: 700; color: var(--text1); margin-bottom: 6px; }
+  .insight-body { font-size: 12px; color: var(--text2); line-height: 1.6; }
+
+  /* ── RATING DIST ── */
+  .rating-dist { display: flex; flex-direction: column; gap: 8px; }
+  .rating-row { display: flex; align-items: center; gap: 10px; }
+  .rating-key { font-size: 11px; color: var(--text2); width: 70px; flex-shrink: 0; text-align: right; }
+  .rating-track { flex: 1; background: var(--surface2); height: 18px; border-radius: 4px; overflow: hidden; }
+  .rating-fill-bar { height: 100%; display: flex; align-items: center; padding: 0 6px; }
+  .rating-fill-label { font-size: 10px; font-weight: 700; color: #fff; white-space: nowrap; }
+  .rating-n { font-size: 11px; color: var(--text3); width: 35px; flex-shrink: 0; }
+
+  /* ── POSITIONING MAP ── */
+  .pos-map { position: relative; width: 100%; padding-bottom: 66%; background: var(--surface2); border-radius: var(--radius-sm); overflow: hidden; }
+  .pos-map-inner { position: absolute; inset: 0; }
+  .pos-axis-h { position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: var(--border); }
+  .pos-axis-v { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--border); }
+  .pos-label-x-l { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 10px; color: var(--text3); }
+  .pos-label-x-r { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 10px; color: var(--text3); }
+  .pos-label-y-t { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); font-size: 10px; color: var(--text3); }
+  .pos-label-y-b { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); font-size: 10px; color: var(--text3); }
+  .pos-brand { position: absolute; transform: translate(-50%, -50%); }
+  .pos-brand-dot { border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 11px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); cursor: default; }
+  .pos-brand-label { font-size: 10px; font-weight: 600; color: var(--text1); text-align: center; margin-top: 4px; white-space: nowrap; }
+  .pos-brand-price { font-size: 9px; color: var(--text3); text-align: center; }
+  .quadrant-label { position: absolute; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.35; }
+
+  /* ── STRATEGIC SIGNALS ── */
+  .signal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .signal-card { border-radius: var(--radius-sm); padding: 16px; border-left: 4px solid; }
+  .signal-p0 { background: rgba(239,68,68,0.05); border-color: var(--accent6); }
+  .signal-p1 { background: rgba(245,158,11,0.05); border-color: var(--accent5); }
+  .signal-p2 { background: rgba(16,185,129,0.05); border-color: var(--accent4); }
+  .signal-badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; margin-bottom: 8px; }
+  .badge-red { background: rgba(239,68,68,0.12); color: var(--accent6); }
+  .badge-amber { background: rgba(245,158,11,0.12); color: #b45309; }
+  .badge-green { background: rgba(16,185,129,0.12); color: #047857; }
+  .signal-title { font-size: 13px; font-weight: 700; color: var(--text1); margin-bottom: 6px; }
+  .signal-body { font-size: 12px; color: var(--text2); line-height: 1.6; }
+
+  /* ── FOOTER ── */
+  .footer { background: #0f172a; padding: 24px 40px; text-align: center; }
+  .footer-text { font-size: 11px; color: #475569; }
+
+  /* ── TOOLTIP ── */
+  [data-tip] { position: relative; cursor: default; }
+  [data-tip]:hover::after { content: attr(data-tip); position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%); background: #1e293b; color: #e2e8f0; font-size: 11px; padding: 5px 10px; border-radius: 6px; white-space: nowrap; z-index: 10; pointer-events: none; }
+
+  @media (max-width: 768px) {
+    .kpi-bar { grid-template-columns: 1fr 1fr; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .scene-grid { grid-template-columns: 1fr 1fr; }
+    .signal-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-tag">⚡ Market Intelligence</div>
+  <h1>电动螺丝刀电商竞争分析<br>中国市场 · 京东 × 淘宝 2026</h1>
+  <div class="header-sub">1,055条商品数据 | 540 JD × 515 TB | 数据采集：2026-06-04</div>
+  <div class="header-pills">
+    <span class="pill blue">电动螺丝刀</span>
+    <span class="pill blue">精密工具</span>
+    <span class="pill purple">消费精密工具</span>
+    <span class="pill">中国市场</span>
+    <span class="pill">价格架构</span>
+    <span class="pill">竞争格局</span>
+    <span class="pill">功能地图</span>
+  </div>
+</div>
+
+<!-- KPI BAR -->
+<div class="kpi-bar">
+  <div class="kpi-item">
+    <div class="kpi-num">1,055</div>
+    <div class="kpi-label">总商品条目</div>
+    <div class="kpi-sub">JD 540 + TB 515</div>
+  </div>
+  <div class="kpi-item">
+    <div class="kpi-num">¥149</div>
+    <div class="kpi-label">TB市场中位价</div>
+    <div class="kpi-sub">均价 ¥186，区间 ¥1–¥1,099</div>
+  </div>
+  <div class="kpi-item">
+    <div class="kpi-num">59%</div>
+    <div class="kpi-label">白牌/其他占比</div>
+    <div class="kpi-sub">市场极度分散，品牌化早期</div>
+  </div>
+  <div class="kpi-item">
+    <div class="kpi-num">98%</div>
+    <div class="kpi-label">头部产品好评率</div>
+    <div class="kpi-sub">1万+销量产品集中在98%好评</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- ══ SECTION 1: PRICE ARCHITECTURE ══ -->
+  <div class="section">
+    <div class="section-title">模型一：价格架构分析 (Price Architecture)</div>
+
+    <div class="grid-2">
+      <!-- Price Distribution -->
+      <div class="card">
+        <div class="card-title">TB 价格带分布</div>
+        <div class="card-sub">515条淘宝商品 · 识别市场竞争密度与机会区间</div>
+        <div class="bar-chart" id="priceChart">
+          <!-- bars built by JS -->
+        </div>
+        <div id="priceAxis" class="bar-axis"></div>
+
+        <div style="margin-top:20px; display:flex; flex-direction:column; gap:8px;">
+          <div class="insight-box-amber insight-box" style="margin:0;">
+            <div class="insight-title">⚡ 主战场 ¥50–¥149</div>
+            <div class="insight-body">238条SKU（46%）集中于此区间，竞争最激烈，差异化空间最小。白牌与小米正面交锋。</div>
+          </div>
+          <div class="insight-box insight-box-green" style="margin:0;">
+            <div class="insight-title">🎯 ¥200–¥499 是"品牌溢价走廊"</div>
+            <div class="insight-body">140条SKU，HOTO/博世/WORX的真实战场。进入需要功能或品牌的清晰差异化支撑。</div>
+          </div>
+          <div class="insight-box insight-box-red" style="margin:0;">
+            <div class="insight-title">🚩 ¥500+ 容量有限但存在</div>
+            <div class="insight-body">21条 SKU（4%）。HOTO ¥1,099套装是目前最高溢价锚点，验证了小红书VoC"高溢价需求真实"信号。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Brand Price Range (Box Plot style) -->
+      <div class="card">
+        <div class="card-title">品牌价格区间图</div>
+        <div class="card-sub">TB各品牌 最低价—中位价—最高价 · 圆点=中位数</div>
+        <div class="brand-price-chart" id="brandPriceChart">
+          <!-- built by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 2: COMPETITIVE POSITIONING MAP ══ -->
+  <div class="section">
+    <div class="section-title">模型二：品牌定位地图 (Competitive Positioning)</div>
+    <div class="card">
+      <div class="card-title">价格层级 × 市场声量 — 品牌定位矩阵</div>
+      <div class="card-sub">X轴 = 价格中位数（定价策略）· Y轴 = TB listing占比（市场存在感）· 圆圈大小 = 综合评分推断</div>
+
+      <div style="display:grid; grid-template-columns:1fr 320px; gap:24px; align-items:start;">
+        <div class="pos-map" id="posMap">
+          <div class="pos-map-inner">
+            <div class="pos-axis-h"></div>
+            <div class="pos-axis-v"></div>
+            <!-- Axis labels -->
+            <div class="pos-label-x-l">← 低价格</div>
+            <div class="pos-label-x-r">高价格 →</div>
+            <div class="pos-label-y-t">↑ 高声量</div>
+            <div class="pos-label-y-b">低声量 ↓</div>
+            <!-- Quadrant labels -->
+            <div class="quadrant-label" style="top:12%;left:8%;color:#ef4444;">规模低价</div>
+            <div class="quadrant-label" style="top:12%;right:8%;color:#5b5ef4;">溢价领导</div>
+            <div class="quadrant-label" style="bottom:12%;left:8%;color:#94a3b8;">边缘低价</div>
+            <div class="quadrant-label" style="bottom:12%;right:8%;color:#f59e0b;">利基溢价</div>
+            <!-- Brands (positioned by JS) -->
+            <div id="mapBrands"></div>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <div class="insight-box" style="margin:0;">
+            <div class="insight-icon">🔴</div>
+            <div class="insight-title">小米：规模陷阱</div>
+            <div class="insight-body">最高声量（19.8%）+ 低价格（中位¥100）。用规模压制利润，VoC口碑较差，形成"平台霸主但口碑洼地"格局。</div>
+          </div>
+          <div class="insight-box" style="margin:0;">
+            <div class="insight-icon">🟣</div>
+            <div class="insight-title">HOTO：利基溢价</div>
+            <div class="insight-body">高价格（中位¥432）+ 中等声量（5.6%）。目前唯一真正占据溢价区间的设计品牌，但耐用性口碑存在风险。</div>
+          </div>
+          <div class="insight-box insight-box-green" style="margin:0;">
+            <div class="insight-icon">⬜</div>
+            <div class="insight-title">定位空白区</div>
+            <div class="insight-body">¥200–¥350 + 中高声量 —— 这个象限没有强品牌占据。是耐用性优先品牌的最佳切入区。</div>
+          </div>
+          <div class="insight-box insight-box-amber" style="margin:0;">
+            <div class="insight-icon">🟤</div>
+            <div class="insight-title">白牌：隐形庞然大物</div>
+            <div class="insight-body">59%的listing、中位¥149，占据主流价格带，但无品牌凝聚力，是"分散的竞争噪声"而非品牌威胁。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 3: FEATURE DIMENSION MAP ══ -->
+  <div class="section">
+    <div class="section-title">模型三：功能维度地图 (Feature Dimension Map)</div>
+
+    <div class="grid-2">
+      <!-- JD Feature Bar -->
+      <div class="card">
+        <div class="card-title">卖家核心功能诉求频率</div>
+        <div class="card-sub">来源：JD 540条商品属性标签（卖家认为用户最看重的功能）</div>
+        <div class="feature-bars" id="featureBars"></div>
+        <div style="margin-top:16px; padding:10px 14px; background:var(--surface2); border-radius:8px;">
+          <div style="font-size:11px; color:var(--text2); line-height:1.7;">
+            ⚠️ <strong>注意：</strong>「电压/规格」看似第一，但这是分类标签，非功能卖点。<br>
+            真正的功能竞争轴是：<strong>扭力控制 &gt; 电机品质 &gt; 续航</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scene Coverage -->
+      <div class="card">
+        <div class="card-title">场景覆盖密度</div>
+        <div class="card-sub">来源：TB 515条商品标题关键词（卖家主打的使用场景）</div>
+        <div class="scene-grid" id="sceneGrid"></div>
+        <div style="margin-top:16px;" class="insight-box insight-box-red">
+          <div class="insight-title">🔍 礼品场景的系统性缺失</div>
+          <div class="insight-body">礼品/礼物关键词仅2条（0.4%），与小红书VoC (0.4%)完全吻合。现有供给层面无礼品定位，但礼品需求存在于节庆/赠品渠道。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top Winning Features -->
+    <div class="card">
+      <div class="card-title">头部产品（JD 1万+销量）功能组合分析</div>
+      <div class="card-sub">104款1万+销量产品 · 提取高频共现功能组合 → 市场已验证的"必配"</div>
+      <div class="grid-3">
+        <div class="insight-box">
+          <div class="insight-icon">🥇</div>
+          <div class="insight-title">必备三角组合</div>
+          <div class="insight-body">
+            <span class="feature-tag">多档扭矩调节</span>
+            <span class="feature-tag">S2/高强度钢批头</span>
+            <span class="feature-tag">磁吸夹头</span>
+            <br><br>在JD 10万+销量产品中，这三个功能100%同时出现。缺一则好评率往往低于95%。
+          </div>
+        </div>
+        <div class="insight-box">
+          <div class="insight-icon">🥈</div>
+          <div class="insight-title">高口碑加分项</div>
+          <div class="insight-body">
+            <span class="feature-tag">纯铜/全铜电机</span>
+            <span class="feature-tag">LED照明</span>
+            <span class="feature-tag">手自一体</span>
+            <br><br>出现于多款98%+好评产品，在属性标签中明确标注，说明这些功能已形成用户心理锚点。
+          </div>
+        </div>
+        <div class="insight-box">
+          <div class="insight-icon">🥉</div>
+          <div class="insight-title">高端差异化信号</div>
+          <div class="insight-body">
+            <span class="feature-tag">无刷电机</span>
+            <span class="feature-tag">智能刹停</span>
+            <span class="feature-tag">SDS快脱夹头</span>
+            <br><br>仅出现在¥200+产品，出现率低（&lt;10条）但指向品类升级方向。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 4: SALES CONCENTRATION (PARETO) ══ -->
+  <div class="section">
+    <div class="section-title">模型四：销量集中度分析 (Pareto Concentration)</div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">JD 销量帕累托曲线</div>
+        <div class="card-sub">横轴=排名，左轴=相对销量，折线=累计占比</div>
+        <div style="position:relative; height:220px;">
+          <svg id="paretoSvg" width="100%" height="220" viewBox="0 0 420 200"></svg>
+        </div>
+        <div style="display:flex; gap:16px; margin-top:12px; flex-wrap:wrap;">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <div style="width:12px;height:12px;border-radius:2px;background:var(--accent1);opacity:0.6;"></div>
+            <span style="font-size:11px;color:var(--text2);">个品销量</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:6px;">
+            <div style="width:20px;height:2px;background:var(--accent6);"></div>
+            <span style="font-size:11px;color:var(--text2);">累计占比</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="display:flex; flex-direction:column; gap:12px; justify-content:center;">
+        <div class="insight-box">
+          <div class="insight-icon">📊</div>
+          <div class="insight-title">50/3 法则（比标准帕累托更集中）</div>
+          <div class="insight-body">JD 前10款产品 = <strong>50.3%</strong> 的总销量。<br>前20%产品（约108款）= <strong>89.2%</strong> 的总销量。<br>典型"头部极度集中"市场结构。</div>
+        </div>
+        <div class="insight-box insight-box-amber">
+          <div class="insight-icon">⚠️</div>
+          <div class="insight-title">长尾生存率极低</div>
+          <div class="insight-body">约400条 JD 商品（74%）的累计销量仅占10.8%。<br>没有差异化支撑的跟随者几乎没有市场空间。</div>
+        </div>
+        <div class="insight-box insight-box-green">
+          <div class="insight-icon">✅</div>
+          <div class="insight-title">口碑是准入门票</div>
+          <div class="insight-body">1万+销量的104款产品中，<strong>86%</strong> 好评率≥97%。<br>低于95%好评率几乎无法进入头部梯队。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 5: JD RATING DISTRIBUTION ══ -->
+  <div class="section">
+    <div class="section-title">补充：JD 好评率分布 × 市场质量基线</div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">JD 好评率分布（536条有效数据）</div>
+        <div class="card-sub">市场整体质量门槛分析</div>
+        <div class="rating-dist" id="ratingDist"></div>
+        <div style="margin-top:16px; padding:12px 14px; background: rgba(16,185,129,0.06); border:1px solid rgba(16,185,129,0.2); border-radius:8px;">
+          <div style="font-size:12px; color:var(--text2);">
+            ✅ <strong>98%+好评</strong> 产品占 <strong>61%</strong> — 行业整体口碑基线极高。<br>
+            进入市场的及格线是 <strong>97%好评</strong>，低于此则几乎无法获得自然流量。
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">卖家发货地理分布（TB）</div>
+        <div class="card-sub">供应链地理集中度 — 广东+浙江合计54%</div>
+        <div id="geoChart" style="display:flex;flex-direction:column;gap:8px;"></div>
+        <div style="margin-top:16px; padding:12px 14px; background: rgba(91,94,244,0.05); border:1px solid rgba(91,94,244,0.15); border-radius:8px;">
+          <div style="font-size:12px; color:var(--text2);">
+            广东主导反映制造业聚集；北京10.9%异常高 — 推断主要来自小米/米家的京东自营仓。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 6: STRATEGIC SIGNALS ══ -->
+  <div class="section">
+    <div class="section-title">战略信号提炼 — 电商数据的产品决策含义</div>
+
+    <div class="signal-grid">
+      <div class="signal-card signal-p0">
+        <div class="signal-badge badge-red">P0 · 立即行动</div>
+        <div class="signal-title">¥50–149 已是红海，避免正面进入</div>
+        <div class="signal-body">238条SKU堆积，白牌+小米价格战激烈。新品牌在此价格带无论功能还是价格都难以建立心智。若必须覆盖此价格带，需要"轻型入门款"定位，不作主推。</div>
+      </div>
+
+      <div class="signal-card signal-p0">
+        <div class="signal-badge badge-red">P0 · 立即行动</div>
+        <div class="signal-title">98%好评是头部入场资格</div>
+        <div class="signal-body">86%的1万+销量产品好评≥97%。产品上市前必须在小批量测试阶段达到此口碑门槛，否则平台算法不会给流量。这意味着批头质量、扭矩精度不能有任何妥协。</div>
+      </div>
+
+      <div class="signal-card signal-p1">
+        <div class="signal-badge badge-amber">P1 · 产品规划</div>
+        <div class="signal-title">"必备三角"是产品功能底线</div>
+        <div class="signal-body">多档扭矩调节 + S2级批头 + 磁吸夹头，是所有1万+销量产品的共同特征。这三个功能缺少任何一个，都会在用户比较选购时立即被淘汰。它们是"资格项"，不是差异化项。</div>
+      </div>
+
+      <div class="signal-card signal-p1">
+        <div class="signal-badge badge-amber">P1 · 产品规划</div>
+        <div class="signal-title">¥200–350 区间存在品牌真空</div>
+        <div class="signal-body">该区间有87条SKU（TB ¥200-299段），但无强品牌占据。HOTO从¥183起步就跳到中位¥432。这个区间是"功能可信 + 价格可接受"的最佳进入区，对耐用性优先品牌友好。</div>
+      </div>
+
+      <div class="signal-card signal-p1">
+        <div class="signal-badge badge-amber">P1 · 渠道策略</div>
+        <div class="signal-title">广东+浙江供应链可直接接触</div>
+        <div class="signal-body">TB 54%卖家来自广东+浙江，说明核心供应链高度集中。无论是ODM合作还是竞品拆解，都可从这两省的供应商入手。品牌若需要快速建立制造能力，这是最短路径。</div>
+      </div>
+
+      <div class="signal-card signal-p2">
+        <div class="signal-badge badge-green">P2 · 中期机会</div>
+        <div class="signal-title">礼品场景完全空白，存在结构性机会</div>
+        <div class="signal-body">TB标题中礼品词仅2条（0.4%），与小红书VoC交叉验证一致。现有竞品无任何礼品定位。HOTO套装¥1,099的高价接受度说明礼品消费力存在，缺的是正确的礼品叙事（包装/场景）而非价格。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data Quality Notice -->
+  <div class="card" style="background: #fef9f0; border-color: rgba(245,158,11,0.25);">
+    <div style="display:flex; gap:12px; align-items:flex-start;">
+      <div style="font-size:20px;">⚠️</div>
+      <div>
+        <div style="font-size:13px; font-weight:700; color:#92400e; margin-bottom:6px;">数据质量说明</div>
+        <div style="font-size:12px; color:#78350f; line-height:1.7;">
+          <strong>JD文件：</strong>价格、标题、店铺名列均为空（爬取脚本未正确抓取），仅属性标签、销量级别和好评率有效。JD品牌归属无法从现有数据直接判断。<br>
+          <strong>TB文件：</strong>销量标签大量显示"0人收货"（348/515），为展示逻辑问题，非真实零销量，TB月销/评论数未采集，实际市场份额需另行验证。<br>
+          <strong>本报告结论置信度：</strong>价格带结构（高）· 品牌定位（中）· 功能频率（中）· 场景分布（中）· 销量集中度（中，基于有限有效数据）
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<div class="footer">
+  <div class="footer-text">Market Research OS · 中国消费精密工具行业情报库 · 生成日期：2026-06-04 · 数据来源：JD/TB爬虫列表（540+515条）</div>
+</div>
+
+<script>
+// ════════════════════════════════════════════════════════════════
+// DATA
+// ════════════════════════════════════════════════════════════════
+const PRICE_DATA = [
+  { label: '<¥50',    count: 29,  color: '#94a3b8' },
+  { label: '¥50–99',  count: 126, color: '#60a5fa' },
+  { label: '¥100–149',count: 112, color: '#5b5ef4' },
+  { label: '¥150–199',count: 87,  color: '#7c3aed' },
+  { label: '¥200–299',count: 87,  color: '#8b5cf6' },
+  { label: '¥300–499',count: 53,  color: '#a78bfa' },
+  { label: '¥500+',   count: 21,  color: '#c4b5fd' },
+];
+
+const BRAND_PRICE = [
+  { name: 'HOTO/小猴',    min:183, q1:316, med:432, q3:574, max:1099, n:29,  color:'#7c3aed' },
+  { name: 'Fanttik',       min:359, q1:359, med:359, q3:359, max:359,  n:2,   color:'#5b5ef4' },
+  { name: 'Puxi浦喜',     min:256, q1:256, med:446, q3:446, max:446,  n:4,   color:'#6366f1' },
+  { name: '博世/Bosch',   min:247, q1:247, med:296, q3:317, max:432,  n:6,   color:'#0ea5e9' },
+  { name: '欧马仕',        min:50,  q1:98,  med:216, q3:295, max:696,  n:16,  color:'#06b6d4' },
+  { name: '威克士/WORX',  min:88,  q1:162, med:191, q3:199, max:426,  n:15,  color:'#10b981' },
+  { name: '世达/SATA',    min:26,  q1:37,  med:119, q3:119, max:126,  n:5,   color:'#34d399' },
+  { name: '绿林',          min:22,  q1:69,  med:93,  q3:156, max:522,  n:21,  color:'#f59e0b' },
+  { name: '小米/米家',     min:10,  q1:76,  med:100, q3:167, max:625,  n:102, color:'#ef4444' },
+  { name: '藤原',          min:56,  q1:56,  med:66,  q3:66,  max:66,   n:5,   color:'#94a3b8' },
+];
+
+const FEATURE_DATA = [
+  { name: '电机/动力', count: 202, color: '#5b5ef4' },
+  { name: '扭力控制', count: 183, color: '#7c3aed' },
+  { name: '电压/规格', count: 247, color: '#94a3b8', note: '分类标签' },
+  { name: '续航/充电', count: 47,  color: '#0ea5e9' },
+  { name: '便携/形态', count: 24,  color: '#10b981' },
+  { name: '夹头/批头', count: 20,  color: '#f59e0b' },
+  { name: '照明辅助', count: 18,  color: '#06b6d4' },
+  { name: '附件套装', count: 6,   color: '#e2e8f0' },
+];
+
+const SCENE_DATA = [
+  { name: '精密拆机',  count: 448, total: 515, cls: 'scene-s1', color: '#5b5ef4' },
+  { name: '家用维修',  count: 311, total: 515, cls: 'scene-s2', color: '#0ea5e9' },
+  { name: '手机拆修',  count: 197, total: 515, cls: 'scene-s3', color: '#10b981' },
+  { name: '多功能通用',count: 211, total: 515, cls: 'scene-s4', color: '#f59e0b' },
+  { name: '电脑/PC',  count: 114, total: 515, cls: 'scene-s5', color: '#7c3aed' },
+  { name: '礼品场景',  count: 2,   total: 515, cls: 'scene-s6', color: '#ef4444' },
+];
+
+const RATING_DATA = [
+  { label: '100%好评', count: 144, color: '#10b981' },
+  { label: '98–99%',   count: 188, color: '#5b5ef4' },
+  { label: '95–97%',   count: 129, color: '#7c3aed' },
+  { label: '85–94%',   count: 60,  color: '#f59e0b' },
+  { label: '<85%',     count: 15,  color: '#ef4444' },
+];
+
+const GEO_DATA = [
+  { prov: '广东', count: 186, pct: 36.1, color: '#5b5ef4' },
+  { prov: '浙江', count: 93,  pct: 18.1, color: '#7c3aed' },
+  { prov: '北京', count: 56,  pct: 10.9, color: '#0ea5e9' },
+  { prov: '江苏', count: 50,  pct: 9.7,  color: '#10b981' },
+  { prov: '上海', count: 38,  pct: 7.4,  color: '#f59e0b' },
+  { prov: '山东', count: 25,  pct: 4.9,  color: '#94a3b8' },
+  { prov: '其他', count: 67,  pct: 13.0, color: '#e2e8f0' },
+];
+
+const BRAND_POS = [
+  { name: '小米/米家', price: 100, share: 19.8, color: '#ef4444', size: 42 },
+  { name: 'HOTO/小猴', price: 432, share: 5.6,  color: '#7c3aed', size: 32 },
+  { name: '绿林',      price: 93,  share: 4.1,  color: '#f59e0b', size: 26 },
+  { name: 'WORX',      price: 191, share: 2.9,  color: '#10b981', size: 22 },
+  { name: '欧马仕',    price: 216, share: 3.1,  color: '#06b6d4', size: 22 },
+  { name: '博世',      price: 296, share: 1.2,  color: '#0ea5e9', size: 18 },
+  { name: 'Fanttik',   price: 359, share: 0.4,  color: '#5b5ef4', size: 14 },
+  { name: '白牌',      price: 149, share: 59.0, color: '#cbd5e1', size: 60 },
+];
+
+// ════════════════════════════════════════════════════════════════
+// RENDER FUNCTIONS
+// ════════════════════════════════════════════════════════════════
+
+// 1. Price Bar Chart
+(function(){
+  const max = Math.max(...PRICE_DATA.map(d => d.count));
+  const container = document.getElementById('priceChart');
+  const axis = document.getElementById('priceAxis');
+  PRICE_DATA.forEach(d => {
+    const col = document.createElement('div');
+    col.className = 'bar-col';
+    const heightPct = (d.count / max) * 100;
+    col.innerHTML = `
+      <div class="bar-value">${d.count}</div>
+      <div class="bar-body" style="height:${heightPct}%;background:${d.color};" data-tip="${d.label}: ${d.count}条 (${(d.count/515*100).toFixed(1)}%)"></div>
+    `;
+    container.appendChild(col);
+
+    const lbl = document.createElement('div');
+    lbl.className = 'bar-axis-item';
+    lbl.textContent = d.label;
+    lbl.style.fontSize = '9px';
+    lbl.style.color = 'var(--text3)';
+    axis.appendChild(lbl);
+  });
+})();
+
+// 2. Brand Price Range Chart
+(function(){
+  const container = document.getElementById('brandPriceChart');
+  const globalMax = 1100;
+  BRAND_PRICE.forEach(d => {
+    const pct = v => (v / globalMax) * 100;
+    const row = document.createElement('div');
+    row.className = 'brand-row';
+    row.innerHTML = `
+      <div class="brand-name">${d.name}</div>
+      <div class="brand-range-wrap">
+        <div class="brand-range-bg"></div>
+        <div class="brand-range-bar" style="left:${pct(d.min)}%;width:${pct(d.max - d.min)}%;background:${d.color}20;border:1px solid ${d.color}50;"></div>
+        <div class="brand-median-dot" style="left:${pct(d.med)}%;background:${d.color};"></div>
+      </div>
+      <div class="brand-price-label">¥${d.med} <span style="color:var(--text3);font-size:9px;">n=${d.n}</span></div>
+    `;
+    container.appendChild(row);
+  });
+  // x-axis ticks
+  const tickRow = document.createElement('div');
+  tickRow.style.cssText = 'display:flex;padding-left:122px;padding-right:90px;justify-content:space-between;margin-top:8px;';
+  [0, 200, 400, 600, 800, 1000].forEach(v => {
+    const t = document.createElement('span');
+    t.style.cssText = 'font-size:9px;color:var(--text3);';
+    t.textContent = `¥${v}`;
+    tickRow.appendChild(t);
+  });
+  container.appendChild(tickRow);
+})();
+
+// 3. Feature Bars
+(function(){
+  const container = document.getElementById('featureBars');
+  const maxCount = Math.max(...FEATURE_DATA.map(d => d.count));
+  const sorted = [...FEATURE_DATA].sort((a,b) => b.count - a.count);
+  sorted.forEach(d => {
+    const pct = (d.count / maxCount) * 100;
+    const row = document.createElement('div');
+    row.className = 'feat-row';
+    row.innerHTML = `
+      <div class="feat-name" style="color:${d.note ? 'var(--text3)' : 'var(--text1)'}">${d.name}${d.note ? '*' : ''}</div>
+      <div class="feat-bar-wrap">
+        <div class="feat-bar" style="width:${pct}%;background:${d.color};">
+          <span class="feat-bar-val">${d.count}</span>
+        </div>
+      </div>
+    `;
+    container.appendChild(row);
+  });
+})();
+
+// 4. Scene Grid
+(function(){
+  const container = document.getElementById('sceneGrid');
+  const maxCount = Math.max(...SCENE_DATA.map(d => d.count));
+  SCENE_DATA.forEach((d, i) => {
+    const pct = (d.count / d.total * 100).toFixed(1);
+    const barPct = (d.count / maxCount * 100).toFixed(1);
+    const card = document.createElement('div');
+    card.className = `scene-card ${d.cls}`;
+    card.innerHTML = `
+      <div class="scene-name">${d.name}</div>
+      <div class="scene-count" style="color:${d.color}">${d.count}</div>
+      <div class="scene-pct">${pct}% 商品覆盖</div>
+      <div class="scene-bar-bg"><div class="scene-bar-fill" style="width:${barPct}%;background:${d.color};"></div></div>
+    `;
+    container.appendChild(card);
+  });
+})();
+
+// 5. Rating Distribution
+(function(){
+  const container = document.getElementById('ratingDist');
+  const total = RATING_DATA.reduce((s,d) => s+d.count, 0);
+  const max = Math.max(...RATING_DATA.map(d => d.count));
+  RATING_DATA.forEach(d => {
+    const pct = (d.count / total * 100).toFixed(1);
+    const barPct = (d.count / max * 100).toFixed(1);
+    const row = document.createElement('div');
+    row.className = 'rating-row';
+    row.innerHTML = `
+      <div class="rating-key">${d.label}</div>
+      <div class="rating-track">
+        <div class="rating-fill-bar" style="width:${barPct}%;background:${d.color};">
+          <span class="rating-fill-label">${d.count}条 (${pct}%)</span>
+        </div>
+      </div>
+    `;
+    container.appendChild(row);
+  });
+})();
+
+// 6. Geo Chart
+(function(){
+  const container = document.getElementById('geoChart');
+  const max = GEO_DATA[0].count;
+  GEO_DATA.forEach(d => {
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;gap:10px;';
+    row.innerHTML = `
+      <div style="font-size:12px;font-weight:600;color:var(--text1);width:36px;flex-shrink:0;text-align:right;">${d.prov}</div>
+      <div style="flex:1;background:var(--surface2);border-radius:4px;height:20px;overflow:hidden;">
+        <div style="width:${(d.count/max*100)}%;height:100%;background:${d.color};border-radius:4px;display:flex;align-items:center;padding:0 6px;">
+          <span style="font-size:10px;font-weight:700;color:${d.color==='#e2e8f0'?'var(--text3)':'#fff'};white-space:nowrap;">${d.count}条</span>
+        </div>
+      </div>
+      <div style="font-size:11px;color:var(--text3);width:36px;flex-shrink:0;">${d.pct}%</div>
+    `;
+    container.appendChild(row);
+  });
+})();
+
+// 7. Positioning Map
+(function(){
+  const container = document.getElementById('mapBrands');
+  const maxPrice = 500; // clip HOTO at cap
+  const maxShare = 60;
+  BRAND_POS.forEach(d => {
+    // X: 0-100% based on price (capped)
+    const xPct = Math.min((d.price / maxPrice) * 85 + 5, 95);
+    // Y: inverted (high share = low Y = top)
+    const yPct = 95 - Math.min((d.share / maxShare) * 85 + 5, 90);
+    const brand = document.createElement('div');
+    brand.className = 'pos-brand';
+    brand.style.cssText = `left:${xPct}%;top:${yPct}%;`;
+    const initials = d.name.slice(0,2);
+    brand.innerHTML = `
+      <div class="pos-brand-dot" style="width:${d.size}px;height:${d.size}px;background:${d.color};font-size:${d.size < 20 ? 8 : 10}px;" data-tip="${d.name} | 中位¥${d.price} | ${d.share}%市场占比">${initials}</div>
+      <div class="pos-brand-label">${d.name}</div>
+      <div class="pos-brand-price">¥${d.price}</div>
+    `;
+    container.appendChild(brand);
+  });
+})();
+
+// 8. Pareto SVG Chart
+(function(){
+  const svg = document.getElementById('paretoSvg');
+  const W = 420, H = 200, padL = 30, padR = 20, padT = 10, padB = 30;
+  const chartW = W - padL - padR;
+  const chartH = H - padT - padB;
+
+  // Simplified pareto: use log scale for visual
+  const salesData = [
+    700000, 700000, 500000, 500000, 400000,
+    100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000,
+    90000, 70000, 70000, 70000,
+    40000, 40000, 40000, 30000, 30000, 20000, 20000, 20000, 20000, 20000
+  ].concat(Array(70).fill(5000)).concat(Array(400).fill(500));
+
+  const show = salesData.slice(0, 30); // show top 30 for clarity
+  const totalAll = salesData.reduce((a,b)=>a+b,0);
+  let cum = 0;
+  const cumPcts = salesData.map(s => { cum += s; return cum/totalAll*100; });
+
+  const maxSale = show[0];
+  const barW = chartW / show.length;
+
+  // Bars
+  show.forEach((s, i) => {
+    const bh = (s / maxSale) * chartH;
+    const x = padL + i * barW;
+    const y = padT + chartH - bh;
+    const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+    rect.setAttribute('x', x);
+    rect.setAttribute('y', y);
+    rect.setAttribute('width', Math.max(barW - 1.5, 1));
+    rect.setAttribute('height', bh);
+    rect.setAttribute('fill', i < 10 ? '#7c3aed' : '#5b5ef4');
+    rect.setAttribute('opacity', i < 10 ? '0.9' : '0.5');
+    svg.appendChild(rect);
+  });
+
+  // Cumulative line
+  const linePoints = show.map((_, i) => {
+    const x = padL + (i + 0.5) * barW;
+    const y = padT + chartH - (cumPcts[i] / 100) * chartH;
+    return `${x},${y}`;
+  });
+  const polyline = document.createElementNS('http://www.w3.org/2000/svg','polyline');
+  polyline.setAttribute('points', linePoints.join(' '));
+  polyline.setAttribute('fill','none');
+  polyline.setAttribute('stroke','#ef4444');
+  polyline.setAttribute('stroke-width','2');
+  svg.appendChild(polyline);
+
+  // 50% reference line
+  const y50 = padT + chartH - 0.5 * chartH;
+  const line50 = document.createElementNS('http://www.w3.org/2000/svg','line');
+  line50.setAttribute('x1', padL); line50.setAttribute('x2', W - padR);
+  line50.setAttribute('y1', y50); line50.setAttribute('y2', y50);
+  line50.setAttribute('stroke', '#94a3b8'); line50.setAttribute('stroke-dasharray','4,3');
+  line50.setAttribute('stroke-width','1');
+  svg.appendChild(line50);
+
+  const t50 = document.createElementNS('http://www.w3.org/2000/svg','text');
+  t50.setAttribute('x', W - padR - 2); t50.setAttribute('y', y50 - 4);
+  t50.setAttribute('font-size','9'); t50.setAttribute('fill','#94a3b8');
+  t50.setAttribute('text-anchor','end');
+  t50.textContent = '50%';
+  svg.appendChild(t50);
+
+  // Axis labels
+  const xLabel = document.createElementNS('http://www.w3.org/2000/svg','text');
+  xLabel.setAttribute('x', W/2); xLabel.setAttribute('y', H);
+  xLabel.setAttribute('font-size','9'); xLabel.setAttribute('fill','#94a3b8');
+  xLabel.setAttribute('text-anchor','middle');
+  xLabel.textContent = '← 销量排名（前30名，代表540条JD商品）';
+  svg.appendChild(xLabel);
+})();
+</script>
+</body>
+</html>

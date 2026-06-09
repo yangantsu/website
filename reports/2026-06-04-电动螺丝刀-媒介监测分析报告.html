@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>电动精修螺丝刀 — 线上媒介提及分析报告</title>
+<style>
+  :root {
+    --bg: #f7f8fa;
+    --card: #ffffff;
+    --border: #e8eaed;
+    --text: #0d0f12;
+    --text2: #56616e;
+    --text3: #9aa0ad;
+    --accent: #5b4cf5;
+    --accent-l: #ede9ff;
+    --blue: #0ea5e9;
+    --blue-l: #e0f2fe;
+    --green: #10b981;
+    --green-l: #ecfdf5;
+    --red: #ef4444;
+    --red-l: #fef2f2;
+    --amber: #f59e0b;
+    --amber-l: #fffbeb;
+    --orange: #f97316;
+    --orange-l: #fff7ed;
+    --r: 12px;
+    --r-s: 8px;
+    --sh: 0 1px 4px rgba(0,0,0,.06);
+    --sh-m: 0 4px 16px rgba(0,0,0,.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'PingFang SC', sans-serif; background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; }
+  .page { max-width: 1140px; margin: 0 auto; padding: 48px 24px 80px; }
+
+  /* ——— Header ——— */
+  .header { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); padding: 40px 48px 32px; margin-bottom: 24px; position: relative; overflow: hidden; }
+  .header::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--blue), var(--green)); }
+  .header-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; flex-wrap: wrap; }
+  .header-left { flex: 1; min-width: 280px; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+  .tag { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; letter-spacing: .3px; }
+  .tag-p { background: var(--accent-l); color: var(--accent); }
+  .tag-b { background: var(--blue-l); color: var(--blue); }
+  .tag-g { background: var(--bg); color: var(--text2); border: 1px solid var(--border); }
+  .tag-amber { background: var(--amber-l); color: var(--amber); }
+  .header-title { font-size: 30px; font-weight: 700; letter-spacing: -.5px; line-height: 1.2; margin-bottom: 6px; }
+  .header-sub { font-size: 15px; color: var(--text2); }
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .kpi { }
+  .kpi-val { font-size: 28px; font-weight: 700; letter-spacing: -.5px; }
+  .kpi-label { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .kpi-sub { font-size: 12px; color: var(--text2); }
+
+  /* ——— Layout ——— */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .section { margin-top: 28px; }
+  .section-label { font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text3); margin-bottom: 10px; }
+  .section-title { font-size: 20px; font-weight: 700; letter-spacing: -.3px; margin-bottom: 14px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); padding: 24px; box-shadow: var(--sh); }
+  .card-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; color: var(--text2); margin-bottom: 14px; }
+
+  /* ——— Alert box ——— */
+  .alert { border-radius: var(--r-s); padding: 14px 16px; font-size: 13px; line-height: 1.6; margin-bottom: 16px; }
+  .alert-amber { background: var(--amber-l); border: 1px solid #fde68a; color: #92400e; }
+  .alert-red { background: var(--red-l); border: 1px solid #fca5a5; color: #991b1b; }
+  .alert-green { background: var(--green-l); border: 1px solid #6ee7b7; color: #065f46; }
+  .alert-blue { background: var(--blue-l); border: 1px solid #7dd3fc; color: #0c4a6e; }
+
+  /* ——— Trend chart (pure CSS bars) ——— */
+  .trend-chart { display: flex; align-items: flex-end; gap: 12px; height: 180px; padding: 0 0 32px; border-bottom: 1px solid var(--border); position: relative; }
+  .trend-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; height: 100%; justify-content: flex-end; }
+  .trend-bars { display: flex; gap: 3px; align-items: flex-end; width: 100%; }
+  .trend-bar { flex: 1; border-radius: 3px 3px 0 0; transition: opacity .2s; min-height: 2px; }
+  .bar-mention { background: var(--accent); opacity: .75; }
+  .bar-ave { background: var(--green); opacity: .85; }
+  .trend-month { font-size: 11px; color: var(--text3); margin-top: 6px; font-weight: 500; }
+  .trend-val { font-size: 11px; font-weight: 600; color: var(--text); }
+  .trend-legend { display: flex; gap: 16px; margin-top: 12px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text2); }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+
+  /* ——— Sentiment bar ——— */
+  .sent-bar-wrap { height: 14px; border-radius: 4px; overflow: hidden; display: flex; margin: 8px 0; }
+  .sent-seg { height: 100%; }
+  .sent-pos { background: var(--green); }
+  .sent-neg { background: var(--red); }
+  .sent-neu { background: #cbd5e1; }
+  .sent-labels { display: flex; gap: 16px; flex-wrap: wrap; }
+  .sent-label { display: flex; align-items: center; gap: 5px; font-size: 12px; }
+  .sent-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  /* ——— Brand SOV ——— */
+  .sov-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .sov-brand { font-size: 13px; font-weight: 600; width: 100px; flex-shrink: 0; }
+  .sov-bar-wrap { flex: 1; height: 26px; background: var(--bg); border-radius: 5px; overflow: hidden; }
+  .sov-bar { height: 100%; border-radius: 5px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 700; color: white; }
+  .sov-count { font-size: 12px; color: var(--text2); width: 60px; text-align: right; flex-shrink: 0; }
+  .sov-note { font-size: 11px; color: var(--text3); margin-left: 4px; }
+
+  /* ——— Topic theme pills ——— */
+  .theme-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .theme-card { border: 1px solid var(--border); border-radius: var(--r-s); padding: 14px 16px; }
+  .theme-card:hover { border-color: var(--accent); background: var(--accent-l); }
+  .theme-name { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .theme-meta { display: flex; gap: 10px; }
+  .theme-num { font-size: 20px; font-weight: 700; color: var(--accent); }
+  .theme-ave { font-size: 12px; color: var(--text2); }
+
+  /* ——— Signal cards ——— */
+  .signal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .signal-card { border-radius: var(--r-s); padding: 18px; border: 1px solid var(--border); }
+  .signal-icon { font-size: 20px; margin-bottom: 8px; }
+  .signal-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+  .signal-body { font-size: 12px; color: var(--text2); line-height: 1.5; }
+  .signal-source { font-size: 11px; color: var(--text3); margin-top: 6px; }
+
+  /* ——— Article rows ——— */
+  .article-row { padding: 14px 0; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: start; }
+  .article-row:last-child { border-bottom: none; }
+  .article-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; line-height: 1.4; }
+  .article-meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .article-hit { font-size: 12px; color: var(--text2); margin-top: 5px; font-style: italic; line-height: 1.5; }
+  .article-hit mark { background: #fef08a; padding: 0 2px; border-radius: 2px; font-style: normal; font-weight: 600; }
+  .ave-badge { font-size: 13px; font-weight: 700; color: var(--green); white-space: nowrap; }
+
+  /* ——— Data quality note ——— */
+  .noise-table { width: 100%; border-collapse: collapse; }
+  .noise-table th { text-align: left; font-size: 11px; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; color: var(--text3); padding: 8px 12px; border-bottom: 1px solid var(--border); }
+  .noise-table td { padding: 11px 12px; border-bottom: 1px solid var(--border); font-size: 13px; vertical-align: top; }
+  .noise-table tr:last-child td { border-bottom: none; }
+
+  /* ——— Implication table ——— */
+  .impl-table { width: 100%; border-collapse: collapse; }
+  .impl-table th { text-align: left; font-size: 11px; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; color: var(--text3); padding: 8px 14px; border-bottom: 2px solid var(--border); }
+  .impl-table td { padding: 13px 14px; border-bottom: 1px solid var(--border); font-size: 13.5px; vertical-align: top; }
+  .impl-table tr:last-child td { border-bottom: none; }
+  .impl-table tr:hover td { background: var(--bg); }
+  .prio { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; padding: 3px 8px; border-radius: 20px; }
+  .prio-red { background: var(--red-l); color: var(--red); }
+  .prio-amber { background: var(--amber-l); color: var(--amber); }
+  .prio-green { background: var(--green-l); color: var(--green); }
+
+  .footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; font-size: 12px; color: var(--text3); }
+  @media (max-width: 768px) {
+    .grid-2, .grid-3, .theme-grid, .signal-grid { grid-template-columns: 1fr; }
+    .kpi-grid { grid-template-columns: 1fr 1fr; }
+    .header { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ============ HEADER ============ -->
+<div class="header">
+  <div class="header-top">
+    <div class="header-left">
+      <div class="tag-row">
+        <span class="tag tag-p">媒介监测分析</span>
+        <span class="tag tag-b">中国市场</span>
+        <span class="tag tag-g">电动精修螺丝刀</span>
+        <span class="tag tag-g">Meltwater · 排除通告</span>
+        <span class="tag tag-amber">2026-01 → 06-04</span>
+      </div>
+      <div class="header-title">电动精修螺丝刀<br>线上媒介提及分析报告</div>
+      <div class="header-sub">关键词：电动精修螺丝刀 OR 精修螺丝刀 OR 电动螺丝刀 · 已排除通告类内容</div>
+    </div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-val">1,310</div>
+      <div class="kpi-label">总媒介提及数</div>
+      <div class="kpi-sub">6个月有效监测期</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val" style="color:var(--green)">¥3,297万</div>
+      <div class="kpi-label">总广告等值 (AVE)</div>
+      <div class="kpi-sub">中位数¥0（头部集中）</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val" style="color:var(--accent)">35.6亿</div>
+      <div class="kpi-label">总触达人次 (Reach)</div>
+      <div class="kpi-sub">含平台重复分发</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-val" style="color:var(--amber)">27.8%</div>
+      <div class="kpi-label">正面情绪占比</div>
+      <div class="kpi-sub">负面仅 3.3%</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ DATA QUALITY WARNING ============ -->
+<div class="alert alert-amber">
+  ⚠️ <strong>数据质量提示（分析前必读）：</strong> 本批1,310条提及中，约 <strong>60-70%</strong> 为关键词"搭便车"的噪音（电动螺丝刀作为背景词出现于非品类文章）。真正与电动精修螺丝刀<em>产品/品牌/市场</em>相关的信号约 <strong>350-450条</strong>。Fanttik×DRG赞助事件制造的同质化稿件占<strong>117条</strong>，已在分析中独立标注。以下所有洞察均基于去噪后的有效信号。
+</div>
+
+<!-- ============ MONTHLY TREND ============ -->
+<div class="section">
+  <div class="section-label">声量趋势</div>
+  <div class="section-title">月度提及量 & AVE 趋势（2026年1月—6月初）</div>
+  <div class="card">
+    <!-- Chart: scale mentions max=330, ave max=11M -->
+    <div class="trend-chart">
+      <!-- Jan: 193 mentions, AVE 4.69M -->
+      <div class="trend-col">
+        <div class="trend-val">193</div>
+        <div class="trend-bars">
+          <div class="trend-bar bar-mention" style="height:105px"></div>
+          <div class="trend-bar bar-ave" style="height:77px"></div>
+        </div>
+        <div class="trend-month">1月</div>
+      </div>
+      <!-- Feb: 68 mentions, AVE 3.16M -->
+      <div class="trend-col">
+        <div class="trend-val">68</div>
+        <div class="trend-bars">
+          <div class="trend-bar bar-mention" style="height:37px"></div>
+          <div class="trend-bar bar-ave" style="height:52px"></div>
+        </div>
+        <div class="trend-month">2月</div>
+      </div>
+      <!-- Mar: 268 mentions, AVE 6.36M -->
+      <div class="trend-col">
+        <div class="trend-val">268</div>
+        <div class="trend-bars">
+          <div class="trend-bar bar-mention" style="height:146px"></div>
+          <div class="trend-bar bar-ave" style="height:104px"></div>
+        </div>
+        <div class="trend-month">3月</div>
+      </div>
+      <!-- Apr: 302 mentions, AVE 10.99M — PEAK AVE -->
+      <div class="trend-col">
+        <div class="trend-val" style="color:var(--accent);font-weight:700">302</div>
+        <div class="trend-bars">
+          <div class="trend-bar bar-mention" style="height:164px"></div>
+          <div class="trend-bar bar-ave" style="height:160px; opacity:1;"></div>
+        </div>
+        <div class="trend-month" style="color:var(--accent);font-weight:600">4月★</div>
+      </div>
+      <!-- May: 330 mentions — PEAK VOLUME, AVE 5.18M -->
+      <div class="trend-col">
+        <div class="trend-val" style="color:var(--green);font-weight:700">330</div>
+        <div class="trend-bars">
+          <div class="trend-bar bar-mention" style="height:180px; opacity:1;"></div>
+          <div class="trend-bar bar-ave" style="height:85px"></div>
+        </div>
+        <div class="trend-month" style="color:var(--green);font-weight:600">5月★</div>
+      </div>
+      <!-- Jun: 149 (partial, 4 days only) -->
+      <div class="trend-col">
+        <div class="trend-val" style="color:var(--text3)">149*</div>
+        <div class="trend-bars">
+          <div class="trend-bar bar-mention" style="height:81px; opacity:.5;"></div>
+          <div class="trend-bar bar-ave" style="height:42px; opacity:.5;"></div>
+        </div>
+        <div class="trend-month" style="color:var(--text3)">6月†</div>
+      </div>
+    </div>
+    <div class="trend-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent);opacity:.75"></div> 提及量（条）</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green);opacity:.85"></div> AVE（相对值）</div>
+      <div style="font-size:11px; color:var(--text3); margin-left: auto;">† 6月数据截至6月4日，仅4天</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px;padding-top:16px;border-top:1px solid var(--border);">
+      <div style="text-align:center;">
+        <div style="font-size:13px;font-weight:700;color:var(--accent)">4月</div>
+        <div style="font-size:12px;color:var(--text2)">AVE峰值月（¥1,100万）</div>
+        <div style="font-size:11px;color:var(--text3)">高质量稿件集中</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:13px;font-weight:700;color:var(--green)">5月</div>
+        <div style="font-size:12px;color:var(--text2)">声量峰值月（330条）</div>
+        <div style="font-size:11px;color:var(--text3)">Fanttik出海故事发酵期</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-size:13px;font-weight:700;color:var(--amber)">6月初</div>
+        <div style="font-size:12px;color:var(--text2)">DRG赞助稿件爆发</div>
+        <div style="font-size:11px;color:var(--text3)">正面情绪占比跳升至80%+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SENTIMENT + SOURCE TYPE ============ -->
+<div class="section grid-2">
+  <!-- Sentiment -->
+  <div>
+    <div class="section-label">情绪分布</div>
+    <div class="card">
+      <div class="card-title">整体情绪（1,310条）</div>
+      <div class="sent-bar-wrap">
+        <div class="sent-seg sent-pos" style="width:27.8%"></div>
+        <div class="sent-seg sent-neu" style="width:68.7%"></div>
+        <div class="sent-seg sent-neg" style="width:3.3%"></div>
+      </div>
+      <div class="sent-labels" style="margin-bottom:20px;">
+        <div class="sent-label"><div class="sent-dot" style="background:var(--green)"></div> 正面 27.8%（364条）</div>
+        <div class="sent-label"><div class="sent-dot" style="background:#cbd5e1"></div> 中性 68.7%（900条）</div>
+        <div class="sent-label"><div class="sent-dot" style="background:var(--red)"></div> 负面 3.3%（43条）</div>
+      </div>
+      <div style="border-top:1px solid var(--border);padding-top:14px;">
+        <div class="card-title" style="margin-bottom:10px;">月度情绪变化</div>
+        <table style="width:100%;font-size:12px;border-collapse:collapse;">
+          <tr style="color:var(--text3)"><td style="padding:4px 6px;">月份</td><td style="padding:4px 6px;">提及</td><td style="padding:4px 6px;color:var(--green)">正面</td><td style="padding:4px 6px;color:var(--red)">负面</td><td style="padding:4px 6px;">正面率</td></tr>
+          <tr><td style="padding:5px 6px;">1月</td><td>193</td><td style="color:var(--green)">43</td><td style="color:var(--red)">14</td><td>22%</td></tr>
+          <tr style="background:var(--bg)"><td style="padding:5px 6px;">2月</td><td>68</td><td style="color:var(--green)">6</td><td style="color:var(--red)">4</td><td>9%</td></tr>
+          <tr><td style="padding:5px 6px;">3月</td><td>268</td><td style="color:var(--green)">15</td><td style="color:var(--red)">11</td><td>6%</td></tr>
+          <tr style="background:var(--bg)"><td style="padding:5px 6px;">4月</td><td>302</td><td style="color:var(--green);font-weight:700">125</td><td style="color:var(--red)">3</td><td style="font-weight:700;color:var(--green)">41%</td></tr>
+          <tr><td style="padding:5px 6px;">5月</td><td>330</td><td style="color:var(--green)">56</td><td style="color:var(--red)">7</td><td>17%</td></tr>
+          <tr style="background:var(--amber-l)"><td style="padding:5px 6px;font-weight:600">6月*</td><td>149</td><td style="color:var(--green);font-weight:700">119</td><td style="color:var(--red)">4</td><td style="font-weight:700;color:var(--green)">80%</td></tr>
+        </table>
+        <div style="font-size:11px;color:var(--amber);margin-top:8px;">⚡ 6月正面率80%异常 = Fanttik×DRG赞助稿件（117条正面）所致，非市场情绪真实改变</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Source type -->
+  <div>
+    <div class="section-label">来源结构</div>
+    <div class="card">
+      <div class="card-title">媒介类型分布</div>
+      <div class="sov-row">
+        <div class="sov-brand">在线新闻</div>
+        <div class="sov-bar-wrap"><div class="sov-bar" style="width:84%;background:var(--accent);">1,105条</div></div>
+        <div class="sov-count">84.4%</div>
+      </div>
+      <div class="sov-row">
+        <div class="sov-brand">论坛/社区</div>
+        <div class="sov-bar-wrap"><div class="sov-bar" style="width:15%;background:var(--blue);">197条</div></div>
+        <div class="sov-count">15.0%</div>
+      </div>
+      <div class="sov-row">
+        <div class="sov-brand">社交媒体</div>
+        <div class="sov-bar-wrap"><div class="sov-bar" style="width:1%;background:var(--green);min-width:30px;">8条</div></div>
+        <div class="sov-count">0.6%</div>
+      </div>
+      <div style="border-top:1px solid var(--border);padding-top:14px;margin-top:14px;">
+        <div class="card-title" style="margin-bottom:10px;">TOP 发布来源（去重）</div>
+        <div class="sov-row">
+          <div class="sov-brand" style="width:130px">论坛（汇总）</div>
+          <div class="sov-bar-wrap"><div class="sov-bar" style="width:85%;background:#6366f1;">197</div></div>
+        </div>
+        <div class="sov-row">
+          <div class="sov-brand" style="width:130px">懂车帝</div>
+          <div class="sov-bar-wrap"><div class="sov-bar" style="width:65%;background:#8b5cf6;">171</div></div>
+        </div>
+        <div class="sov-row">
+          <div class="sov-brand" style="width:130px">电子发烧友</div>
+          <div class="sov-bar-wrap"><div class="sov-bar" style="width:24%;background:#a78bfa;">63</div></div>
+        </div>
+        <div class="sov-row">
+          <div class="sov-brand" style="width:130px">搜狐新闻</div>
+          <div class="sov-bar-wrap"><div class="sov-bar" style="width:20%;background:#c4b5fd;">53</div></div>
+        </div>
+        <div class="sov-row">
+          <div class="sov-brand" style="width:130px">今日头条</div>
+          <div class="sov-bar-wrap"><div class="sov-bar" style="width:16%;background:#ddd6fe;">41</div></div>
+        </div>
+        <div class="sov-row">
+          <div class="sov-brand" style="width:130px">中关村在线</div>
+          <div class="sov-bar-wrap"><div class="sov-bar" style="width:15%;background:#ede9ff;color:var(--accent);">39</div></div>
+        </div>
+      </div>
+      <div style="margin-top:12px;padding:10px 12px;background:var(--blue-l);border-radius:6px;font-size:12px;color:#0c4a6e;">
+        ℹ️ 懂车帝（171条）出现高频，源于同质文章在汽车垂媒平台大量分发——典型内容分发噪音，与汽车品类无关。
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ BRAND SOV ============ -->
+<div class="section">
+  <div class="section-label">品牌声量</div>
+  <div class="section-title">品牌提及份额（媒介提及中出现次数）</div>
+  <div class="alert alert-amber">
+    ⚠️ <strong>关键解读限制：</strong> 本数据为媒介文章提及次数，<strong>不等于品牌口碑或市场份额</strong>。Fanttik高声量主因是主动PR投放（出海故事+DRG赞助）。TTI高提及主因是作为专业工具供应商出现在行业展会报道中。
+  </div>
+  <div class="card">
+    <div class="sov-row">
+      <div class="sov-brand">Fanttik</div>
+      <div class="sov-bar-wrap">
+        <div class="sov-bar" style="width:90%;background:linear-gradient(90deg,#f97316,#fb923c);">146条</div>
+      </div>
+      <div class="sov-count">146</div>
+      <div class="sov-note">⚡ PR主导：出海故事 + DRG赞助稿 + 618大促联动</div>
+    </div>
+    <div class="sov-row">
+      <div class="sov-brand">TTI集团</div>
+      <div class="sov-bar-wrap">
+        <div class="sov-bar" style="width:89%;background:linear-gradient(90deg,#6366f1,#818cf8);">145条</div>
+      </div>
+      <div class="sov-count">145</div>
+      <div class="sov-note">⚙️ 行业展会/工业自动化报道背景提及，非消费品类</div>
+    </div>
+    <div class="sov-row">
+      <div class="sov-brand">小米/米家</div>
+      <div class="sov-bar-wrap">
+        <div class="sov-bar" style="width:20%;background:var(--amber);">32条</div>
+      </div>
+      <div class="sov-count">32</div>
+      <div class="sov-note">消费市场真实声量，有机为主</div>
+    </div>
+    <div class="sov-row">
+      <div class="sov-brand">博世</div>
+      <div class="sov-bar-wrap">
+        <div class="sov-bar" style="width:9%;background:#0ea5e9;">15条</div>
+      </div>
+      <div class="sov-count">15</div>
+      <div class="sov-note">多为专业工具背书引用</div>
+    </div>
+    <div class="sov-row">
+      <div class="sov-brand">大有</div>
+      <div class="sov-bar-wrap">
+        <div class="sov-bar" style="width:6%;background:#10b981;">9条</div>
+      </div>
+      <div class="sov-count">9</div>
+    </div>
+    <div class="sov-row">
+      <div class="sov-brand">HOTO小猴</div>
+      <div class="sov-bar-wrap">
+        <div class="sov-bar" style="width:5%;background:#8b5cf6;">8条</div>
+      </div>
+      <div class="sov-count">8</div>
+      <div class="sov-note">媒体曝光极低，与其设计溢价定位不符</div>
+    </div>
+    <div style="margin-top:14px;padding:12px 14px;background:var(--red-l);border-radius:8px;font-size:12px;color:#991b1b;line-height:1.6;">
+      <strong>⚡ 关键信号：</strong> HOTO仅8条媒介提及，远低于其在小红书/抖音的消费者声量。说明HOTO完全靠社媒种草驱动，没有媒介PR布局，是媒体层面的空白。
+    </div>
+  </div>
+</div>
+
+<!-- ============ TOPIC ANALYSIS ============ -->
+<div class="section">
+  <div class="section-label">话题结构分析</div>
+  <div class="section-title">媒介提及内容分布（去噪后）</div>
+  <div class="theme-grid">
+    <div class="theme-card">
+      <div class="theme-name">🔧 PC装机/DIY场景</div>
+      <div class="theme-meta">
+        <div class="theme-num">221</div>
+        <div class="theme-ave" style="margin-top:6px;">AVE ¥758万<br><span style="color:var(--text3)">最高有机声量话题</span></div>
+      </div>
+      <div style="font-size:12px;color:var(--text2);margin-top:8px;">装机社区（NGA）用户自发提及，真实使用场景——组装台式PC、拧散热固定螺丝。是电动螺丝刀最高频的有机使用语境。</div>
+    </div>
+    <div class="theme-card" style="border-color:var(--orange);">
+      <div class="theme-name">🚀 Fanttik出海/品牌故事</div>
+      <div class="theme-meta">
+        <div class="theme-num" style="color:var(--orange)">180</div>
+        <div class="theme-ave" style="margin-top:6px;">AVE ¥350万<br><span style="color:var(--text3)">主动PR驱动</span></div>
+      </div>
+      <div style="font-size:12px;color:var(--text2);margin-top:8px;">"从濒临倒闭到NBA赛场""3年1亿美元"——搜狐/网易等主流媒体转载，是最成功的品牌叙事。国内读者通过此叙事认知Fanttik。</div>
+    </div>
+    <div class="theme-card">
+      <div class="theme-name">⚙️ 工业自动化/展会</div>
+      <div class="theme-meta">
+        <div class="theme-num">229</div>
+        <div class="theme-ave" style="margin-top:6px;">AVE ¥381万<br><span style="color:var(--text3)">品类噪音，剔除</span></div>
+      </div>
+      <div style="font-size:12px;color:var(--text2);margin-top:8px;">TTI/英格索兰等工业品牌展会稿。电动螺丝刀作为工业设备出现，与消费精密工具市场无关。建议后续监测设置品类过滤。</div>
+    </div>
+    <div class="theme-card" style="border-color:var(--accent);">
+      <div class="theme-name">🎮 Fanttik×DRG电竞赞助</div>
+      <div class="theme-meta">
+        <div class="theme-num" style="color:var(--accent)">117</div>
+        <div class="theme-ave" style="margin-top:6px;">AVE ¥42万<br><span style="color:var(--text3)">单事件，6月1-2日爆发</span></div>
+      </div>
+      <div style="font-size:12px;color:var(--text2);margin-top:8px;">Fanttik与DRG无畏契约分部官宣合作，E2 Ultra精修螺丝刀作为首推产品。117条同质化稿，单价低但批量大。电竞场景切入是行业首创。</div>
+    </div>
+    <div class="theme-card">
+      <div class="theme-name">📱 数码/电子维修</div>
+      <div class="theme-meta">
+        <div class="theme-num">281</div>
+        <div class="theme-ave" style="margin-top:6px;">AVE ¥403万<br><span style="color:var(--text3)">高质量有机场景</span></div>
+      </div>
+      <div style="font-size:12px;color:var(--text2);margin-top:8px;">锂电池保护板DIY、半导体开发笔记、手机维修等场景。电动螺丝刀作为"标准工具"自然出现——是品类真实使用深度的体现。</div>
+    </div>
+    <div class="theme-card" style="border-color:var(--green);">
+      <div class="theme-name">💬 用户购买咨询/推荐</div>
+      <div class="theme-meta">
+        <div class="theme-num" style="color:var(--green)">13</div>
+        <div class="theme-ave" style="margin-top:6px;">AVE ¥12万<br><span style="color:var(--text3)">高价值购买意图信号</span></div>
+      </div>
+      <div style="font-size:12px;color:var(--text2);margin-top:8px;">"有没有推荐100以内的""哪个品牌质量好"——样本小但购买意图明确，是转化率最高的内容场景。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ KEY SIGNALS ============ -->
+<div class="section">
+  <div class="section-label">产品决策关键信号</div>
+  <div class="section-title">从媒介提及中提炼的产品/市场信号</div>
+  <div class="signal-grid">
+    <div class="signal-card" style="border-left:4px solid var(--orange);">
+      <div class="signal-icon">🎯</div>
+      <div class="signal-title">Fanttik开创"电竞场景"叙事，是品类第一个场景定义者</div>
+      <div class="signal-body">E2 Ultra定位"电竞设备维护工具"，联动DRG赞助，6月1-2日117条稿件同步发出。这是整个电动精修螺丝刀品类首次被系统性锚定在电竞场景——不只是卖产品，而是定义了一个新的使用身份（电竞玩家的必备工具）。</div>
+      <div class="signal-source">来源：117条Fanttik×DRG报道 · 6月1-2日 · 搜狐/新浪/凤凰/今日头条</div>
+    </div>
+    <div class="signal-card" style="border-left:4px solid var(--accent);">
+      <div class="signal-icon">📖</div>
+      <div class="signal-title">Fanttik"出海故事"是本周期媒介影响力最高的单一叙事</div>
+      <div class="signal-body">"从濒临倒闭到NBA赛场大屏""3年1亿美元"的出海叙事，4-5月在搜狐/网易等主流媒体大量转载。AVE最高单篇¥18.6万。这个叙事让国内消费者通过"民族品牌出海成功"的情感框架认知Fanttik，品牌溢价建立路径清晰。</div>
+      <div class="signal-source">来源：搜狐AVE¥18.6万稿件 · 5月1日 · 180条出海相关报道</div>
+    </div>
+    <div class="signal-card" style="border-left:4px solid var(--green);">
+      <div class="signal-icon">🖥️</div>
+      <div class="signal-title">PC装机/DIY是最大有机使用场景，现有品牌均未明确占据</div>
+      <div class="signal-body">论坛（NGA等）221条自发提及，用户装机时将电动螺丝刀视为标配——"买了个电动螺丝刀，得亏装之前买了"。这个场景真实、高频、购买意图明确，但没有任何品牌系统性布局装机KOL或装机内容。是一个被忽视的高价值渠道。</div>
+      <div class="signal-source">来源：NGA玩家社区、3DMGAME、中关村在线 · 221条有机提及</div>
+    </div>
+    <div class="signal-card" style="border-left:4px solid var(--red);">
+      <div class="signal-icon">⚠️</div>
+      <div class="signal-title">负面信号核心：扭力不足 + 不适合电脑主板（场景错配）</div>
+      <div class="signal-body">论坛负面评论高频出现："电脑配件不建议用电动螺丝刀，主板很脆弱拧坏了你就哭吧"、"装机用电动螺丝刀，拧到最紧"（被多人批评）。核心问题依然是品类定义缺失——精密工具 vs 电脑硬件螺丝的扭力需求差异无人清楚沟通。</div>
+      <div class="signal-source">来源：43条负面提及 · NGA论坛为主 · 全年持续出现</div>
+    </div>
+    <div class="signal-card" style="border-left:4px solid var(--blue);">
+      <div class="signal-icon">🏆</div>
+      <div class="signal-title">618大促期间，电动螺丝刀被用作赠品 = 品类进入礼品/赠品认知</div>
+      <div class="signal-body">AMD联合京东618大促，"晒单抽电动螺丝刀"作为促销赠品。这是首次在大型数码促销活动中出现电动螺丝刀作为赠品——说明品类在科技圈已具备足够知名度和认可度，可作为促销奖励。</div>
+      <div class="signal-source">来源：网易新闻AVE¥31.5万 · 2026-06-03 · AMD×京东618联动</div>
+    </div>
+    <div class="signal-card" style="border-left:4px solid var(--amber);">
+      <div class="signal-icon">🤖</div>
+      <div class="signal-title">IoT/智能家居场景正在自然嫁接精密工具（非主动营销）</div>
+      <div class="signal-body">懂车帝"800库储物间"文章（AVE¥1.3万，171次分发）："什么工具箱、电动螺丝刀、梯子全放进去，要用什么一目了然"——生活方式内容中电动螺丝刀作为"家居必备工具"自然出现。品类正在悄悄进入"智能生活装备"叙事体系。</div>
+      <div class="signal-source">来源：懂车帝 171次分发 · 家居/收纳类内容</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HIGH VALUE ARTICLES ============ -->
+<div class="section">
+  <div class="section-label">标杆内容分析</div>
+  <div class="section-title">高价值产品相关文章（产品决策视角精选）</div>
+  <div class="card" style="padding: 0 24px;">
+    <div class="article-row">
+      <div>
+        <div class="article-title">从濒临倒闭，到登上NBA赛场大屏，国产螺丝刀成老外的梦中情刀！</div>
+        <div class="article-meta">
+          <span class="tag tag-amber">正面</span>
+          <span class="tag tag-g">搜狐新闻</span>
+          <span class="tag tag-g">2026-05-01</span>
+        </div>
+        <div class="article-hit">核心叙事：Fanttik出海成功故事。篮球赛场、UFC格斗擂台都能看到深圳品牌，<mark>几年前还在生死边缘苦苦挣扎</mark>。是本周期效果最好的品牌叙事——通过"出海成功"建立国内溢价认知。</div>
+      </div>
+      <div class="ave-badge">¥18.6万</div>
+    </div>
+    <div class="article-row">
+      <div>
+        <div class="article-title">3年1亿美元！广东制造的螺丝刀让老外"上头"</div>
+        <div class="article-meta">
+          <span class="tag tag-g">搜狐新闻</span>
+          <span class="tag tag-g">2026-04-28</span>
+        </div>
+        <div class="article-hit">Fanttik出海叙事同系列，<mark>3年营收1亿美元</mark>的具体数字增强了可信度。与5月1日文章形成话题矩阵，两篇合计达成约800万有效曝光。</div>
+      </div>
+      <div class="ave-badge">¥18.6万</div>
+    </div>
+    <div class="article-row">
+      <div>
+        <div class="article-title">Fanttik 携手 DRG 无畏契约分部：以精密工具致敬专业电竞</div>
+        <div class="article-meta">
+          <span class="tag tag-p">正面</span>
+          <span class="tag tag-g">多平台同步</span>
+          <span class="tag tag-g">2026-06-02</span>
+        </div>
+        <div class="article-hit">首款推广产品：<mark>Fanttik E2 Ultra 电动精修螺丝刀</mark>。已成为众多数码维修从业者、DIY发烧友和电竞玩家的桌面常备工具。电竞场景切入精准——维修改装电竞设备是高频需求。</div>
+      </div>
+      <div class="ave-badge">单篇~¥1-17万<br><span style="font-size:11px;color:var(--text3)">117条汇总</span></div>
+    </div>
+    <div class="article-row">
+      <div>
+        <div class="article-title">小身材大能量的精密拆装利器（懂车帝·产品评测）</div>
+        <div class="article-meta">
+          <span class="tag tag-p">正面</span>
+          <span class="tag tag-g">懂车帝</span>
+          <span class="tag tag-g">2026-06-02</span>
+        </div>
+        <div class="article-hit">真正理想的迷你电动螺丝刀：<mark>全铝CNC一体化机身，在锁紧螺丝的瞬间能够自动停止，避免滑丝或损坏工件</mark>。拿在手里能感受到精密制造的扎实质感，静置时又像一件工业艺术品。——这是整批数据中少数真正聚焦产品体验的有机评测。</div>
+      </div>
+      <div class="ave-badge">¥1.3万</div>
+    </div>
+    <div class="article-row">
+      <div>
+        <div class="article-title">电竞装备组装维修利器：Fanttik E2 Ultra，618 大促同步开启</div>
+        <div class="article-meta">
+          <span class="tag tag-p">正面</span>
+          <span class="tag tag-g">搜狐新闻</span>
+          <span class="tag tag-g">2026-06-01</span>
+        </div>
+        <div class="article-hit">将产品直接嵌入618大促活动，电竞赞助与商业转化同步运营。<mark>Fanttik将电竞赞助、出海故事、大促打折三条营销线路并行运转</mark>，是本期最完整的品牌营销战役。</div>
+      </div>
+      <div class="ave-badge">¥16.9万</div>
+    </div>
+    <div class="article-row">
+      <div>
+        <div class="article-title">硬核拆解23元"绿林"电动螺丝刀，廉价电动工具≠电子垃圾（今日头条）</div>
+        <div class="article-meta">
+          <span class="tag tag-g">今日头条</span>
+          <span class="tag tag-g">2026-06-01</span>
+        </div>
+        <div class="article-hit">拆解低价款绿林螺丝刀，探讨<mark>"廉价≠垃圾"</mark>的性价比叙事。是消费端对低价品类的主动评测内容，表明品类已具备内容生态深度——消费者开始自发研究品类，而非仅依赖品牌信息。</div>
+      </div>
+      <div class="ave-badge">¥9.6万</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ NOISE ANALYSIS ============ -->
+<div class="section">
+  <div class="section-label">数据质量解析</div>
+  <div class="section-title">噪音识别 — 哪些提及不具参考价值</div>
+  <div class="card" style="padding: 0; overflow: hidden;">
+    <table class="noise-table">
+      <thead>
+        <tr>
+          <th>噪音类型</th>
+          <th>估计量</th>
+          <th>典型来源</th>
+          <th>识别特征</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>工业/自动化展会报道</strong></td>
+          <td>~200条</td>
+          <td>中华工控网、电子工程世界</td>
+          <td>"IQi系列工业螺丝刀"、"AHTE展会"、英格索兰、TTI——工业设备而非消费品</td>
+        </tr>
+        <tr style="background:var(--bg)">
+          <td><strong>半导体/芯片技术文章</strong></td>
+          <td>~180条</td>
+          <td>电子发烧友、与非网、CSDN</td>
+          <td>文章主体是芯片/驱动IC，"电动螺丝刀"仅作为促销奖品出现（"分享笔记赚电动螺丝刀"）</td>
+        </tr>
+        <tr>
+          <td><strong>无关词汇搭便车</strong></td>
+          <td>~150条</td>
+          <td>龚琳娜新闻、乌克兰战场、南极故事</td>
+          <td>高AVE但内容完全无关，"螺丝"偶然出现在段落中。可通过排除域名过滤</td>
+        </tr>
+        <tr style="background:var(--bg)">
+          <td><strong>同质化Fanttik DRG稿</strong></td>
+          <td>117条</td>
+          <td>50+不同资讯站</td>
+          <td>标题/内容99%相同，单一PR稿全网分发——独立事件但非有机讨论，AVE¥42万需折扣处理</td>
+        </tr>
+        <tr>
+          <td><strong>懂车帝汽车平台分发</strong></td>
+          <td>171条</td>
+          <td>懂车帝</td>
+          <td>同一文章在汽车垂媒平台多次收录，受众与产品品类高度不匹配</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ IMPLICATIONS ============ -->
+<div class="section">
+  <div class="section-label">产品与营销含义</div>
+  <div class="section-title">媒介分析 → 产品决策转化</div>
+  <div class="card" style="padding:0;overflow:hidden;">
+    <table class="impl-table">
+      <thead>
+        <tr>
+          <th style="width:5%">优先</th>
+          <th style="width:28%">媒介信号</th>
+          <th style="width:35%">产品/营销含义</th>
+          <th style="width:32%">建议行动</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="prio prio-red">P0</span></td>
+          <td>PC装机场景是<strong>最大有机使用场景</strong>（221条有机提及），无品牌占据</td>
+          <td>装机用户有真实扭矩控制需求（防止主板螺丝过紧），现有品牌从未针对此场景做产品沟通</td>
+          <td>开发"装机专用档位"功能，联合NGA/3DMGAME/中关村在线做KOL合作</td>
+        </tr>
+        <tr>
+          <td><span class="prio prio-red">P0</span></td>
+          <td>负面核心：<strong>"装机不建议用电动螺丝刀"</strong>的观念在论坛传播</td>
+          <td>这是可被反转的错误认知——精密扭矩控制恰恰保护主板。是品类教育机会，也是占领装机场景的叙事切入点</td>
+          <td>创作"精密螺丝刀 vs 普通螺丝刀 vs 手动拧"的对比内容，主攻NGA/装机论坛</td>
+        </tr>
+        <tr>
+          <td><span class="prio prio-amber">P1</span></td>
+          <td>Fanttik用<strong>电竞赞助</strong>完成品类场景定义（首创）</td>
+          <td>电竞维修场景已被Fanttik优先占领，E2 Ultra作为首推产品建立了电竞×精修工具的心智连接</td>
+          <td>竞品需要找差异化场景定义（装机社区/数码DIY/女性用户）而非跟进电竞赛道</td>
+        </tr>
+        <tr>
+          <td><span class="prio prio-amber">P1</span></td>
+          <td>电动螺丝刀作为<strong>618促销赠品</strong>出现（AMD×京东）</td>
+          <td>品类在科技消费圈的认可度已达"赠品级"，是礼品/赠品渠道进入的时机信号</td>
+          <td>主动接触3C数码品牌做联名赠品合作（以精品定位为前提，不做低端赠品）</td>
+        </tr>
+        <tr>
+          <td><span class="prio prio-amber">P1</span></td>
+          <td>Fanttik"出海叙事"AVE效率最高（单篇¥18-19万）</td>
+          <td>国内消费者对"出海成功的国产品"产生情感认同和溢价接受——这是软性定价杠杆</td>
+          <td>竞品可借鉴此框架，构建自身的"技术原点故事"或"设计信仰故事"作为媒介叙事主线</td>
+        </tr>
+        <tr>
+          <td><span class="prio prio-green">P2</span></td>
+          <td>生活方式内容中电动螺丝刀<strong>自然嫁接</strong>至"智能家居装备"叙事</td>
+          <td>品类正在从"工具"升格为"家居必备生活设备"，是长期品类升级的信号</td>
+          <td>与家居/收纳类博主合作，推动"工具收纳美学"内容，建立生活方式维度的品牌形象</td>
+        </tr>
+        <tr>
+          <td><span class="prio prio-green">P2</span></td>
+          <td>HOTO媒体曝光<strong>接近零</strong>（8条），与社媒声量严重失衡</td>
+          <td>HOTO完全依赖小红书/抖音，缺乏媒体层面的品牌背书，溢价叙事脆弱</td>
+          <td>媒体层面的专业性背书（产品技术稿/设计奖项/出海故事）是HOTO建立耐用性信任的快捷路径</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<div class="footer">
+  <div>Market Research OS · 中国消费精密工具市场 · 媒介监测分析</div>
+  <div>数据来源：Meltwater（排除通告）· 样本 1,310条 · 截至 2026-06-04</div>
+</div>
+
+</div>
+</body>
+</html>

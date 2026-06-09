@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中国消费精密工具市场 — VoC Intelligence Report</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-subtle: #f8f9fb;
+    --bg-card: #ffffff;
+    --border: #e8eaed;
+    --text-primary: #0d0f12;
+    --text-secondary: #5a6270;
+    --text-tertiary: #9aa0ad;
+    --accent: #5b4cf5;
+    --accent-light: #ede9ff;
+    --accent2: #0ea5e9;
+    --accent2-light: #e0f2fe;
+    --red: #ef4444;
+    --red-light: #fef2f2;
+    --amber: #f59e0b;
+    --amber-light: #fffbeb;
+    --green: #10b981;
+    --green-light: #ecfdf5;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+    --shadow-md: 0 4px 16px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.04);
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif; background: var(--bg-subtle); color: var(--text-primary); line-height: 1.6; font-size: 15px; }
+
+  /* Layout */
+  .page { max-width: 1120px; margin: 0 auto; padding: 48px 24px 80px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+  /* Header */
+  .report-header { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px 48px; margin-bottom: 16px; position: relative; overflow: hidden; }
+  .report-header::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+  .header-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+  .tag { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; letter-spacing: .3px; }
+  .tag-purple { background: var(--accent-light); color: var(--accent); }
+  .tag-blue { background: var(--accent2-light); color: var(--accent2); }
+  .tag-gray { background: var(--bg-subtle); color: var(--text-secondary); border: 1px solid var(--border); }
+  .report-title { font-size: 32px; font-weight: 700; letter-spacing: -.5px; line-height: 1.2; margin-bottom: 10px; }
+  .report-subtitle { font-size: 16px; color: var(--text-secondary); margin-bottom: 28px; }
+  .header-stats { display: flex; gap: 32px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .stat { }
+  .stat-value { font-size: 28px; font-weight: 700; color: var(--text-primary); letter-spacing: -.5px; }
+  .stat-label { font-size: 12px; color: var(--text-tertiary); margin-top: 2px; }
+
+  /* Section */
+  .section { margin-top: 32px; }
+  .section-label { font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 12px; }
+  .section-title { font-size: 22px; font-weight: 700; letter-spacing: -.3px; margin-bottom: 16px; }
+
+  /* Card */
+  .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow-sm); }
+  .card-title { font-size: 13px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 12px; }
+
+  /* Executive Summary */
+  .exec-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .exec-card { border-radius: var(--radius); padding: 24px; position: relative; overflow: hidden; }
+  .exec-card-1 { background: linear-gradient(135deg, #5b4cf5, #7c6cf7); color: white; }
+  .exec-card-2 { background: linear-gradient(135deg, #0ea5e9, #38bdf8); color: white; }
+  .exec-card-3 { background: linear-gradient(135deg, #10b981, #34d399); color: white; }
+  .exec-card .num { font-size: 13px; font-weight: 600; opacity: .7; letter-spacing: .5px; margin-bottom: 10px; }
+  .exec-card .headline { font-size: 18px; font-weight: 700; line-height: 1.3; margin-bottom: 8px; }
+  .exec-card .body { font-size: 13px; opacity: .85; line-height: 1.5; }
+  .exec-card::after { content: ''; position: absolute; bottom: -20px; right: -20px; width: 80px; height: 80px; border-radius: 50%; background: rgba(255,255,255,.1); }
+
+  /* Signal Strength */
+  .signal-table { width: 100%; border-collapse: collapse; }
+  .signal-table th { text-align: left; font-size: 11px; font-weight: 600; letter-spacing: .8px; text-transform: uppercase; color: var(--text-tertiary); padding: 8px 12px; border-bottom: 1px solid var(--border); }
+  .signal-table td { padding: 14px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .signal-table tr:last-child td { border-bottom: none; }
+  .signal-name { font-weight: 600; font-size: 14px; margin-bottom: 3px; }
+  .signal-desc { font-size: 12px; color: var(--text-secondary); }
+  .platform-dot { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; font-size: 11px; font-weight: 700; }
+  .dot-yes { background: var(--green-light); color: var(--green); }
+  .dot-no { background: var(--bg-subtle); color: var(--text-tertiary); }
+  .confidence-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+  .conf-high { background: var(--green-light); color: var(--green); }
+  .conf-med { background: var(--amber-light); color: var(--amber); }
+  .conf-low { background: var(--red-light); color: var(--red); }
+
+  /* Defect Map */
+  .defect-grid { display: grid; gap: 10px; }
+  .defect-row { display: flex; align-items: center; gap: 12px; }
+  .defect-label { font-size: 13px; font-weight: 500; width: 180px; flex-shrink: 0; }
+  .defect-bar-wrap { flex: 1; height: 28px; background: var(--bg-subtle); border-radius: 6px; overflow: hidden; position: relative; }
+  .defect-bar { height: 100%; border-radius: 6px; display: flex; align-items: center; padding: 0 10px; font-size: 12px; font-weight: 700; color: white; transition: width .6s ease; }
+  .bar-critical { background: linear-gradient(90deg, #ef4444, #f87171); }
+  .bar-major { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+  .bar-minor { background: linear-gradient(90deg, #6366f1, #818cf8); }
+  .defect-brands { display: flex; gap: 4px; flex-wrap: wrap; }
+  .brand-chip { font-size: 11px; padding: 2px 7px; border-radius: 4px; background: var(--bg-subtle); border: 1px solid var(--border); color: var(--text-secondary); }
+
+  /* Brand Matrix */
+  .matrix-container { position: relative; height: 360px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg-subtle); overflow: hidden; }
+  .matrix-axis-h { position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: var(--border); }
+  .matrix-axis-v { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--border); }
+  .matrix-label { position: absolute; font-size: 11px; font-weight: 600; color: var(--text-tertiary); letter-spacing: .5px; text-transform: uppercase; }
+  .matrix-label.top { top: 10px; left: 50%; transform: translateX(-50%); }
+  .matrix-label.bottom { bottom: 10px; left: 50%; transform: translateX(-50%); }
+  .matrix-label.left { left: 10px; top: 50%; transform: translateY(-50%) rotate(-90deg); }
+  .matrix-label.right { right: 10px; top: 50%; transform: translateY(-50%) rotate(90deg); }
+  .matrix-dot { position: absolute; transform: translate(-50%, -50%); }
+  .matrix-dot-inner { border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: white; cursor: default; }
+  .matrix-dot-label { position: absolute; white-space: nowrap; font-size: 11px; font-weight: 600; color: var(--text-primary); top: calc(100% + 4px); left: 50%; transform: translateX(-50%); background: white; padding: 1px 5px; border-radius: 4px; border: 1px solid var(--border); }
+  .matrix-opportunity { position: absolute; border: 2px dashed var(--accent); border-radius: 8px; background: rgba(91,76,245,.05); display: flex; align-items: center; justify-content: center; }
+  .matrix-opportunity-label { font-size: 11px; font-weight: 700; color: var(--accent); text-align: center; }
+
+  /* Voice quotes */
+  .quotes-grid { display: grid; gap: 12px; }
+  .quote-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 20px; display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: start; }
+  .quote-icon { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .quote-icon-purple { background: var(--accent-light); }
+  .quote-icon-blue { background: var(--accent2-light); }
+  .quote-icon-green { background: var(--green-light); }
+  .quote-icon-red { background: var(--red-light); }
+  .quote-text { font-size: 14px; line-height: 1.6; color: var(--text-primary); font-style: italic; margin-bottom: 8px; }
+  .quote-meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .quote-likes { font-size: 12px; color: var(--text-tertiary); font-style: normal; }
+  .quote-platform { font-size: 11px; padding: 2px 7px; border-radius: 4px; }
+
+  /* Opportunity table */
+  .opp-table { width: 100%; border-collapse: collapse; }
+  .opp-table th { text-align: left; font-size: 11px; font-weight: 600; letter-spacing: .8px; text-transform: uppercase; color: var(--text-tertiary); padding: 8px 14px; border-bottom: 2px solid var(--border); }
+  .opp-table td { padding: 14px; border-bottom: 1px solid var(--border); vertical-align: top; font-size: 13.5px; }
+  .opp-table tr:last-child td { border-bottom: none; }
+  .opp-table tr:hover td { background: var(--bg-subtle); }
+  .priority-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+  .p0 { background: var(--red); }
+  .p1 { background: var(--amber); }
+  .p2 { background: var(--green); }
+
+  /* Data source pills */
+  .source-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .source-pill { display: flex; align-items: center; gap: 8px; padding: 10px 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; }
+  .source-pill-num { font-weight: 700; color: var(--accent); font-size: 18px; }
+  .source-pill-label { color: var(--text-secondary); font-size: 12px; }
+
+  /* Footer */
+  .footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .footer-note { font-size: 12px; color: var(--text-tertiary); }
+
+  @media (max-width: 768px) {
+    .exec-cards, .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .report-header { padding: 28px 24px; }
+    .header-stats { flex-wrap: wrap; gap: 20px; }
+    .defect-label { width: 120px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="report-header">
+    <div class="header-meta">
+      <span class="tag tag-purple">VoC Intelligence</span>
+      <span class="tag tag-blue">中国市场</span>
+      <span class="tag tag-gray">消费精密工具</span>
+      <span class="tag tag-gray">2026-06-04</span>
+    </div>
+    <div class="report-title">消费精密工具<br>用户声音深度报告</div>
+    <div class="report-subtitle">跨平台VoC综合分析 — 小红书 · 抖音 · B站 · 京东</div>
+    <div class="header-stats">
+      <div class="stat"><div class="stat-value">2,487</div><div class="stat-label">总样本量</div></div>
+      <div class="stat"><div class="stat-value">4</div><div class="stat-label">数据平台</div></div>
+      <div class="stat"><div class="stat-value">5</div><div class="stat-label">高置信度洞察</div></div>
+      <div class="stat"><div class="stat-value">3</div><div class="stat-label">市场真空确认</div></div>
+    </div>
+  </div>
+
+  <!-- Data Sources -->
+  <div class="section">
+    <div class="section-label">数据来源</div>
+    <div class="source-row">
+      <div class="source-pill"><span class="source-pill-num">729</span><div><div style="font-weight:600">小红书</div><div class="source-pill-label">种草/颜值/场景 · 女性偏高</div></div></div>
+      <div class="source-pill"><span class="source-pill-num">91</span><div><div style="font-weight:600">抖音</div><div class="source-pill-label">功能/购后体验 · 小米产品</div></div></div>
+      <div class="source-pill"><span class="source-pill-num">1,589</span><div><div style="font-weight:600">B站</div><div class="source-pill-label">极客/数码圈 · 男性偏高</div></div></div>
+      <div class="source-pill" style="border-color: #fbbf24; background: var(--amber-light)"><span class="source-pill-num" style="color:var(--amber)">78</span><div><div style="font-weight:600">京东负评</div><div class="source-pill-label">⚠️ 单向负评 · 仅限缺陷映射</div></div></div>
+    </div>
+  </div>
+
+  <!-- Executive Summary -->
+  <div class="section">
+    <div class="section-label">Executive Summary</div>
+    <div class="exec-cards">
+      <div class="exec-card exec-card-1">
+        <div class="num">01 · 最重要发现</div>
+        <div class="headline">"颜值+真耐用"组合是市场真空</div>
+        <div class="body">小米有设计无耐用，南旗有耐用无设计。这个组合定位完全无人占据，是品类里最大的战略空白。</div>
+      </div>
+      <div class="exec-card exec-card-2">
+        <div class="num">02 · 最强功能痛点</div>
+        <div class="headline">扭矩不足是全品类第一杀手</div>
+        <div class="body">4个平台 · 18+条高赞投诉。根本原因是产品定位沟通失败——精密工具被当成通用工具用。</div>
+      </div>
+      <div class="exec-card exec-card-3">
+        <div class="num">03 · 最被低估的机会</div>
+        <div class="headline">女性用户正在重构品类身份认知</div>
+        <div class="body">22条强主张性信号，现有品牌无一应对。不需要"做女性产品"，只需叙事中性化即可收割。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Signal Strength Dashboard -->
+  <div class="section">
+    <div class="section-label">跨渠道信号强度</div>
+    <div class="section-title">高置信度洞察验证矩阵</div>
+    <div class="card" style="padding:0; overflow:hidden;">
+      <table class="signal-table">
+        <thead>
+          <tr>
+            <th style="width:35%">洞察</th>
+            <th style="text-align:center; width:9%">小红书</th>
+            <th style="text-align:center; width:9%">抖音</th>
+            <th style="text-align:center; width:9%">B站</th>
+            <th style="text-align:center; width:9%">京东</th>
+            <th style="width:15%">置信度</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="signal-name">现有品牌耐用性口碑差</div><div class="signal-desc">生锈、磁吸失效、电池退化 — 小米为重灾区</div></td>
+            <td style="text-align:center"><span class="platform-dot dot-yes">✓</span></td>
+            <td style="text-align:center"><span class="platform-dot dot-yes">✓</span></td>
+            <td style="text-align:center"><span class="platform-dot dot-yes">✓</span></td>
+            <td style="text-align:center"><span class="platform-dot dot-yes">✓</span></td>
+            <td><span class="confidence-badge conf-high">● 高</span></td>
+          </tr>
+          <tr>
+            <td><div class="signal-name">扭矩/扭力是第一功能痛点</div><div class="signal-desc">精密工具被用于重工况，沟通失败 > 产品缺陷</div></td>
+            <td style="text-align:center"><span class="platform-dot dot-no">—</span></td>
+            <td style="text-align:center"><span class="platform-dot dot-yes">✓</span></td>
+            <td style="text-align:center"><span class="platform-dot dot-yes">✓</span></td>
+            <td style="text-align:center"><span class="platform-dot dot-yes">✓</span></td>
+            <td><span class="confidence-badge conf-high">● 高</span></td>
+          </tr>
+          <tr>
+            <td><div class="signal-name">颜值是加分项，功能底线不可妥协</div><div class="signal-desc">两派声音同时存在，但功能失败代价更高</div></td>
+            <td style="text-align:center"><span class="platform-dot dot-yes">✓</span></td>
+            <td style="text-align:center"><span class="platform-dot dot-no">—</span></td>
+            <td style="text-align:center"><span class="platform-dot dot-yes">✓</span></td>
+            <td style="text-align:center"><span class="platform-dot dot-yes">✓</span></td>
+            <td><span class="confidence-badge conf-high">● 高</span></td>
+          </tr>
+          <tr>
+            <td><div class="signal-name">女性用户被整个品类忽视</div><div class="signal-desc">主动抵制"男生玩具"标签，需求真实且被压抑</div></td>
+            <td style="text-align:center"><span class="platform-dot dot-yes">✓</span></td>
+            <td style="text-align:center"><span class="platform-dot dot-yes">✓</span></td>
+            <td style="text-align:center"><span class="platform-dot dot-no">—</span></td>
+            <td style="text-align:center"><span class="platform-dot dot-no">—</span></td>
+            <td><span class="confidence-badge conf-high">● 高</span></td>
+          </tr>
+          <tr>
+            <td><div class="signal-name">批头质量是独立短板</div><div class="signal-desc">变形、生锈、无磁性 — 跨品牌普遍问题</div></td>
+            <td style="text-align:center"><span class="platform-dot dot-yes">✓</span></td>
+            <td style="text-align:center"><span class="platform-dot dot-no">—</span></td>
+            <td style="text-align:center"><span class="platform-dot dot-yes">✓</span></td>
+            <td style="text-align:center"><span class="platform-dot dot-yes">✓</span></td>
+            <td><span class="confidence-badge conf-high">● 高</span></td>
+          </tr>
+          <tr>
+            <td><div class="signal-name">吃灰效应：高转化、低激活</div><div class="signal-desc">购买后放抽屉，功能教育缺失是根因</div></td>
+            <td style="text-align:center"><span class="platform-dot dot-no">—</span></td>
+            <td style="text-align:center"><span class="platform-dot dot-yes">✓</span></td>
+            <td style="text-align:center"><span class="platform-dot dot-no">—</span></td>
+            <td style="text-align:center"><span class="platform-dot dot-no">—</span></td>
+            <td><span class="confidence-badge conf-med">● 中</span></td>
+          </tr>
+          <tr>
+            <td><div class="signal-name">价格双峰：¥69-149主流 + 高溢价真实</div><div class="signal-desc">¥1099套装183赞 · "卖¥6099我直接下单"</div></td>
+            <td style="text-align:center"><span class="platform-dot dot-yes">✓</span></td>
+            <td style="text-align:center"><span class="platform-dot dot-no">—</span></td>
+            <td style="text-align:center"><span class="platform-dot dot-no">—</span></td>
+            <td style="text-align:center"><span class="platform-dot dot-no">—</span></td>
+            <td><span class="confidence-badge conf-med">● 中</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Defect Map -->
+  <div class="section">
+    <div class="section-label">行业通病分析</div>
+    <div class="section-title">产品缺陷频率图谱（京东负评，78条）</div>
+    <div class="card">
+      <div style="font-size:12px; color:var(--text-tertiary); margin-bottom:20px;">⚠️ 数据为单向负评，用于缺陷类型识别，不代表品牌整体口碑</div>
+      <div class="defect-grid">
+        <div class="defect-row">
+          <div class="defect-label">扭力/扭矩不足</div>
+          <div class="defect-bar-wrap"><div class="defect-bar bar-critical" style="width:82%">18条</div></div>
+          <div class="defect-brands"><span class="brand-chip">小米</span><span class="brand-chip">杜克</span><span class="brand-chip">绿林</span><span class="brand-chip">HOTO</span></div>
+        </div>
+        <div class="defect-row">
+          <div class="defect-label">批头变形/生锈/磨损</div>
+          <div class="defect-bar-wrap"><div class="defect-bar bar-critical" style="width:64%">14条</div></div>
+          <div class="defect-brands"><span class="brand-chip">小米</span><span class="brand-chip">杜克</span><span class="brand-chip">绿林</span></div>
+        </div>
+        <div class="defect-row">
+          <div class="defect-label">同心度差/偏心</div>
+          <div class="defect-bar-wrap"><div class="defect-bar bar-major" style="width:36%">8条</div></div>
+          <div class="defect-brands"><span class="brand-chip">杜克</span><span class="brand-chip">正点原子</span></div>
+        </div>
+        <div class="defect-row">
+          <div class="defect-label">磁性快速失效</div>
+          <div class="defect-bar-wrap"><div class="defect-bar bar-major" style="width:32%">7条</div></div>
+          <div class="defect-brands"><span class="brand-chip">小米</span><span class="brand-chip">绿林</span></div>
+        </div>
+        <div class="defect-row">
+          <div class="defect-label">整体做工/品控差</div>
+          <div class="defect-bar-wrap"><div class="defect-bar bar-major" style="width:32%">7条</div></div>
+          <div class="defect-brands"><span class="brand-chip">HOTO</span><span class="brand-chip">杜克</span></div>
+        </div>
+        <div class="defect-row">
+          <div class="defect-label">按键/结构松动</div>
+          <div class="defect-bar-wrap"><div class="defect-bar bar-minor" style="width:23%">5条</div></div>
+          <div class="defect-brands"><span class="brand-chip">杜克</span></div>
+        </div>
+        <div class="defect-row">
+          <div class="defect-label">电池寿命/充电失效</div>
+          <div class="defect-bar-wrap"><div class="defect-bar bar-minor" style="width:23%">5条</div></div>
+          <div class="defect-brands"><span class="brand-chip">小米</span><span class="brand-chip">杜克</span><span class="brand-chip">绿林</span></div>
+        </div>
+        <div class="defect-row">
+          <div class="defect-label">批头非标/不兼容</div>
+          <div class="defect-bar-wrap"><div class="defect-bar bar-minor" style="width:14%">3条</div></div>
+          <div class="defect-brands"><span class="brand-chip" style="background:#fef2f2;border-color:#fca5a5;color:#ef4444">HOTO ⚡</span></div>
+        </div>
+      </div>
+      <div style="margin-top:16px; padding:12px 14px; background:var(--red-light); border-radius:8px; font-size:12px; color:#991b1b; line-height:1.6;">
+        <strong>⚡ HOTO特别信号：</strong> 批头3.9mm非标是刻意的生态锁定策略（非质量缺陷）。用户已识别并强烈投诉——战略护城河的口碑代价极高。
+      </div>
+    </div>
+  </div>
+
+  <!-- Brand Perception Matrix + Consumer Voices -->
+  <div class="section grid-2" style="align-items:start;">
+
+    <!-- Brand Matrix -->
+    <div>
+      <div class="section-label">竞争格局</div>
+      <div class="section-title">品牌感知双轴图</div>
+      <div class="card" style="padding:16px;">
+        <div class="matrix-container">
+          <div class="matrix-axis-h"></div>
+          <div class="matrix-axis-v"></div>
+          <div class="matrix-label top">高颜值/设计</div>
+          <div class="matrix-label bottom">低颜值/设计</div>
+          <div class="matrix-label left">低耐用</div>
+          <div class="matrix-label right">高耐用</div>
+
+          <!-- Opportunity zone: top-right -->
+          <div class="matrix-opportunity" style="top:8%; left:52%; width:43%; height:40%;">
+            <div class="matrix-opportunity-label">市场真空<br>颜值 + 真耐用</div>
+          </div>
+
+          <!-- Brands: x=耐用(左负右正), y=颜值(上正下负) -->
+          <!-- 小米: 高颜值低耐用 → left:30% top:25% -->
+          <div class="matrix-dot" style="left:28%; top:28%;">
+            <div class="matrix-dot-inner" style="width:44px;height:44px;background:#f59e0b;">小米</div>
+          </div>
+          <!-- HOTO: 高颜值中等耐用 → left:40% top:20% -->
+          <div class="matrix-dot" style="left:43%; top:22%;">
+            <div class="matrix-dot-inner" style="width:40px;height:40px;background:#8b5cf6;">HOTO</div>
+          </div>
+          <!-- 博世: 中颜值高耐用 → left:72% top:42% -->
+          <div class="matrix-dot" style="left:72%; top:42%;">
+            <div class="matrix-dot-inner" style="width:40px;height:40px;background:#0ea5e9;">博世</div>
+          </div>
+          <!-- 南旗: 低颜值高耐用 → left:74% top:66% -->
+          <div class="matrix-dot" style="left:74%; top:68%;">
+            <div class="matrix-dot-inner" style="width:40px;height:40px;background:#10b981;">南旗</div>
+          </div>
+          <!-- 杜克/绿林: 低颜值低耐用 → left:24% top:70% -->
+          <div class="matrix-dot" style="left:24%; top:70%;">
+            <div class="matrix-dot-inner" style="width:52px;height:52px;background:#94a3b8;font-size:10px;">杂牌群</div>
+          </div>
+          <!-- 威克士: 中颜值中耐用 -->
+          <div class="matrix-dot" style="left:58%; top:40%;">
+            <div class="matrix-dot-inner" style="width:38px;height:38px;background:#06b6d4;font-size:10px;">威克士</div>
+          </div>
+        </div>
+        <div style="margin-top:12px; font-size:12px; color:var(--text-tertiary); line-height:1.5;">
+          位置基于VoC数据推断。虚线框为市场真空区域（颜值 × 真耐用组合，无品牌系统占据）。
+        </div>
+      </div>
+    </div>
+
+    <!-- Consumer Voices -->
+    <div>
+      <div class="section-label">用户原声</div>
+      <div class="section-title">最具代表性评论</div>
+      <div class="quotes-grid">
+        <div class="quote-card">
+          <div class="quote-icon quote-icon-red">🔥</div>
+          <div>
+            <div class="quote-text">"几年前这两款都买过，小米就是花瓶，好看不实用，还是南旗好用"</div>
+            <div class="quote-meta">
+              <span class="quote-likes">👍 839赞</span>
+              <span class="tag tag-blue" style="font-size:10px;">B站</span>
+              <span class="tag tag-gray" style="font-size:10px;">品类最强信号</span>
+            </div>
+          </div>
+        </div>
+        <div class="quote-card">
+          <div class="quote-icon quote-icon-purple">💜</div>
+          <div>
+            <div class="quote-text">"作为一个打了很多年机器人的女孩子……可以不要把机械工具叫做'男生的玩具'吗"</div>
+            <div class="quote-meta">
+              <span class="quote-likes">女性用户 · 强主张性</span>
+              <span class="tag tag-purple" style="font-size:10px;">小红书</span>
+            </div>
+          </div>
+        </div>
+        <div class="quote-card">
+          <div class="quote-icon quote-icon-blue">😴</div>
+          <div>
+            <div class="quote-text">"以前买了一个，现在还是在抽屉里吃灰"</div>
+            <div class="quote-meta">
+              <span class="quote-likes">👍 132赞</span>
+              <span class="tag tag-blue" style="font-size:10px;">抖音</span>
+              <span class="tag tag-gray" style="font-size:10px;">吃灰效应</span>
+            </div>
+          </div>
+        </div>
+        <div class="quote-card">
+          <div class="quote-icon quote-icon-green">💰</div>
+          <div>
+            <div class="quote-text">"太便宜了看不上，卖¥6099我直接下单"</div>
+            <div class="quote-meta">
+              <span class="quote-likes">¥1099套装 183赞</span>
+              <span class="tag tag-purple" style="font-size:10px;">小红书</span>
+              <span class="tag tag-gray" style="font-size:10px;">高溢价信号</span>
+            </div>
+          </div>
+        </div>
+        <div class="quote-card">
+          <div class="quote-icon quote-icon-red">⚡</div>
+          <div>
+            <div class="quote-text">"不是标准的4mm批头，故意做成3.9mm，导致不能使用除了他们家以外的批头"</div>
+            <div class="quote-meta">
+              <span class="quote-likes">HOTO用户</span>
+              <span class="tag tag-gray" style="font-size:10px;">京东</span>
+              <span class="tag" style="font-size:10px;background:#fef2f2;color:#ef4444;">生态锁定反噬</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Strategic Opportunity Table -->
+  <div class="section">
+    <div class="section-label">战略含义</div>
+    <div class="section-title">产品开发机会优先级</div>
+    <div class="card" style="padding:0; overflow:hidden;">
+      <table class="opp-table">
+        <thead>
+          <tr>
+            <th style="width:5%">优先级</th>
+            <th style="width:22%">产品/工程机会</th>
+            <th style="width:30%">VoC证据</th>
+            <th style="width:20%">目标用户群</th>
+            <th style="width:23%">当前市场状态</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="priority-dot p0"></span><strong>P0</strong></td>
+            <td><strong>精准扭矩分档 + 场景标注</strong></td>
+            <td>18条负评 · 4平台验证 · B站481赞</td>
+            <td>数码拆修者、电子爱好者</td>
+            <td>多档产品存在，但无场景教育内容</td>
+          </tr>
+          <tr>
+            <td><span class="priority-dot p0"></span><strong>P0</strong></td>
+            <td><strong>S2钢批头标配</strong></td>
+            <td>14条批头负评 · B站1228赞"批头/钢口"</td>
+            <td>重度用户、专业维修技师</td>
+            <td>少数高端款有，中端全线缺失</td>
+          </tr>
+          <tr>
+            <td><span class="priority-dot p1"></span><strong>P1</strong></td>
+            <td><strong>磁性持久化工艺</strong></td>
+            <td>7条磁性失效负评 · 跨品牌出现</td>
+            <td>所有精修用户</td>
+            <td>行业性采购妥协，无品牌主动解决</td>
+          </tr>
+          <tr>
+            <td><span class="priority-dot p1"></span><strong>P1</strong></td>
+            <td><strong>手自一体 + 激活内容</strong></td>
+            <td>吃灰效应132赞 · 功能教育缺口30赞</td>
+            <td>轻度用户、设计消费者</td>
+            <td>产品已有，营销教育几乎为零</td>
+          </tr>
+          <tr>
+            <td><span class="priority-dot p1"></span><strong>P1</strong></td>
+            <td><strong>叙事去性别化（非产品改动）</strong></td>
+            <td>小红书22条强主张 · 抖音跨平台验证</td>
+            <td>女性用户（25-35岁）</td>
+            <td>全行业无一品牌应对，完全空白</td>
+          </tr>
+          <tr>
+            <td><span class="priority-dot p2"></span><strong>P2</strong></td>
+            <td><strong>标准4mm批头 + 跨品牌兼容</strong></td>
+            <td>B站240赞"南旗批头装不进小米"</td>
+            <td>多品牌拥有者、升级用户</td>
+            <td>HOTO刻意非标，其余品牌各行其是</td>
+          </tr>
+          <tr>
+            <td><span class="priority-dot p2"></span><strong>P2</strong></td>
+            <td><strong>中端礼品包装（¥200-400）</strong></td>
+            <td>¥1099套装183赞 · 礼品场景被结构性低估</td>
+            <td>礼品采购者（30-45岁）</td>
+            <td>HOTO ¥1099门槛过高，中端礼品空白</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- User Segmentation -->
+  <div class="section">
+    <div class="section-label">消费者分层</div>
+    <div class="section-title">用户自发构建的分层逻辑（B站155赞）</div>
+    <div class="grid-3">
+      <div class="card" style="border-top: 3px solid var(--accent2);">
+        <div class="card-title">轻度用户</div>
+        <div style="font-size:24px;font-weight:700;margin-bottom:6px;">¥100–200</div>
+        <div style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">偶尔拆1-2次/年</div>
+        <div style="font-size:13px;">小米 · 入门款够用<br>颜值驱动首购<br>内容种草→电商转化</div>
+      </div>
+      <div class="card" style="border-top: 3px solid var(--accent);">
+        <div class="card-title">重度用户</div>
+        <div style="font-size:24px;font-weight:700;margin-bottom:6px;">¥200–500</div>
+        <div style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">频繁拆修 · 专业需求</div>
+        <div style="font-size:13px;">南旗 · 世达<br>S2钢 · 耐用性优先<br><strong>当前最大定位真空</strong></div>
+      </div>
+      <div class="card" style="border-top: 3px solid var(--green);">
+        <div class="card-title">发烧级用户</div>
+        <div style="font-size:24px;font-weight:700;margin-bottom:6px;">¥500+</div>
+        <div style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">极致追求 · 礼品/收藏</div>
+        <div style="font-size:13px;">博世 · 进口品牌<br>HOTO SNAPBLOQ ¥1099<br>高溢价需求真实存在</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-note">Market Research OS · 中国消费精密工具市场 · VoC综合分析</div>
+    <div class="footer-note">数据截止 2026-06-04 · 总样本 2,487条</div>
+  </div>
+
+</div>
+</body>
+</html>

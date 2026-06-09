@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI时代，普通人最需要做的事，没有一件是学AI工具 · 安祖羊</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0D1117;
+    --bg-secondary: #1A1A2E;
+    --bg-card: #161B22;
+    --accent: #E94560;
+    --accent-dim: rgba(233, 69, 96, 0.15);
+    --text: #F0F4F8;
+    --text-dim: #8B95A5;
+    --text-mute: #6B7280;
+    --gold: #FFD700;
+    --border: #0F3460;
+    --border-soft: rgba(15, 52, 96, 0.4);
+  }
+  html { scroll-behavior: smooth; }
+  html, body {
+    background: var(--bg-primary);
+    color: var(--text);
+    font-family: "PingFang SC", "Noto Sans SC", "Source Han Sans SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    background: radial-gradient(ellipse at top, #1A1A2E 0%, #0D1117 50%);
+    min-height: 100vh;
+  }
+
+  /* ====== NAV ====== */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(13, 17, 23, 0.7);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .nav-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 18px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+  }
+  .back-link:hover { color: var(--accent); }
+  .nav-brand {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 2px;
+  }
+
+  /* ====== HERO ====== */
+  .article-hero {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 100px 32px 60px;
+  }
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+    font-size: 12px;
+    color: var(--text-mute);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .meta-tag {
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 4px 10px;
+    border-radius: 2px;
+    background: var(--accent-dim);
+  }
+  .meta-divider {
+    width: 30px;
+    height: 1px;
+    background: var(--border);
+  }
+  .article-hero h1 {
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: -1.5px;
+    margin-bottom: 32px;
+    color: var(--text);
+  }
+  .article-hero .deck {
+    font-size: 18px;
+    color: var(--text-dim);
+    line-height: 1.7;
+    border-left: 3px solid var(--accent);
+    padding-left: 20px;
+    margin-bottom: 32px;
+  }
+
+  /* ====== ARTICLE BODY ====== */
+  .article-body {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 32px 80px;
+    font-size: 17px;
+    line-height: 1.95;
+    color: rgba(240, 244, 248, 0.92);
+  }
+  .article-body p {
+    margin-bottom: 1.6em;
+  }
+  .article-body p.lead {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .article-body h2 {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--text);
+    margin: 60px 0 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-soft);
+    position: relative;
+  }
+  .article-body h2::before {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background: var(--accent);
+  }
+  .article-body hr {
+    border: none;
+    margin: 60px auto;
+    width: 60px;
+    height: 1px;
+    background: var(--border);
+  }
+  .article-body strong {
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .article-body blockquote {
+    border-left: 4px solid var(--accent);
+    padding: 16px 24px;
+    margin: 32px 0;
+    background: rgba(233, 69, 96, 0.05);
+    color: var(--text);
+    font-style: italic;
+    border-radius: 0 4px 4px 0;
+  }
+  .article-body .highlight {
+    background: linear-gradient(180deg, transparent 60%, rgba(255, 215, 0, 0.25) 60%);
+    padding: 0 4px;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* ====== PULL QUOTE / BIG STATEMENT ====== */
+  .pull-quote {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 0 32px;
+    text-align: center;
+  }
+  .pull-quote blockquote {
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.4;
+    color: var(--text);
+    border: none;
+    background: none;
+    padding: 0;
+    font-style: normal;
+    letter-spacing: -0.5px;
+  }
+  .pull-quote blockquote::before {
+    content: '"';
+    display: block;
+    font-size: 80px;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: -20px;
+    font-family: Georgia, serif;
+  }
+
+  /* ====== END SECTION ====== */
+  .end-cta {
+    max-width: 720px;
+    margin: 80px auto 0;
+    padding: 40px 32px;
+    border-top: 1px solid var(--border-soft);
+    text-align: center;
+  }
+  .end-cta p {
+    color: var(--text-dim);
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+  .end-cta .signature {
+    display: inline-block;
+    margin-top: 24px;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: 4px;
+  }
+
+  /* ====== FOOTER ====== */
+  footer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 32px 60px;
+    border-top: 1px solid var(--border-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-brand {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: 2px;
+  }
+  .footer-meta {
+    color: var(--text-mute);
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+
+  /* Reading progress */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--gold) 100%);
+    z-index: 100;
+    transition: width 0.1s;
+  }
+
+  @media (max-width: 640px) {
+    .article-hero, .article-body, .end-cta { padding-left: 20px; padding-right: 20px; }
+    .article-hero { padding-top: 60px; padding-bottom: 40px; }
+    .article-body { font-size: 16px; }
+    .pull-quote blockquote { font-size: 22px; }
+    .nav-inner { padding: 16px 20px; }
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+</style>
+</head>
+<body>
+
+  <div class="progress-bar" id="progress"></div>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="back-link" href="../index.html">← 返回首页</a>
+      <div class="nav-brand">安祖羊</div>
+    </div>
+  </nav>
+
+  <header class="article-hero">
+    <div class="article-meta">
+      <span class="meta-tag">赛道一</span>
+      <span class="meta-divider"></span>
+      <span>2026.05.07</span>
+      <span class="meta-divider"></span>
+      <span>约 1500 字</span>
+    </div>
+    <h1>AI时代，普通人最需要做的事，没有一件是学AI工具</h1>
+    <p class="deck">一个数据：2026年全球已有超过40%的企业把AI嵌入日常工作流。但与此同时，另一个数据——90%用AI的人，三个月后还是做着和以前一样的事。</p>
+  </header>
+
+  <article class="article-body">
+
+    <p class="lead">一个数据。</p>
+
+    <p>2026年，全球已有超过40%的企业把AI嵌入日常工作流。</p>
+
+    <p>但与此同时，另一个数据：</p>
+
+    <p>90%用AI的人，三个月后还是做着和以前一样的事。</p>
+
+    <p>为什么？</p>
+
+    <p>因为他们只学了工具，没学工具背后真正需要的东西。</p>
+
+    <p>今天这5件事，没有一件是学AI工具。</p>
+
+    <p>但这才是普通人在AI时代真正活下去的底牌。</p>
+
+    <hr>
+
+    <h2>第一件：搞清楚你是谁</h2>
+
+    <p>AI最厉害的地方是什么？</p>
+
+    <p>是它<span class="highlight">什么都会</span>。</p>
+
+    <p>它会写文案、会画画、会写代码、会分析数据。</p>
+
+    <p>那你最厉害的地方是什么？</p>
+
+    <p>我认识很多人，在AI出来之后开始慌。</p>
+
+    <p>觉得自己什么都不如AI。</p>
+
+    <p>但他们忘了一件事。</p>
+
+    <p><strong>AI没有经历。</strong></p>
+
+    <p><strong>AI没有立场。</strong></p>
+
+    <p><strong>AI没有那个只有你才有的视角。</strong></p>
+
+    <p>我自己是台湾出生、香港长大、世界各地读书、现在在上海工作的人。</p>
+
+    <p>这个背景，AI永远没办法复制。</p>
+
+    <p>它可以生成一千篇文章，但生成不了我这个人。</p>
+
+    <p>你也一样。</p>
+
+    <p>你经历过什么？</p>
+
+    <p>你在哪里跌过跤？</p>
+
+    <p>你对什么事情有和别人不一样的看法？</p>
+
+    <p>这些东西，才是AI时代最值钱的资产。</p>
+
+    <p>搞清楚你是谁，比学任何工具都重要。</p>
+
+    <hr>
+
+    <h2>第二件：建立你自己的思维框架</h2>
+
+    <p>普通人和厉害的人，最大的差距不是努力程度。</p>
+
+    <p>是<strong>思维方式</strong>。</p>
+
+    <p>AI可以给你无限多的答案。</p>
+
+    <p>但如果你没有框架，你连哪个答案是对的都判断不了。</p>
+
+    <p>我做了15年营销。</p>
+
+    <p>帮过超过50个品牌建立IP，经手过3000多个项目。</p>
+
+    <p>这些年下来，我发现一件事：</p>
+
+    <p>那些做得好的品牌，都有一套自己的判断框架。</p>
+
+    <p>不是每次靠感觉，不是每次靠运气。</p>
+
+    <p>是遇到任何问题，都能用同一套逻辑拆解。</p>
+
+    <p>AI是一个很好的执行者。</p>
+
+    <p>但它需要你来给方向。</p>
+
+    <p>你没有框架，AI就只能给你一堆没用的答案。</p>
+
+    <p>你有框架，AI才能真正帮到你。</p>
+
+    <hr>
+
+    <h2>第三件：控制你的消费欲</h2>
+
+    <p>这条很多人不爱听。</p>
+
+    <p>但我25岁就存到了一百万。</p>
+
+    <p>靠的不是赚得多。</p>
+
+    <p>靠的是花得少。</p>
+
+    <p>每个月我能存下65%的工资。</p>
+
+    <p>不是因为我穷，是因为我15岁就想清楚了一件事：</p>
+
+    <p><strong>消费主义是一个陷阱。</strong></p>
+
+    <p>它让你用钱买幻觉，用幻觉麻痹焦虑。</p>
+
+    <p>AI时代，这个陷阱变得更大了。</p>
+
+    <p>工具越来越多，订阅越来越贵。</p>
+
+    <p>ChatGPT Plus、Claude Pro、Midjourney、Notion AI……</p>
+
+    <p>每个月一点点，每年加起来是一笔不小的数字。</p>
+
+    <p>而且更可怕的是，这些工具会让你产生一种幻觉：</p>
+
+    <p>我在进步。</p>
+
+    <p>我在提升。</p>
+
+    <p>我在跟上时代。</p>
+
+    <p>但你打开工具，其实什么也没做。</p>
+
+    <p>控制消费欲，不只是省钱。</p>
+
+    <p>更是训练自己的专注力。</p>
+
+    <p>你把钱花在什么上面，就会把注意力放在什么上面。</p>
+
+    <hr>
+
+    <h2>第四件：建立你的个人信用</h2>
+
+    <p>AI可以生产内容。</p>
+
+    <p>但AI没有信用。</p>
+
+    <p>没有人会说，"我相信这个AI，所以我买他推荐的东西。"</p>
+
+    <p>但人会说，"我相信这个人，所以我听他的。"</p>
+
+    <p>我帮过很多品牌从零建立IP。</p>
+
+    <p>有一件事我每次都会强调：</p>
+
+    <p><strong>信用不是一天建立的，但可以一天毁掉。</strong></p>
+
+    <p>怎么建立个人信用？</p>
+
+    <p>三件事。</p>
+
+    <p>说真话。</p>
+
+    <p>做到你说的。</p>
+
+    <p>长期出现在同一个地方。</p>
+
+    <p>不需要很快，不需要很多，需要很稳。</p>
+
+    <p>AI时代，内容泛滥。</p>
+
+    <p>但真正有信用的人，反而越来越稀缺。</p>
+
+    <p>个人信用，是AI永远替代不了的资产。</p>
+
+    <hr>
+
+    <h2>第五件：扭转你的心灵</h2>
+
+    <p>这是最后一条，也是最重要的一条。</p>
+
+    <p>几年前，我有一个很贴近的朋友意外离世。</p>
+
+    <p>那件事让我真正理解了一句话：</p>
+
+    <p><span class="highlight">除了死亡，其他都是小事。</span></p>
+
+    <p>所有的工具、框架、方法，都是外在的。</p>
+
+    <p>如果你内心的底层逻辑没有改变，你学再多也没用。</p>
+
+    <p>很多人焦虑AI会取代自己。</p>
+
+    <p>但真正的问题不是AI。</p>
+
+    <p>是你对自己的看法。</p>
+
+    <p>你觉得自己值不值得被留下来？</p>
+
+    <p>你觉得自己有没有什么是别人没有的？</p>
+
+    <p>你觉得改变对你来说可不可能？</p>
+
+    <p>这些问题的答案，决定了你怎么面对AI时代。</p>
+
+    <p><strong>心灵没有扭转，任何工具都是摆设。</strong></p>
+
+    <p><strong>心灵扭转了，任何工具都是武器。</strong></p>
+
+  </article>
+
+  <div class="pull-quote">
+    <blockquote>AI不是你的敌人。<br>AI是你的放大器。<br>但它放大的，是你这个人。</blockquote>
+  </div>
+
+  <article class="article-body">
+
+    <hr>
+
+    <h2>结语</h2>
+
+    <p>好，来总结一下。</p>
+
+    <p>AI时代，普通人真正需要做的5件事：</p>
+
+    <p>搞清楚你是谁。<br>
+    建立你自己的思维框架。<br>
+    控制消费欲。<br>
+    建立个人信用。<br>
+    扭转你的心灵。</p>
+
+    <p>没有一件是学AI工具。</p>
+
+    <p>AI不是你的敌人。</p>
+
+    <p>AI是你的放大器。</p>
+
+    <p>但它放大的，是你这个人。</p>
+
+    <p>你这个人没有建好，放大了也没用。</p>
+
+    <p>你这个人建好了，AI会让你走得比任何时代都快。</p>
+
+  </article>
+
+  <div class="end-cta">
+    <p>今天的话题，你怎么想？</p>
+    <p>留言。转发。各平台可关注</p>
+    <div class="signature">— 安祖羊</div>
+  </div>
+
+  <footer>
+    <div class="footer-brand">安祖羊</div>
+    <div class="footer-meta">© 2026 ANZUYANG</div>
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      document.getElementById('progress').style.width = progress + '%';
+    });
+  </script>
+
+</body>
+</html>

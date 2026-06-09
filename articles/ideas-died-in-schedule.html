@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>那些死在排期里的创意，终于有救了 · 安祖羊</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0D1117;
+    --bg-secondary: #1A1A2E;
+    --bg-card: #161B22;
+    --accent: #E94560;
+    --accent-dim: rgba(233, 69, 96, 0.15);
+    --text: #F0F4F8;
+    --text-dim: #8B95A5;
+    --text-mute: #6B7280;
+    --gold: #FFD700;
+    --border: #0F3460;
+    --border-soft: rgba(15, 52, 96, 0.4);
+  }
+  html { scroll-behavior: smooth; }
+  html, body {
+    background: var(--bg-primary);
+    color: var(--text);
+    font-family: "PingFang SC", "Noto Sans SC", "Source Han Sans SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    background: radial-gradient(ellipse at top, #1A1A2E 0%, #0D1117 50%);
+    min-height: 100vh;
+  }
+
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(13, 17, 23, 0.7);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .nav-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 18px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+  }
+  .back-link:hover { color: var(--accent); }
+  .nav-brand { font-size: 14px; font-weight: 700; color: var(--accent); letter-spacing: 2px; }
+
+  .article-hero {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 100px 32px 60px;
+  }
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+    font-size: 12px;
+    color: var(--text-mute);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .meta-tag {
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 4px 10px;
+    border-radius: 2px;
+    background: var(--accent-dim);
+  }
+  .meta-divider { width: 30px; height: 1px; background: var(--border); }
+  .article-hero h1 {
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: -1.5px;
+    margin-bottom: 32px;
+    color: var(--text);
+  }
+  .article-hero .deck {
+    font-size: 18px;
+    color: var(--text-dim);
+    line-height: 1.7;
+    border-left: 3px solid var(--accent);
+    padding-left: 20px;
+    margin-bottom: 32px;
+  }
+
+  .article-body {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 32px 80px;
+    font-size: 17px;
+    line-height: 1.95;
+    color: rgba(240, 244, 248, 0.92);
+  }
+  .article-body p { margin-bottom: 1.6em; }
+  .article-body p.lead { font-size: 20px; font-weight: 500; color: var(--text); }
+  .article-body h2 {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--text);
+    margin: 60px 0 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-soft);
+    position: relative;
+  }
+  .article-body h2::before {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background: var(--accent);
+  }
+  .article-body hr { border: none; margin: 60px auto; width: 60px; height: 1px; background: var(--border); }
+  .article-body strong { color: var(--accent); font-weight: 700; }
+  .article-body blockquote {
+    border-left: 4px solid var(--accent);
+    padding: 16px 24px;
+    margin: 32px 0;
+    background: rgba(233, 69, 96, 0.05);
+    color: var(--text);
+    font-style: italic;
+    border-radius: 0 4px 4px 0;
+  }
+  .article-body .highlight {
+    background: linear-gradient(180deg, transparent 60%, rgba(255, 215, 0, 0.25) 60%);
+    padding: 0 4px;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* Process comparison */
+  .process {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr;
+    gap: 12px;
+    align-items: stretch;
+    margin: 40px 0;
+  }
+  .process-col {
+    padding: 24px;
+    background: var(--bg-card);
+    border-radius: 4px;
+    border-top: 3px solid var(--text-mute);
+  }
+  .process-col.new { border-top-color: var(--accent); }
+  .process-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  .process-col.new .process-label { color: var(--accent); }
+  .process-col h4 {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+  .process-col ol {
+    list-style: none;
+    counter-reset: step;
+    padding: 0;
+  }
+  .process-col li {
+    counter-increment: step;
+    padding-left: 32px;
+    position: relative;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+  .process-col li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 22px;
+    height: 22px;
+    background: var(--border);
+    color: var(--text-dim);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .process-col.new li::before {
+    background: var(--accent);
+    color: var(--bg-primary);
+  }
+  .process-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: var(--accent);
+    font-weight: 800;
+  }
+
+  @media (max-width: 720px) {
+    .process { grid-template-columns: 1fr; }
+    .process-arrow { transform: rotate(90deg); padding: 8px 0; }
+  }
+
+  /* Tool cards */
+  .tools {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 32px 0;
+  }
+  .tool {
+    padding: 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-soft);
+    border-radius: 4px;
+    text-align: center;
+  }
+  .tool-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 16px;
+    background: var(--accent-dim);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    font-size: 20px;
+    font-weight: 800;
+  }
+  .tool h4 {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .tool p {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .tools { grid-template-columns: 1fr; }
+  }
+
+  /* 80/20 donut */
+  .donut-wrap {
+    text-align: center;
+    margin: 40px 0;
+  }
+  .donut {
+    width: 240px;
+    height: 240px;
+    margin: 0 auto 24px;
+    border-radius: 50%;
+    background: conic-gradient(
+      var(--accent) 0deg 72deg,
+      var(--border) 72deg 360deg
+    );
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .donut::before {
+    content: '';
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    background: var(--bg-card);
+    border-radius: 50%;
+  }
+  .donut-center {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+  .donut-center .num {
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .donut-center .label {
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  .pull-quote {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 0 32px;
+    text-align: center;
+  }
+  .pull-quote blockquote {
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.4;
+    color: var(--text);
+    border: none;
+    background: none;
+    padding: 0;
+    font-style: normal;
+    letter-spacing: -0.5px;
+  }
+  .pull-quote blockquote::before {
+    content: '"';
+    display: block;
+    font-size: 80px;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: -20px;
+    font-family: Georgia, serif;
+  }
+
+  .end-cta {
+    max-width: 720px;
+    margin: 80px auto 0;
+    padding: 40px 32px;
+    border-top: 1px solid var(--border-soft);
+    text-align: center;
+  }
+  .end-cta p { color: var(--text-dim); font-size: 15px; margin-bottom: 8px; }
+  .end-cta .signature {
+    display: inline-block;
+    margin-top: 24px;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: 4px;
+  }
+
+  footer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 32px 60px;
+    border-top: 1px solid var(--border-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-brand { font-size: 14px; font-weight: 800; color: var(--accent); letter-spacing: 2px; }
+  .footer-meta { color: var(--text-mute); font-size: 12px; letter-spacing: 1px; }
+
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--gold) 100%);
+    z-index: 100;
+    transition: width 0.1s;
+  }
+
+  @media (max-width: 640px) {
+    .article-hero, .article-body, .end-cta { padding-left: 20px; padding-right: 20px; }
+    .article-hero { padding-top: 60px; padding-bottom: 40px; }
+    .article-body { font-size: 16px; }
+    .pull-quote blockquote { font-size: 22px; }
+    .nav-inner { padding: 16px 20px; }
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+</style>
+</head>
+<body>
+
+  <div class="progress-bar" id="progress"></div>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="back-link" href="../index.html">← 返回首页</a>
+      <div class="nav-brand">安祖羊</div>
+    </div>
+  </nav>
+
+  <header class="article-hero">
+    <div class="article-meta">
+      <span class="meta-tag">赛道二</span>
+      <span class="meta-divider"></span>
+      <span>2026.05.12</span>
+      <span class="meta-divider"></span>
+      <span>约 1300 字</span>
+    </div>
+    <h1>那些死在排期里的创意，<br>终于有救了</h1>
+    <p class="deck">15年营销遇到的最大障碍不是预算，不是竞品，是一个字：等。等技术排期、等工程师档期、等跨部门沟通。创意还是那个创意，窗口已经关了。</p>
+  </header>
+
+  <article class="article-body">
+
+    <p class="lead">我帮50多个品牌做过出海营销。</p>
+
+    <p>从众筹到商超切入，从内容营销到红人推广。</p>
+
+    <p>15年下来，遇到的最大障碍，不是预算，不是竞品。</p>
+
+    <p>是一个字：<span class="highlight">等</span>。</p>
+
+    <p>等技术排期。等工程师档期。等跨部门沟通。</p>
+
+    <p>创意还是那个创意，窗口已经关了。</p>
+
+    <p>直到最近，我接触了一个概念，彻底动摇了这件事的根基。</p>
+
+    <p>叫 <strong>Vibe Marketing</strong>。</p>
+
+    <hr>
+
+    <h2>先说它的基础：Vibe Coding</h2>
+
+    <p>用大白话跟 AI 聊天，AI 把你的想法变成可以运行的工具。</p>
+
+    <p>不需要你懂编程语法，不需要你会写代码。</p>
+
+    <p>你只需要知道「你要什么结果」。</p>
+
+    <p>举个例子。</p>
+
+    <p>有人想做一个母亲节活动：用户上传妈妈的照片，AI 转成手绘风格，配上一首诗。</p>
+
+    <p>以前，这是一个两周开发排期、至少三个工程师的项目。</p>
+
+    <p>用了 Vibe Coding 之后，一个营销人，24小时，全程自己搞定。</p>
+
+    <p>2000多位妈妈收到了那份礼物。</p>
+
+    <p>没有任何开发团队介入。</p>
+
+    <p>这就是它的核心改变：<span class="highlight">你不再是许愿者，你成了自造者</span>。</p>
+
+    <hr>
+
+    <h2>许愿者 vs 自造者</h2>
+
+    <p>这是我觉得整件事最值得想的部分。</p>
+
+    <div class="process">
+      <div class="process-col">
+        <div class="process-label">旧世界 · 营销人</div>
+        <h4>许愿者流程</h4>
+        <ol>
+          <li>发现机会</li>
+          <li>填需求单</li>
+          <li>等工程师</li>
+          <li>等对齐</li>
+          <li>市场窗口关了</li>
+        </ol>
+      </div>
+      <div class="process-arrow">→</div>
+      <div class="process-col new">
+        <div class="process-label">新世界 · Vibe Marketer</div>
+        <h4>自造者流程</h4>
+        <ol>
+          <li>发现机会</li>
+          <li>告诉 AI</li>
+          <li>做出来</li>
+          <li>上线测试</li>
+        </ol>
+      </div>
+    </div>
+
+    <p>差的不只是速度，是<span class="highlight">谁掌握主动权</span>。</p>
+
+    <p>当你能自己造工具，营销直觉才能真正落地。</p>
+
+    <p>不需要跟任何人解释你的想法，也不需要等任何人理解你。</p>
+
+    <p>这 15 年，我最大的遗憾之一，就是那些死在排期里的创意。</p>
+
+    <hr>
+
+    <h2>AI 会取代营销人吗？</h2>
+
+    <p>这个问题我认真想过。</p>
+
+    <p>答案是：不会取代，但会放大差距。</p>
+
+    <p>有个说法叫「半人马营销人」，说的是：</p>
+
+    <p>AI 负责 80% 的执行，数据分析、内容生成、A/B 测试。</p>
+
+    <p>你负责 20% 最关键的部分，品牌灵魂、情感连结、策略判断。</p>
+
+    <p>一个会用 AI 的营销通才，能做一整个小型代理机构的活。</p>
+
+    <p>但如果你完全放手给 AI，做出来的东西没有灵魂，也没有你。</p>
+
+    <p>核心就这一句：<strong>AI 是放大器，你才是信号源。</strong></p>
+
+    <p>你的直觉、你的判断、你对用户的理解，是 AI 复制不了的。</p>
+
+    <hr>
+
+    <h2>从哪里开始？三个工具</h2>
+
+    <p>不用一下子全学，先掌握这三个：</p>
+
+    <div class="tools">
+      <div class="tool">
+        <div class="tool-icon">1</div>
+        <h4>Claude</h4>
+        <p>分析内容、处理数据的首选。把竞品文案、用户评论、产品数据喂给它，它帮你找规律、写策略报告。</p>
+      </div>
+      <div class="tool">
+        <div class="tool-icon">2</div>
+        <h4>n8n</h4>
+        <p>自动化工作流。每天早上 8 点自动抓取竞品最新动态，AI 分析摘要，直接推送到工作群。</p>
+      </div>
+      <div class="tool">
+        <div class="tool-icon">3</div>
+        <h4>Replit / Lovable</h4>
+        <p>想做一个简单的营销工具？告诉它你要什么，它帮你搭出来。不需要写任何代码。</p>
+      </div>
+    </div>
+
+    <p>核心原则只有一条：</p>
+
+    <p><strong>描述你想要的结果，而不是怎么实现它。</strong></p>
+
+    <p>这是 Vibe Coding 的精髓。</p>
+
+    <hr>
+
+    <h2>最后一个框架</h2>
+
+    <p>有一条规律，做了 15 年营销越来越确信：</p>
+
+    <p><span class="highlight">顾客 80% 的情感连结，来自 20% 的关键接触点。</span></p>
+
+    <div class="donut-wrap">
+      <div class="donut">
+        <div class="donut-center">
+          <div class="num">20%</div>
+          <div class="label">情感热点</div>
+        </div>
+      </div>
+    </div>
+
+    <p>AI 可以帮你自动化那 80% 的执行，但那 20% 的「情感热点」，只有你能找。</p>
+
+    <p>什么时候让用户感到「这个品牌懂我」？</p>
+
+    <p>什么时候让用户看完一条文案就立刻转发？</p>
+
+    <p>这些判断，AI 给不了你。</p>
+
+    <p>真正的 Vibe Marketing，是你找准那 20%，然后用 AI 把剩下的 80% 全部打通。</p>
+
+    <p><strong>Vibe Coding 是工具，Vibe Marketing 是思维。</strong></p>
+
+    <p><strong>工具会过时，思维不会。</strong></p>
+
+  </article>
+
+  <div class="pull-quote">
+    <blockquote>当你不再需要解释你的想法，<br>你才能把营销直觉真正落地。</blockquote>
+  </div>
+
+  <article class="article-body">
+
+    <hr>
+
+    <h2>结语</h2>
+
+    <p>15年做下来，最让我难受的不是失败的创意。</p>
+
+    <p>是那些本来可以成的创意，</p>
+
+    <p>死在了排期里。</p>
+
+    <p>今天终于有救了。</p>
+
+  </article>
+
+  <div class="end-cta">
+    <p>今天的话题，你怎么想？</p>
+    <p>留言。转发。各平台可关注</p>
+    <div class="signature">— 安祖羊</div>
+  </div>
+
+  <footer>
+    <div class="footer-brand">安祖羊</div>
+    <div class="footer-meta">© 2026 ANZUYANG</div>
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      document.getElementById('progress').style.width = progress + '%';
+    });
+  </script>
+
+</body>
+</html>

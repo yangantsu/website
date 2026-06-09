@@ -1,978 +1,187 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en" data-lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>个人名片</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap');
-
-    body {
-      min-height: 100vh;
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: #f5f0eb;
-      font-family: 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-      transition: background 0.5s ease;
-      padding: 24px 0 calc(24px + env(safe-area-inset-bottom));
-    }
-
-    .card {
-      background: #ffffff;
-      border-radius: 20px;
-      padding: 48px 40px 40px;
-      width: 400px;
-      text-align: center;
-      box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.4),
-        0 6px 20px rgba(106, 27, 154, 0.3);
-      position: relative;
-    }
-
-    .avatar-wrapper {
-      margin-bottom: 20px;
-    }
-
-    .avatar {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid #fff;
-      box-shadow: 0 4px 16px rgba(106, 27, 154, 0.25);
-      background: linear-gradient(135deg, #1a237e, #6a1b9a);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto;
-      font-size: 60px;
-      color: #fff;
-      line-height: 150px;
-      text-indent: 0;
-      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-      cursor: pointer;
-    }
-
-    .avatar:hover {
-      transform: rotate(360deg);
-    }
-
-    .name {
-      font-size: 28px;
-      font-weight: 700;
-      color: #1a1a2e;
-      letter-spacing: 2px;
-      margin-bottom: 10px;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .quote {
-      font-size: 12px;
-      color: #6a1b9a;
-      line-height: 1.7;
-      margin: -6px 0 10px;
-      padding: 8px 12px;
-      background: #f5f0ff;
-      border-left: 3px solid #6a1b9a;
-      border-radius: 4px;
-      text-align: left;
-      opacity: 0;
-      max-height: 0;
-      overflow: hidden;
-      transition: opacity 0.4s ease, max-height 0.4s ease;
-    }
-
-    .quote.visible {
-      opacity: 1;
-      max-height: 80px;
-    }
-
-    .quote.fading {
-      opacity: 0;
-    }
-
-    .title {
-      font-size: 14px;
-      color: #7b7b9d;
-      letter-spacing: 1px;
-      margin-bottom: 20px;
-    }
-
-    .divider {
-      width: 40px;
-      height: 3px;
-      background: linear-gradient(90deg, #1a237e, #6a1b9a);
-      border-radius: 2px;
-      margin: 0 auto 20px;
-    }
-
-    .motto {
-      font-size: 13px;
-      color: #555577;
-      line-height: 1.8;
-      font-style: italic;
-      margin-bottom: 28px;
-      padding: 0 8px;
-    }
-
-    .skills-section {
-      margin-top: 28px;
-      padding-top: 24px;
-      border-top: 1px solid #f0f0f5;
-    }
-
-    .skills-title {
-      font-size: 11px;
-      font-weight: 700;
-      color: #aaaacc;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-    }
-
-    .skills-tags {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .skill-tag {
-      padding: 6px 16px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      cursor: pointer;
-      user-select: none;
-      border: 2px solid transparent;
-      transition: transform 0.18s ease, filter 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
-    }
-
-    .skill-tag:hover {
-      transform: scale(1.07);
-      filter: brightness(0.88);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-    }
-
-    .skill-tag.active {
-      border-color: currentColor;
-      filter: brightness(0.82);
-      box-shadow: 0 0 0 3px rgba(0,0,0,0.08);
-    }
-
-    /* 四种商务配色 */
-    .skill-tag:nth-child(1) { background: #e8eaf6; color: #283593; }
-    .skill-tag:nth-child(2) { background: #e0f2f1; color: #00695c; }
-    .skill-tag:nth-child(3) { background: #fce4ec; color: #880e4f; }
-    .skill-tag:nth-child(4) { background: #fff3e0; color: #e65100; }
-
-    @media (max-width: 767px) {
-      .skill-tag { font-size: 12px; padding: 5px 14px; }
-    }
-
-    /* ── 项目展示 ── */
-    .projects-section {
-      background: #ffffff;
-      border-radius: 20px;
-      padding: 36px 40px 40px;
-      width: 400px;
-      margin-top: 20px;
-      box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.4),
-        0 6px 20px rgba(106, 27, 154, 0.3);
-    }
-
-    .projects-title {
-      font-size: 18px;
-      font-weight: 700;
-      color: #1a1a2e;
-      letter-spacing: 1px;
-      margin-bottom: 24px;
-      text-align: center;
-      position: relative;
-    }
-
-    .projects-title::after {
-      content: '';
-      display: block;
-      width: 32px;
-      height: 3px;
-      background: linear-gradient(90deg, #1a237e, #6a1b9a);
-      border-radius: 2px;
-      margin: 8px auto 0;
-    }
-
-    .project-card:last-child { margin-bottom: 0; }
-
-    .project-card:hover {
-      border-color: #c5b8e8;
-      box-shadow: 0 4px 16px rgba(106, 27, 154, 0.1);
-      transform: translateY(-2px);
-    }
-
-    .project-name {
-      font-size: 14px;
-      font-weight: 700;
-      color: #1a1a2e;
-      margin-bottom: 6px;
-    }
-
-    .project-desc {
-      font-size: 12px;
-      color: #666688;
-      line-height: 1.7;
-      margin-bottom: 10px;
-      display: none;
-    }
-
-    .project-card.open .project-desc { display: block; }
-
-    .project-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .project-tag {
-      font-size: 11px;
-      padding: 3px 10px;
-      border-radius: 20px;
-      background: #f0eeff;
-      color: #5c35a8;
-      font-weight: 700;
-    }
-
-    .project-toggle {
-      float: right;
-      font-size: 16px;
-      color: #aaaacc;
-      transition: transform 0.2s;
-      line-height: 1;
-    }
-
-    .project-card.open .project-toggle { transform: rotate(180deg); }
-
-    .filter-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 16px;
-    }
-
-    .filter-btn {
-      padding: 5px 14px;
-      border-radius: 20px;
-      border: 1.5px solid #d8d8e8;
-      background: #fafafa;
-      color: #666688;
-      font-size: 12px;
-      font-family: inherit;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.15s, color 0.15s, border-color 0.15s;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .filter-btn:hover { border-color: #a98ee0; color: #5c35a8; }
-
-    .filter-btn.active {
-      background: #5c35a8;
-      border-color: #5c35a8;
-      color: #fff;
-    }
-
-    .filter-btn.all-btn.active {
-      background: #1a1a2e;
-      border-color: #1a1a2e;
-    }
-
-    .filter-count {
-      font-size: 11px;
-      color: #aaaacc;
-      margin-bottom: 14px;
-      text-align: right;
-    }
-
-    .project-card {
-      border: 1.5px solid #ebebf2;
-      border-radius: 12px;
-      padding: 16px 18px;
-      margin-bottom: 12px;
-      cursor: pointer;
-      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s, opacity 0.25s;
-    }
-
-    .project-card.hidden {
-      display: none;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .project-card.fade-in {
-      animation: fadeIn 0.25s ease forwards;
-    }
-
-    @media (max-width: 1024px) and (min-width: 768px) {
-      .projects-section { width: 360px; padding: 32px; }
-    }
-
-    @media (max-width: 767px) {
-      .projects-section { width: 90%; padding: 28px 24px; border-radius: 16px; }
-    }
-
-    .contacts {
-      display: flex;
-      justify-content: center;
-      gap: 24px;
-    }
-
-    .contact-link {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      text-decoration: none;
-      color: #444444;
-      transition: color 0.2s, transform 0.2s;
-      padding: 8px;
-      -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
-    }
-
-    .contact-link:hover {
-      color: #1a73e8;
-      transform: translateY(-3px);
-    }
-
-    .contact-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: #f0f0f0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s, box-shadow 0.2s;
-      min-width: 44px;
-      min-height: 44px;
-    }
-
-    .contact-link:hover .contact-icon {
-      background: #e8f0fe;
-      box-shadow: 0 4px 12px rgba(26, 115, 232, 0.25);
-    }
-
-    .contact-link:hover .contact-icon svg {
-      stroke: #1a73e8;
-      fill: none;
-    }
-
-    .contact-link:hover .contact-icon svg.fill-icon {
-      fill: #1a73e8;
-      stroke: none;
-    }
-
-    .contact-icon svg {
-      width: 20px;
-      height: 20px;
-      stroke: #444444;
-      fill: none;
-      transition: stroke 0.2s, fill 0.2s;
-    }
-
-    .contact-label {
-      font-size: 11px;
-    }
-
-    /* iPad (768px–1024px) */
-    @media (max-width: 1024px) and (min-width: 768px) {
-      .card {
-        width: 360px;
-        padding: 40px 32px 32px;
-      }
-    }
-
-    /* iPhone 12 and mobile (<768px) */
-    @media (max-width: 767px) {
-      .card {
-        width: 90%;
-        padding: 36px 24px 28px;
-        border-radius: 16px;
-      }
-
-      .avatar {
-        width: 100px;
-        height: 100px;
-        font-size: 40px;
-        line-height: 100px;
-      }
-
-      .name {
-        font-size: 22px;
-      }
-
-      .title {
-        font-size: 12px;
-      }
-
-      .motto {
-        font-size: 12px;
-        margin-bottom: 24px;
-      }
-
-      .quote {
-        font-size: 11px;
-      }
-
-      .contacts {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        gap: 0;
-        width: 100%;
-      }
-
-      .contact-link {
-        flex: 1;
-        padding: 10px 4px;
-      }
-    }
-
-    .theme-btn {      position: absolute;
-      top: 16px;
-      right: 16px;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border: none;
-      cursor: pointer;
-      background: #f0f0f0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-    }
-
-    .theme-btn:hover {
-      background: #e0e0e0;
-      transform: rotate(30deg);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    }
-
-    .theme-btn svg {
-      width: 18px;
-      height: 18px;
-      stroke: #555;
-      fill: none;
-    }
-
-    /* ── 留言表单 ── */
-    .message-form {
-      background: #ffffff;
-      border-radius: 20px;
-      padding: 36px 40px 40px;
-      width: 400px;
-      margin-top: 20px;
-      box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.4),
-        0 6px 20px rgba(106, 27, 154, 0.3);
-    }
-
-    .form-title {
-      font-size: 18px;
-      font-weight: 700;
-      color: #1a1a2e;
-      letter-spacing: 1px;
-      margin-bottom: 24px;
-      text-align: center;
-      position: relative;
-    }
-
-    .form-title::after {
-      content: '';
-      display: block;
-      width: 32px;
-      height: 3px;
-      background: linear-gradient(90deg, #1a237e, #6a1b9a);
-      border-radius: 2px;
-      margin: 8px auto 0;
-    }
-
-    .form-group {
-      margin-bottom: 16px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 12px;
-      color: #555577;
-      margin-bottom: 6px;
-      letter-spacing: 0.5px;
-    }
-
-    .form-group input,
-    .form-group textarea {
-      width: 100%;
-      padding: 10px 14px;
-      border: 1.5px solid #e0e0e8;
-      border-radius: 10px;
-      font-size: 14px;
-      font-family: inherit;
-      color: #1a1a2e;
-      background: #fafafa;
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
-      resize: none;
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus {
-      border-color: #6a1b9a;
-      box-shadow: 0 0 0 3px rgba(106, 27, 154, 0.1);
-      background: #ffffff;
-    }
-
-    .form-group textarea {
-      height: 100px;
-    }
-
-    .form-submit {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #1a237e, #6a1b9a);
-      color: #ffffff;
-      font-size: 15px;
-      font-family: inherit;
-      font-weight: 700;
-      letter-spacing: 1px;
-      cursor: pointer;
-      transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
-      margin-top: 4px;
-    }
-
-    .form-submit:hover {
-      opacity: 0.9;
-      transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(106, 27, 154, 0.35);
-    }
-
-    .form-submit:active {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    .form-success {
-      display: none;
-      text-align: center;
-      padding: 16px 0 4px;
-      font-size: 14px;
-      color: #2e7d32;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-
-    .form-success.visible {
-      opacity: 1;
-    }
-
-    .form-submit:disabled {
-      cursor: not-allowed;
-      opacity: 0.75;
-    }
-
-    .form-submit .spinner {
-      display: inline-block;
-      width: 14px;
-      height: 14px;
-      border: 2px solid rgba(255,255,255,0.4);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      vertical-align: middle;
-      margin-right: 6px;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .input-error {
-      border-color: #e53935 !important;
-      box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.1) !important;
-    }
-
-    .error-tip {
-      display: block;
-      font-size: 11px;
-      color: #e53935;
-      margin-top: 4px;
-      min-height: 16px;
-    }
-
-    @media (max-width: 1024px) and (min-width: 768px) {
-      .message-form { width: 360px; padding: 32px; }
-    }
-
-    @media (max-width: 767px) {
-      .message-form {
-        width: 90%;
-        padding: 28px 24px 28px;
-        border-radius: 16px;
-      }
-
-      .form-group input,
-      .form-group textarea {
-        width: 100%;
-        font-size: 16px; /* prevents iOS auto-zoom */
-      }
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Portfolio</title>
+  <meta name="description" content="The Portfolio — essays, reports, and reflections on marketing, cross-border trade, and brand building.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@500;600;700;900&display=swap">
+  <link rel="stylesheet" href="assets/style.css">
 </head>
-<body>
-  <div class="card">
-    <button class="theme-btn" onclick="switchTheme()" title="换肤">
-      <svg viewBox="0 0 24 24" stroke-width="1.8">
-        <circle cx="12" cy="12" r="10"/>
-        <circle cx="12" cy="8" r="1.5" fill="#555" stroke="none"/>
-        <circle cx="16" cy="12" r="1.5" fill="#555" stroke="none"/>
-        <circle cx="8"  cy="12" r="1.5" fill="#555" stroke="none"/>
-        <circle cx="12" cy="16" r="1.5" fill="#555" stroke="none"/>
-      </svg>
-    </button>
-    <div class="avatar-wrapper">
-      <div class="avatar">🧑‍💻</div>
-    </div>
-
-    <div class="name" onclick="showQuote()">杨安祖</div>
-    <div class="quote" id="quote"></div>
-    <div class="title">市场洞察 · 出海贸易 · 品牌营销</div>
-
-    <div class="divider"></div>
-
-    <p class="motto">「逆流而上，洞见本质。」</p>
-
-    <div class="skills-section">
-      <div class="skills-title">核心竞争力</div>
-      <div class="skills-tags">
-        <span class="skill-tag" onclick="toggleSkill(this)">品牌战略</span>
-        <span class="skill-tag" onclick="toggleSkill(this)">整合营销</span>
-        <span class="skill-tag" onclick="toggleSkill(this)">数字增长</span>
-        <span class="skill-tag" onclick="toggleSkill(this)">公共关系</span>
+<body data-page="home">
+  <nav class="site-nav">
+    <a href="index.html" class="nav-brand">The Portfolio</a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="articles/index.html" class="nav-link">
+          <span data-lang-en>Articles</span>
+          <span data-lang-zh>文章</span>
+        </a>
+        <a href="reports/index.html" class="nav-link">
+          <span data-lang-en>Reports</span>
+          <span data-lang-zh>报告</span>
+        </a>
+        <a href="about.html" class="nav-link">
+          <span data-lang-en>About</span>
+          <span data-lang-zh>关于</span>
+        </a>
+      </div>
+      <div class="lang-toggle">
+        <button data-lang-target="en">EN</button>
+        <button data-lang-target="zh">中文</button>
       </div>
     </div>
+  </nav>
 
-    <div class="contacts">
-      <!-- GitHub -->
-      <a class="contact-link" href="https://github.com/yangantsu" target="_blank" title="GitHub">
-        <div class="contact-icon">
-          <svg viewBox="0 0 24 24" stroke-width="1.8">
-            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  <main>
+    <section class="hero">
+      <span class="hero-eyebrow">
+        <span data-lang-en>Portfolio · 2026</span>
+        <span data-lang-zh>作品集 · 2026</span>
+      </span>
+
+      <h1 class="hero-name">
+        <span class="hero-name-text" aria-hidden="false">杨安祖</span>
+        <span class="hero-name-shadow" aria-hidden="true">杨安祖</span>
+      </h1>
+
+      <p class="hero-tagline">
+        <span data-lang-en>Market Insight · Cross-border Trade · Brand Marketing</span>
+        <span data-lang-zh>市场洞察 · 出海贸易 · 品牌营销</span>
+      </p>
+
+      <p class="hero-motto">
+        <span data-lang-en>「Go against the current, see the essence.」</span>
+        <span data-lang-zh>「逆流而上，洞见本质。」</span>
+      </p>
+
+      <p class="hero-attribution">
+        <span data-lang-en>— A portfolio by</span>
+        <span data-lang-zh>— 出自</span>
+        <span class="hero-pen">安祖羊 · ANZUYANG</span>
+      </p>
+
+      <div class="hero-divider"></div>
+
+      <p class="hero-lead">
+        <span data-lang-en>A marketing strategist focused on cross-border trade, brand building, and the long view. I write about strategy, share field reports, and collect what I learn along the way.</span>
+        <span data-lang-zh>聚焦出海贸易、品牌建设与长期主义的市场策略人。在这里记录策略思考、田野观察，与一路的所得。</span>
+      </p>
+
+      <div class="scroll-hint">
+        <span data-lang-en>Explore</span>
+        <span data-lang-zh>探索</span>
+        <div class="line"></div>
+      </div>
+    </section>
+
+    <div class="sections-intro">
+      <span class="label">
+        <span data-lang-en>— Sections</span>
+        <span data-lang-zh>— 目录</span>
+      </span>
+      <h2>
+        <span data-lang-en>Where to start</span>
+        <span data-lang-zh>从这里开始</span>
+      </h2>
+    </div>
+
+    <section class="sections">
+      <a href="articles/index.html" class="section-card">
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="8" y1="13" x2="16" y2="13"/>
+            <line x1="8" y1="17" x2="13" y2="17"/>
           </svg>
         </div>
-        <span class="contact-label">GitHub</span>
+        <div class="card-body">
+          <div class="card-head">
+            <h2>
+              <span data-lang-en>Articles</span>
+              <span data-lang-zh>文章</span>
+            </h2>
+            <span class="count" id="articleCount">—</span>
+          </div>
+          <p class="desc">
+            <span data-lang-en>Essays, notes, and reflections on marketing, strategy, and the long view.</span>
+            <span data-lang-zh>关于营销、策略与长期主义的随笔、札记与思考。</span>
+          </p>
+          <span class="arrow">
+            <span data-lang-en>Browse articles</span>
+            <span data-lang-zh>浏览文章</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </div>
       </a>
 
-      <!-- Email -->
-      <a class="contact-link" href="mailto:yangantsu@gmail.com" title="邮箱">
-        <div class="contact-icon">
-          <svg viewBox="0 0 24 24" stroke-width="1.8">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-            <polyline points="22,6 12,13 2,6"/>
+      <a href="reports/index.html" class="section-card">
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"/>
+            <line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="6" y1="20" x2="6" y2="14"/>
+            <line x1="3" y1="20" x2="21" y2="20"/>
           </svg>
         </div>
-        <span class="contact-label">邮箱</span>
+        <div class="card-body">
+          <div class="card-head">
+            <h2>
+              <span data-lang-en>Reports</span>
+              <span data-lang-zh>报告</span>
+            </h2>
+            <span class="count" id="reportCount">—</span>
+          </div>
+          <p class="desc">
+            <span data-lang-en>Field reports, research notes, and longer-form analysis.</span>
+            <span data-lang-zh>田野报告、研究笔记与较长篇幅的分析。</span>
+          </p>
+          <span class="arrow">
+            <span data-lang-en>Read reports</span>
+            <span data-lang-zh>阅读报告</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </div>
       </a>
 
-      <!-- WeChat -->
-      <a class="contact-link" href="wechat-qr.jpg" download="微信二维码.jpg" title="微信">
-        <div class="contact-icon">
-          <svg viewBox="0 0 24 24" stroke-width="1.8">
-            <path d="M8.5 10.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" class="fill-icon" fill="#444444" stroke="none"/>
-            <path d="M12 10.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" class="fill-icon" fill="#444444" stroke="none"/>
-            <path d="M21 11.5c0 3.04-2.9 5.5-6.5 5.5-.7 0-1.37-.09-2-.26L9 18l1.07-2.55C8.2 14.56 7 13.1 7 11.5 7 8.46 9.91 6 13.5 6S21 8.46 21 11.5z"/>
-            <path d="M14 7.5c-.32-.83-.9-1.57-1.67-2.14C11.1 4.49 9.6 4 8 4 4.69 4 2 6.24 2 9c0 1.38 1.08 2.65 2.55 3.5L3 15l2.75-.9c.7.2 1.45.4 2.25.4"/>
+      <a href="about.html" class="section-card">
+        <div class="card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
           </svg>
         </div>
-        <span class="contact-label">微信</span>
+        <div class="card-body">
+          <div class="card-head">
+            <h2>
+              <span data-lang-en>About</span>
+              <span data-lang-zh>关于</span>
+            </h2>
+          </div>
+          <p class="desc">
+            <span data-lang-en>About me, my background, and how to get in touch.</span>
+            <span data-lang-zh>关于我、我的背景，以及联系方式。</span>
+          </p>
+          <span class="arrow">
+            <span data-lang-en>About me</span>
+            <span data-lang-zh>了解更多</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </div>
       </a>
-    </div>
-  </div>
+    </section>
+  </main>
 
-  <div class="projects-section" id="projectsSection"></div>
+  <footer class="site-footer">
+    <p>
+      <span data-lang-en>© 2026 The Portfolio. Built with care.</span>
+      <span data-lang-zh>© 2026 The Portfolio. 用心构建。</span>
+    </p>
+  </footer>
 
-  <form class="message-form" id="msgForm" onsubmit="submitForm(event)" novalidate>
-    <div class="form-title">给我留言</div>
-
-    <div class="form-group">
-      <label for="f-name">姓名 *</label>
-      <input type="text" id="f-name" placeholder="请输入您的姓名" required>
-    </div>
-
-    <div class="form-group">
-      <label for="f-email">邮箱 *</label>
-      <input type="email" id="f-email" placeholder="请输入您的邮箱" required>
-    </div>
-
-    <div class="form-group">
-      <label for="f-msg">留言 *</label>
-      <textarea id="f-msg" placeholder="请输入您的留言内容…" required></textarea>
-    </div>
-
-    <button type="submit" class="form-submit">发送留言</button>
-    <div class="form-success" id="formSuccess">✓ 收到了，晚点联系你。</div>
-  </form>
-
-  <script>
-    function toggleSkill(el) {
-      el.classList.toggle('active');
-    }
-
-    const projects = [
-      {
-        name: 'AI智能客户互动系统',
-        desc: '基于GPT技术的智能对话系统，专为优化美国本土客户服务体验而设计，有效提升用户互动率与满意度。',
-        tags: ['AI营销战略', '营销技术', '客户体验优化'],
-      },
-      {
-        name: '全球品牌内容中心',
-        desc: '专为北美市场量身定制的响应式内容平台，通过深度的SEO优化布局，持续驱动高质量的自然流量增长。',
-        tags: ['内容营销', '搜索引擎优化', '品牌故事叙述'],
-      },
-      {
-        name: '跨境营销数据分析平台',
-        desc: '企业级数据可视化解决方案，深度整合多渠道数据，为跨境业务的全球化增长提供精准的商业洞察与决策支持。',
-        tags: ['数据分析', '用户增长策略', '商业智能工具'],
-      },
-      {
-        name: 'DTC品牌出海全案',
-        desc: '针对竞争激烈的美国零售市场，为直面消费者品牌打造从0到1的全链路市场进入与落地策略。',
-        tags: ['电子商务', '市场进入策略', '用户获取'],
-      },
-      {
-        name: '社交媒体增长引擎',
-        desc: '基于TikTok和Instagram生态的数据驱动型营销战役，成功突破圈层，大幅提升品牌在Z世代年轻群体中的认知度。',
-        tags: ['社交媒体运营', '付费媒体投放', '社群管理'],
-      },
-      {
-        name: 'SaaS产品定位与重塑',
-        desc: '针对美国企业级客户的需求痛点，重新梳理并定义产品的核心价值主张与市场沟通话术。',
-        tags: ['产品营销', 'B2B战略规划', '市场调研'],
-      },
-    ];
-
-    // collect all unique tags across projects
-    const allTags = [...new Set(projects.flatMap(p => p.tags))];
-    let activeFilters = new Set();
-
-    function renderProjects() {
-      const container = document.getElementById('projectsSection');
-
-      // filter bar
-      const filterBtns = [
-        `<button class="filter-btn all-btn active" onclick="setFilter('__all__', this)">全部</button>`,
-        ...allTags.map(t => `<button class="filter-btn" onclick="setFilter('${t}', this)">${t}</button>`)
-      ].join('');
-
-      const cards = projects.map((p, i) => `
-        <div class="project-card" data-tags="${p.tags.join('|')}" onclick="toggleProject(this)">
-          <div class="project-name">${p.name}<span class="project-toggle">›</span></div>
-          <div class="project-desc">${p.desc}</div>
-          <div class="project-tags">${p.tags.map(t => `<span class="project-tag">${t}</span>`).join('')}</div>
-        </div>`).join('');
-
-      container.innerHTML = `
-        <div class="projects-title">代表项目</div>
-        <div class="filter-bar">${filterBtns}</div>
-        <div class="filter-count" id="filterCount">显示 ${projects.length} 个项目</div>
-        ${cards}`;
-    }
-
-    function setFilter(tag, btn) {
-      const allBtn = document.querySelector('.all-btn');
-
-      if (tag === '__all__') {
-        activeFilters.clear();
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        allBtn.classList.add('active');
-      } else {
-        allBtn.classList.remove('active');
-        btn.classList.toggle('active');
-        if (activeFilters.has(tag)) activeFilters.delete(tag);
-        else activeFilters.add(tag);
-
-        // if nothing selected, reset to "all"
-        if (activeFilters.size === 0) allBtn.classList.add('active');
-      }
-
-      applyFilter();
-    }
-
-    function applyFilter() {
-      const cards = document.querySelectorAll('.project-card');
-      let visible = 0;
-
-      cards.forEach(card => {
-        const tags = card.dataset.tags.split('|');
-        const show = activeFilters.size === 0 || tags.some(t => activeFilters.has(t));
-        if (show) {
-          card.classList.remove('hidden');
-          card.classList.remove('fade-in');
-          void card.offsetWidth; // reflow to restart animation
-          card.classList.add('fade-in');
-          visible++;
-        } else {
-          card.classList.add('hidden');
-          card.classList.remove('fade-in');
-        }
-      });
-
-      document.getElementById('filterCount').textContent = `显示 ${visible} 个项目`;
-    }
-
-    function toggleProject(card) {
-      card.classList.toggle('open');
-    }
-
-    renderProjects();
-
-    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    function setError(id, msg) {
-      const el = document.getElementById(id);
-      el.classList.add('input-error');
-      let tip = el.parentElement.querySelector('.error-tip');
-      if (!tip) {
-        tip = document.createElement('span');
-        tip.className = 'error-tip';
-        el.parentElement.appendChild(tip);
-      }
-      tip.textContent = msg;
-    }
-
-    function clearError(id) {
-      const el = document.getElementById(id);
-      el.classList.remove('input-error');
-      const tip = el.parentElement.querySelector('.error-tip');
-      if (tip) tip.textContent = '';
-    }
-
-    function submitForm(e) {
-      e.preventDefault();
-      const name  = document.getElementById('f-name').value.trim();
-      const email = document.getElementById('f-email').value.trim();
-      const msg   = document.getElementById('f-msg').value.trim();
-
-      clearError('f-name');
-      clearError('f-email');
-      clearError('f-msg');
-
-      let valid = true;
-      if (!name)              { setError('f-name',  '姓名不能为空');     valid = false; }
-      if (!email)             { setError('f-email', '邮箱不能为空');     valid = false; }
-      else if (!emailRe.test(email)) { setError('f-email', '邮箱格式不正确'); valid = false; }
-      if (!msg)               { setError('f-msg',   '留言内容不能为空'); valid = false; }
-
-      if (!valid) return;
-
-      const btn = document.querySelector('.form-submit');
-      btn.disabled = true;
-      btn.innerHTML = '<span class="spinner"></span>发送中…';
-
-      setTimeout(() => {
-        document.getElementById('msgForm').reset();
-        btn.disabled = false;
-        btn.textContent = '发送留言';
-
-        const success = document.getElementById('formSuccess');
-        success.style.display = 'block';
-        requestAnimationFrame(() => requestAnimationFrame(() => success.classList.add('visible')));
-        setTimeout(() => {
-          success.classList.remove('visible');
-          setTimeout(() => { success.style.display = 'none'; }, 400);
-        }, 3000);
-      }, 800);
-    }
-
-    // 实时验证邮箱，其他字段输入时清除错误
-    document.getElementById('f-email').addEventListener('input', () => {
-      const val = document.getElementById('f-email').value.trim();
-      if (!val) { clearError('f-email'); return; }
-      if (!emailRe.test(val)) setError('f-email', '邮箱格式不正确');
-      else clearError('f-email');
-    });
-    ['f-name', 'f-msg'].forEach(id => {
-      document.getElementById(id).addEventListener('input', () => clearError(id));
-    });
-
-    const quotes = [
-      '随波逐流只能看见背影，逆风而行才能看清前路。',
-      '当所有人都在追逐风口，我选择成为风。',
-      '平庸的人适应世界，卓越的人重塑规则。',
-      '真理往往掌握在少数人手中，爆款永远诞生在无人区。',
-      '与其在红海里厮杀，不如在蓝海里独行。',
-      '不迎合大众的审美，只定义未来的品味。',
-      '共识是平庸的温床，异见是创新的土壤。',
-      '走别人没走过的路，才能看到别人看不到的风景。',
-      '只有敢于背对人群，才能直面真正的机遇。',
-      '所谓先锋，就是敢于做第一个“不合群”的人。',
-    ];
-
-    let lastQuoteIndex = -1;
-    let fadeTimer = null;
-
-    function showQuote() {
-      const el = document.getElementById('quote');
-
-      // 清除上一次的淡出计时器
-      if (fadeTimer) clearTimeout(fadeTimer);
-
-      // 随机选一条，保证不重复
-      let idx;
-      do { idx = Math.floor(Math.random() * quotes.length); } while (idx === lastQuoteIndex);
-      lastQuoteIndex = idx;
-
-      el.textContent = quotes[idx];
-      el.classList.remove('fading');
-      el.classList.add('visible');
-
-      fadeTimer = setTimeout(() => {
-        el.classList.add('fading');
-        setTimeout(() => el.classList.remove('visible', 'fading'), 400);
-      }, 3000);
-    }
-
-    const themes = [
-      'linear-gradient(135deg, #0d1b4b 0%, #1a237e 40%, #3949ab 100%)',  // 深蓝
-      'linear-gradient(135deg, #f8a4c8 0%, #e91e8c 50%, #c2185b 100%)',  // 粉色
-      'linear-gradient(135deg, #1b5e20 0%, #2e7d32 40%, #66bb6a 100%)',  // 绿色
-      'linear-gradient(135deg, #e65100 0%, #f57c00 50%, #ffb300 100%)',  // 橙色
-      'linear-gradient(135deg, #4a148c 0%, #7b1fa2 50%, #ab47bc 100%)',  // 紫色
-    ];
-
-    let currentIndex = -1;
-
-    function switchTheme() {
-      let next;
-      do { next = Math.floor(Math.random() * themes.length); } while (next === currentIndex);
-      currentIndex = next;
-      document.body.style.background = themes[currentIndex];
-    }
-  </script>
+  <script src="assets/app.js"></script>
 </body>
 </html>
