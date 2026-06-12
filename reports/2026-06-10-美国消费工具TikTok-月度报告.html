@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color="#0F0F0D">
+<title>美国消费工具 TikTok Shop · 2026-05 月度报告</title>
+<style>
+:root {
+  --paper:#F0F0EC; --white:#FFFFFF; --ink-black:#0F0F0D; --ink-dark:#1E1E1A;
+  --text-primary:#1A1A16; --text-sec:#5C5C54; --text-mute:#787870; --text-dim:#9A9A90;
+  --text-nav:#B8B8B0;
+  --yellow:#F5C518; --yellow-pale:#FDF7D6;
+  --blue:#1A56DB;
+  --border:#D8D8D2; --border-dark:#C0C0B8;
+  --green:#15803D; --green-text:#14532D;
+  --red:#B91C1C; --red-pale-bg:#FEE2E2;
+  --orange:#78350F; --orange-pale-bg:#FEF3C7;
+  --orange-deep:#9A3412; --orange-bg:#FED7AA;
+  --grid-line:rgba(0,0,0,0.06);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--paper); color: var(--text-primary);
+  font-family: -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  -webkit-font-smoothing: antialiased; line-height: 1.65; font-size: 15px;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+a { color: inherit; text-decoration: none; }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
+
+/* === Hamburger === */
+.hamburger {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; min-width: 44px;
+  background: transparent; border: 0; cursor: pointer;
+  color: var(--text-nav); font-size: 22px; line-height: 1;
+  -webkit-tap-highlight-color: transparent;
+}
+.hamburger:active { background: rgba(245,197,24,0.12); }
+
+/* === Nav === */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--ink-black); border-bottom: 1px solid #2A2A26;
+  padding: 0 12px; display: flex; align-items: center;
+  height: 52px; gap: 8px;
+  padding-top: env(safe-area-inset-top);
+}
+.nav-brand { font-family: 'SF Mono','Menlo',monospace; color: var(--yellow); font-size: 12px; font-weight: 700; }
+.nav-divider { width: 1px; height: 20px; background: #3A3A34; }
+.nav-title { font-family: 'SF Mono','Menlo',monospace; color: var(--text-nav); font-size: 10px; flex: 1; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nav-meta { display: none; font-family: 'SF Mono','Menlo',monospace; color: var(--text-nav); font-size: 10px; }
+
+/* === TOC Drawer === */
+.toc-drawer {
+  position: fixed; top: 0; left: 0; height: 100%; width: 280px; max-width: 85vw;
+  background: var(--ink-black); color: var(--white);
+  z-index: 200; transform: translateX(-100%);
+  transition: transform 0.25s ease; padding: 64px 0 24px;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+  border-right: 2px solid var(--yellow);
+}
+.toc-drawer.open { transform: translateX(0); }
+.toc-drawer .toc-header { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--yellow); letter-spacing: 0.12em; text-transform: uppercase; padding: 0 20px 12px; border-bottom: 1px solid #2A2A26; position: sticky; top: 0; background: var(--ink-black); }
+.toc-drawer .toc-item { display: flex; align-items: center; gap: 12px; padding: 12px 20px; min-height: 44px; font-size: 13px; color: var(--text-nav); border-bottom: 1px solid #1A1A16; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background 0.15s, color 0.15s; }
+.toc-drawer .toc-item:active { background: rgba(245,197,24,0.12); }
+.toc-drawer .toc-item.active { color: var(--yellow); background: rgba(245,197,24,0.08); border-left: 3px solid var(--yellow); padding-left: 17px; }
+.toc-drawer .toc-num { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-dim); min-width: 30px; }
+.toc-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 199; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
+.toc-overlay.open { opacity: 1; pointer-events: auto; }
+.toc-close { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; background: transparent; border: 0; color: var(--text-nav); font-size: 24px; cursor: pointer; line-height: 1; }
+
+/* === Cover === */
+.cover { background-color: var(--ink-black); background-image: linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px); background-size: 24px 24px; padding: 48px 20px 0; }
+.cover-doc-class { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--yellow); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 24px; }
+.cover-title-block { border-left: 3px solid var(--yellow); padding-left: 16px; margin-bottom: 40px; }
+.cover-title { font-size: 26px; font-weight: 700; color: var(--white); line-height: 1.25; margin-bottom: 12px; letter-spacing: -0.02em; }
+.cover-title .accent { color: var(--yellow); }
+.cover-subtitle { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-nav); text-transform: uppercase; letter-spacing: 0.1em; }
+.headline-block { background: rgba(255,255,255,0.04); border-top: 1px solid #2A2A26; padding: 32px 0; display: grid; grid-template-columns: 1fr; gap: 24px; }
+.headline-number { font-family: 'SF Mono','Menlo',monospace; font-size: 44px; font-weight: 700; color: var(--yellow); line-height: 1; margin-bottom: 12px; }
+.headline-number-label { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-nav); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+.headline-context { font-size: 13px; color: rgba(255,255,255,0.7); }
+.headline-insight-label { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--yellow); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+.headline-insight-text { font-size: 14px; color: var(--white); line-height: 1.7; }
+.headline-insight-text strong { color: var(--yellow); }
+.cover-sub-numbers { background: rgba(255,255,255,0.02); border-top: 1px solid #2A2A26; display: grid; grid-template-columns: repeat(2,1fr); padding: 16px 0; gap: 0; }
+.cover-sub-cell { padding: 12px 16px; border-right: 1px solid #2A2A26; border-bottom: 1px solid #2A2A26; }
+.cover-sub-cell:nth-child(2n) { border-right: none; }
+.cover-sub-cell:nth-last-child(-n+2) { border-bottom: none; }
+.cover-sub-value { font-family: 'SF Mono','Menlo',monospace; font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+.cover-sub-value .arrow { color: var(--yellow); }
+.cover-sub-label { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-nav); text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* === Main / Section === */
+.main { max-width: 100%; margin: 0 auto; padding: 32px 16px 48px; scroll-margin-top: calc(52px + env(safe-area-inset-top, 0px) + 12px); }
+.section { margin-bottom: 48px; scroll-margin-top: calc(52px + env(safe-area-inset-top, 0px) + 12px); }
+.section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+.section-code { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; font-weight: 600; color: var(--text-dim); letter-spacing: 0.1em; }
+.section-title { font-size: 22px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.02em; line-height: 1.3; }
+.section-divider { width: 100%; height: 1px; background: var(--border); margin-bottom: 20px; }
+.section-subtitle { font-size: 16px; font-weight: 600; color: var(--text-primary); margin: 24px 0 12px; }
+.section-back { display: inline-block; font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--orange); margin-top: 8px; min-height: 44px; line-height: 44px; }
+.section-back:active { color: var(--yellow); }
+.page-classification { display: block; text-align: center; padding: 16px 0 8px; font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-mute); letter-spacing: 0.1em; text-transform: uppercase; border-top: 1px dashed var(--border); margin-top: 24px; }
+
+/* === Grids + Stat cards === */
+.grid-2, .grid-3, .grid-4 { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 16px; }
+.stat-card { background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--border-dark); border-radius: 4px; padding: 16px; }
+.stat-card-label { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+.stat-card-value { font-family: 'SF Mono','Menlo',monospace; font-size: 22px; font-weight: 700; color: var(--blue); margin-bottom: 4px; line-height: 1.1; }
+.stat-card-desc { font-size: 12px; color: var(--text-sec); border-top: 1px solid var(--border); padding-top: 8px; margin-top: 8px; line-height: 1.55; }
+
+/* === Data table === */
+.data-table { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; font-size: 12px; display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 8px; }
+.data-table thead tr { background: var(--ink-dark); }
+.data-table thead th { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: rgba(255,255,255,0.7); letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 10px; text-align: left; border-right: 1px solid #2A2A26; font-weight: 600; white-space: nowrap; }
+.data-table thead th:last-child { border-right: none; }
+.data-table tbody td { padding: 8px 10px; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); vertical-align: top; }
+.data-table tbody td:last-child { border-right: none; }
+.data-table tbody tr:last-child td { border-bottom: none; }
+.data-table tbody tr.highlight { background: var(--yellow-pale); }
+.mono-cell { font-family: 'SF Mono','Menlo',monospace; font-size: 12px; }
+.blue-cell { color: var(--blue); font-family: 'SF Mono','Menlo',monospace; font-weight: 600; }
+.red-cell { color: var(--red); font-family: 'SF Mono','Menlo',monospace; font-weight: 600; }
+.green-cell { color: var(--green); font-family: 'SF Mono','Menlo',monospace; font-weight: 600; }
+.table-note { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-mute); margin-top: 6px; margin-bottom: 16px; line-height: 1.6; }
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.scroll-hint { display: block; font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-dim); text-align: center; padding: 6px 0; margin-bottom: 8px; }
+
+/* === Badge === */
+.badge { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 6px; border-radius: 2px; display: inline-block; }
+.badge-red { background: var(--red-pale-bg); color: var(--red); }
+.badge-yellow { background: var(--orange-pale-bg); color: var(--orange); }
+.badge-green { background: #DCFCE7; color: var(--green-text); }
+.badge-blue { background: #DBEAFE; color: #1E40AF; }
+.badge-gray { background: #F3F4F6; color: #374151; }
+
+/* === Bar chart === */
+.bar-chart { background: var(--white); border: 1px solid var(--border); border-radius: 4px; padding: 16px; margin-bottom: 16px; }
+.bar-row { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
+.bar-label { font-size: 11px; color: var(--text-primary); font-weight: 600; }
+.bar-track { background: var(--paper); height: 14px; border-radius: 2px; position: relative; overflow: hidden; }
+.bar-fill { background: var(--ink-dark); height: 100%; position: absolute; left: 0; top: 0; }
+.bar-fill-yellow { background: var(--yellow); }
+.bar-value { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; font-weight: 600; color: var(--text-primary); }
+
+/* === Price tier funnel === */
+.funnel { background: var(--white); border: 1px solid var(--border); border-radius: 4px; padding: 16px; margin-bottom: 16px; }
+.funnel-row { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+.funnel-row:last-child { margin-bottom: 0; }
+.funnel-stage { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+.funnel-bar { background: var(--ink-dark); height: 18px; display: flex; align-items: center; padding-left: 8px; color: var(--yellow); font-family: 'SF Mono','Menlo',monospace; font-size: 0; font-weight: 600; border-radius: 2px; overflow: hidden; }
+.funnel-desc { font-size: 12px; color: var(--text-sec); }
+
+/* === Transition block === */
+.transition-block { background: var(--white); border-left: 3px solid var(--yellow); border-radius: 4px; padding: 14px 16px; margin: 16px 0; font-size: 13px; color: var(--text-primary); line-height: 1.75; }
+
+/* === Candidate cards === */
+.candidate-card { background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--border-dark); border-radius: 4px; padding: 16px; margin-bottom: 14px; }
+.candidate-card.decline { border-left-color: var(--red); }
+.candidate-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; gap: 8px; flex-wrap: wrap; }
+.candidate-name { font-size: 14px; font-weight: 700; color: var(--text-primary); line-height: 1.35; }
+.candidate-name .category { color: var(--text-sec); font-weight: 400; font-size: 12px; }
+.candidate-meta { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-dim); white-space: nowrap; }
+.candidate-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 10px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin: 10px 0; }
+.candidate-stat-label { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-mute); text-transform: uppercase; letter-spacing: 0.06em; }
+.candidate-stat-value { font-family: 'SF Mono','Menlo',monospace; font-size: 15px; font-weight: 700; color: var(--text-primary); line-height: 1.2; }
+.candidate-stat-value.blue { color: var(--blue); }
+.candidate-stat-value.red { color: var(--red); }
+.candidate-stat-value.green { color: var(--green); }
+.candidate-body { font-size: 13px; color: var(--text-primary); line-height: 1.7; }
+
+/* === So-what action recommendations === */
+.so-what { background: var(--white); border: 1px solid var(--border); border-radius: 4px; padding: 16px; margin-top: 20px; }
+.so-what-header { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; font-weight: 600; color: var(--yellow); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px; }
+.so-what-item { padding: 12px 0; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 1fr; gap: 6px; }
+.so-what-item:last-child { border-bottom: none; }
+.so-what-role { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-sec); text-transform: uppercase; font-weight: 600; }
+.so-what-text { font-size: 13px; color: var(--text-primary); line-height: 1.7; }
+
+/* === Insights box === */
+.insights-box { background-color: var(--ink-black); background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 24px 24px; border-radius: 4px; padding: 20px 18px; margin-top: 20px; }
+.insights-header { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; font-weight: 600; color: var(--yellow); letter-spacing: 0.12em; text-transform: uppercase; border-bottom: 1px solid #2A2A26; padding-bottom: 12px; margin-bottom: 16px; }
+.insight-row { display: grid; grid-template-columns: 24px 1fr; gap: 10px; margin-bottom: 16px; align-items: start; }
+.insight-row:last-child { margin-bottom: 0; }
+.insight-num { font-family: 'SF Mono','Menlo',monospace; font-size: 11px; font-weight: 700; color: var(--yellow); }
+.insight-text { font-size: 13px; font-weight: 600; color: var(--white); margin-bottom: 4px; line-height: 1.5; }
+.insight-support { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-dim); line-height: 1.5; }
+
+/* === VoC block === */
+.voc-block { background: var(--yellow-pale); border-left: 3px solid var(--yellow); padding: 14px 16px; margin: 14px 0; border-radius: 0 4px 4px 0; font-size: 13px; color: var(--text-primary); line-height: 1.75; font-style: italic; }
+.voc-attribution { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-mute); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.08em; font-style: normal; }
+
+/* === Tracking row cards (SEC.06 mobile) === */
+.srow-cards { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 8px; }
+.srow-card { background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--blue); border-radius: 4px; padding: 14px 16px; }
+.srow-card.highlight { border-left-color: var(--yellow); background: #FFFEF5; }
+.srow-card.decline { border-left-color: var(--red); }
+.srow-card-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.srow-card-title { font-size: 13px; font-weight: 700; color: var(--text-primary); margin: 8px 0 10px; line-height: 1.35; }
+.srow-field { display: grid; grid-template-columns: 52px 1fr; gap: 10px; font-size: 12px; padding: 5px 0; }
+.srow-field + .srow-field { border-top: 1px solid var(--border); }
+.srow-field-label { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-mute); text-transform: uppercase; padding-top: 1px; }
+.srow-field-value { color: var(--text-primary); line-height: 1.5; }
+.desktop-only-table { display: none; }
+
+/* === Section collapse (details) === */
+details.section-collapse { margin-bottom: 10px; }
+details.section-collapse > summary { list-style: none; cursor: pointer; -webkit-tap-highlight-color: transparent; min-height: 44px; display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--border-dark); border-radius: 4px; font-size: 13px; font-weight: 600; color: var(--text-primary); }
+details.section-collapse > summary::-webkit-details-marker { display: none; }
+details.section-collapse > summary::marker { content: ''; }
+details.section-collapse > summary::after { content: '+'; margin-left: auto; font-family: 'SF Mono','Menlo',monospace; font-size: 18px; color: var(--orange); font-weight: 400; }
+details.section-collapse[open] > summary::after { content: '−'; }
+details.section-collapse > summary:active { background: rgba(245,197,24,0.08); }
+details.section-collapse > .details-content { padding-top: 12px; }
+
+/* === Footer === */
+footer { background: var(--ink-black); border-top: 1px solid #2A2A26; padding: 24px 16px 0; margin-top: 48px; padding-bottom: env(safe-area-inset-bottom); }
+.footer-grid { display: grid; grid-template-columns: 1fr; gap: 6px; text-align: center; padding-bottom: 20px; }
+.footer-brand { font-family: 'SF Mono','Menlo',monospace; font-size: 12px; font-weight: 600; color: var(--white); letter-spacing: 0.08em; }
+.footer-meta { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-nav); }
+.footer-yellow-bar { height: 2px; background: var(--yellow); }
+
+/* === TABLET ≥768px === */
+@media (min-width: 768px) {
+  .hamburger { display: none; }
+  .toc-drawer, .toc-overlay { display: none; }
+  .nav { padding: 0 24px; gap: 14px; }
+  .nav-title { font-size: 11px; }
+  .nav-meta { display: inline; }
+  .main { padding: 56px 32px; max-width: 1100px; }
+  .section { margin-bottom: 64px; }
+  .section-title { font-size: 24px; }
+  .section-subtitle { font-size: 18px; margin: 32px 0 16px; }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .stat-card { padding: 20px; }
+  .stat-card-value { font-size: 26px; }
+  .data-table { display: table; font-size: 13px; }
+  .data-table thead th, .data-table tbody td { padding: 10px 14px; }
+  .scroll-hint { display: none; }
+  .srow-cards { display: none; }
+  .desktop-only-table { display: block; }
+  .bar-row { display: grid; grid-template-columns: 180px 1fr 80px; gap: 12px; align-items: center; flex-direction: unset; margin-bottom: 8px; }
+  .bar-label { font-size: 13px; }
+  .bar-track { height: 18px; }
+  .bar-value { text-align: right; font-size: 12px; }
+  .funnel-row { display: grid; grid-template-columns: 170px 1fr 120px; gap: 12px; align-items: center; flex-direction: unset; margin-bottom: 10px; }
+  .funnel-bar { height: 32px; font-size: 12px; }
+  .candidate-stats { grid-template-columns: repeat(5, 1fr); }
+  .candidate-stat-value { font-size: 16px; }
+  .so-what-item { grid-template-columns: 120px 1fr; gap: 16px; }
+  .cover { padding: 64px 40px 0; }
+  .cover-title-block { padding-left: 24px; margin-bottom: 48px; }
+  .cover-title { font-size: 32px; }
+  .cover-subtitle { font-size: 12px; }
+  .headline-block { padding: 40px 0; grid-template-columns: 1fr 1.5fr; gap: 32px; }
+  .headline-number { font-size: 56px; }
+  .headline-context { font-size: 14px; }
+  .headline-insight-text { font-size: 15px; }
+  .cover-sub-numbers { grid-template-columns: repeat(4, 1fr); padding: 20px 0; }
+  .cover-sub-cell { padding: 0 24px; border-right: 1px solid #2A2A26; border-bottom: none; }
+  .cover-sub-cell:nth-child(2n) { border-right: 1px solid #2A2A26; }
+  .cover-sub-cell:last-child { border-right: none; }
+  .cover-sub-value { font-size: 20px; }
+  .insights-box { padding: 28px 28px; }
+  .insight-text { font-size: 14px; }
+  .transition-block { padding: 18px 22px; font-size: 14px; }
+  .so-what { padding: 20px 24px; }
+  details.section-collapse > summary { pointer-events: none; }
+  details.section-collapse > summary::after { display: none; }
+  details.section-collapse > .details-content { padding-top: 16px; display: block; }
+  footer { padding: 28px 32px 0; }
+  .footer-grid { grid-template-columns: 1fr 1fr 1fr; gap: 16px; text-align: initial; }
+  .page-classification { display: none; }
+}
+
+/* === DESKTOP ≥1024px === */
+@media (min-width: 1024px) {
+  .main { padding: 64px 48px; }
+  .cover { padding: 72px 64px 0; }
+  .cover-title { font-size: 38px; }
+  .headline-number { font-size: 64px; }
+  .section-title { font-size: 26px; }
+  .stat-card-value { font-size: 28px; }
+  .insight-text { font-size: 15px; }
+  footer { padding: 28px 48px 0; }
+}
+
+/* === PRINT === */
+@media print {
+  body { background: white; padding-bottom: 0; }
+  .nav, .hamburger, .toc-drawer, .toc-overlay, .page-classification { display: none; }
+  footer { padding: 16px 0 0; }
+  .cover { background: white !important; color: black !important; padding: 0; background-image: none !important; }
+  .cover-title, .headline-number, .cover-sub-value { color: black !important; }
+  .cover-title .accent, .headline-insight-text strong { color: var(--orange) !important; }
+  .headline-block, .cover-sub-numbers { background: white !important; border: none !important; }
+  .insights-box { background: white !important; color: black !important; border: 1px solid var(--border); background-image: none !important; }
+  .insight-text { color: black !important; }
+  .insight-num, .insights-header { color: var(--ink-dark) !important; }
+  .insight-text strong { color: var(--orange) !important; }
+  .section { page-break-inside: avoid; }
+  details.section-collapse > summary { display: none; }
+  details.section-collapse:not([open]) > .details-content { display: block; }
+  .srow-cards { display: none; }
+  .desktop-only-table { display: block !important; }
+  a { color: black !important; text-decoration: none !important; }
+}
+</style>
+</head>
+<body>
+
+<button class="hamburger" id="toc-toggle" aria-label="打开目录">☰</button>
+<nav class="nav">
+  <span class="nav-brand">[MROS]</span>
+  <div class="nav-divider"></div>
+  <span class="nav-title">美国消费工具 TikTok Shop · 2026-05 月度报告</span>
+  <span class="nav-meta">REV.1.0 · 2026-06-10</span>
+</nav>
+
+<div class="toc-overlay" id="toc-overlay"></div>
+<aside class="toc-drawer" id="toc-drawer" aria-label="目录">
+  <button class="toc-close" id="toc-close" aria-label="关闭">✕</button>
+  <div class="toc-header">// 目录 · 7 章节</div>
+  <a class="toc-item" data-target="sec-01" href="#sec-01"><span class="toc-num">01</span><span>5 月全景</span></a>
+  <a class="toc-item" data-target="sec-02" href="#sec-02"><span class="toc-num">02</span><span>品类格局</span></a>
+  <a class="toc-item" data-target="sec-03" href="#sec-03"><span class="toc-num">03</span><span>头部店铺</span></a>
+  <a class="toc-item" data-target="sec-04" href="#sec-04"><span class="toc-num">04</span><span>候选产品(5 款)</span></a>
+  <a class="toc-item" data-target="sec-05" href="#sec-05"><span class="toc-num">05</span><span>反向信号(3 类)</span></a>
+  <a class="toc-item" data-target="sec-06" href="#sec-06"><span class="toc-num">06</span><span>跟踪对象(11 个)</span></a>
+  <a class="toc-item" data-target="sec-07" href="#sec-07"><span class="toc-num">07</span><span>数据可信度</span></a>
+</aside>
+
+<!-- 封面 -->
+<div class="cover">
+  <div class="cover-doc-class">DOCUMENT CLASS: MARKET INTELLIGENCE · TIKTOK SHOP</div>
+  <div class="cover-title-block">
+    <h1 class="cover-title">美国消费工具 TikTok Shop<br><span class="accent">SEESE 工厂店统治 21% 市场,父亲节爆品季</span></h1>
+    <p class="cover-subtitle">CONSUMER TOOLS · US · 2026-05 · BASELINE MONTH</p>
+  </div>
+  <div class="headline-block">
+    <div class="headline-number-block">
+      <div class="headline-number-label">// 5 月总销售额</div>
+      <div class="headline-number">$20.7M</div>
+      <div class="headline-context">300 SKU 销量榜 + 300 SKU 热推榜 · 父亲节营销窗口前 1 月</div>
+    </div>
+    <div class="headline-insight">
+      <div class="headline-insight-label">// 一句话核心判断</div>
+      <div class="headline-insight-text">5 月美国消费工具 TikTok Shop <strong>SEESE 系 19 SKU $4.3M GMV 占 21% 全榜份额</strong> — Top 10 销量中 5 个 SEESE,Top 10 重合 6 款。**父亲节营销是 5 月最强信号** — Top 10 销量榜 9 个产品名带"FathersDayGift"前缀。<strong>品类极度分散</strong>(80+ 细分,15+ SKU&lt;5),价格带中端化($25-100 占 59% GMV)。Fanttik 4 款霸榜热推 Top 12 但销量缺席 Top 100 = <strong>典型营销空转</strong>。</div>
+    </div>
+  </div>
+  <div class="cover-sub-numbers">
+    <div class="cover-sub-cell">
+      <div class="cover-sub-value">21% <span class="arrow">↑</span></div>
+      <div class="cover-sub-label">// SEESE 系单店占全榜份额</div>
+    </div>
+    <div class="cover-sub-cell">
+      <div class="cover-sub-value">90% <span class="arrow">↑</span></div>
+      <div class="cover-sub-label">// 父亲节相关 Top 10 销量占比</div>
+    </div>
+    <div class="cover-sub-cell">
+      <div class="cover-sub-value">80+ <span class="arrow">→</span></div>
+      <div class="cover-sub-label">// 细分品类数(无主导品类)</div>
+    </div>
+    <div class="cover-sub-cell">
+      <div class="cover-sub-value">11 <span class="arrow">→</span></div>
+      <div class="cover-sub-label">// 本月候选跟踪池</div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- SEC.01 -->
+<div class="section" id="sec-01">
+  <div class="section-header">
+    <div class="section-code">SEC.01</div>
+    <div class="section-title">5 月全景:父亲节爆品季,中价工具领跑</div>
+  </div>
+  <div class="section-divider"></div>
+
+  <p style="margin-bottom: 20px; font-size: 14px; color: var(--text-primary); line-height: 1.8;">
+    美国消费工具品类 5 月在 TikTok Shop 斩获 <strong>$20.7M GMV</strong>(销量 70.9 万件),覆盖 80+ 细分品类。月内最强单一信号是 <strong>SEESE 工厂店</strong> — 19 SKU $4.3M GMV,占整个消费工具 21% 份额。**Top 10 销量榜中 9 个产品名带"FathersDayGift"前缀**,5 月是父亲节营销的爆发期前 1 个月(节日 6/15)。品类极度分散,价格带中端化($25-100 占 59% GMV)。
+  </p>
+
+  <div class="grid-4">
+    <div class="stat-card">
+      <div class="stat-card-label">// 总 GMV(全榜)</div>
+      <div class="stat-card-value">$20.7M</div>
+      <div class="stat-card-desc">300 SKU 销量榜 + 300 SKU 热推榜,80+ 细分品类</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-label">// 总销量</div>
+      <div class="stat-card-value">709K</div>
+      <div class="stat-card-desc">70.9 万件工具产品(父亲节小件礼 + 大件工具组合)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-label">// 平均客单价</div>
+      <div class="stat-card-value">$29.20</div>
+      <div class="stat-card-desc">$20.7M ÷ 70.9 万件,中位价格带在 $25-50</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-label">// 头部店铺集中度</div>
+      <div class="stat-card-value">21%</div>
+      <div class="stat-card-desc">SEESE 系单店份额(2 个店铺合计),4 个库最高</div>
+    </div>
+  </div>
+
+  <div class="transition-block">
+    <strong>给读者的一句话:</strong> 这就是<strong>"父亲节爆品季"</strong>——消费工具的 5 月有 90% 营销资源聚焦"硬核爸爸修家"礼物(对比家装建材父节 3.8% / 宠物用品 0.7%)。真正的爆品逻辑是<strong>"SEESE 工厂店暴力铺量(19 SKU) + 80+ 细分品类长尾 + 中价位走量($25-100) + Fanttik 营销空转"</strong>4 条主线。6-7 月窗口:**父亲节后 24 个 SKU 断崖风险** + **7 月独立日户外鼓风机/割草机**。
+  </div>
+
+  <div class="section-subtitle">价格带转化漏斗:中价桶($25-100)吃下 59% 销售额</div>
+  <div class="funnel">
+    <div class="funnel-row">
+      <div class="funnel-stage">$0-25(走量桶)</div>
+      <div class="funnel-bar" style="width: 84%;">146 SKU · 48.7% 占榜 · 36.5 万件</div>
+      <div class="funnel-desc">$5.14M · 24.8% 份额</div>
+    </div>
+    <div class="funnel-row">
+      <div class="funnel-stage">$25-50(走量中端)</div>
+      <div class="funnel-bar" style="width: 100%;">88 SKU · 29.3% · 19.3 万件</div>
+      <div class="funnel-desc"><strong>$6.01M · 29.0%</strong></div>
+    </div>
+    <div class="funnel-row">
+      <div class="funnel-stage">$50-100(中高端)</div>
+      <div class="funnel-bar" style="width: 100%;">44 SKU · 14.7% · 12.1 万件</div>
+      <div class="funnel-desc"><strong>$6.12M · 29.5%(最高桶)</strong></div>
+    </div>
+    <div class="funnel-row">
+      <div class="funnel-stage">$100-200(高端)</div>
+      <div class="funnel-bar" style="width: 33%;">13 SKU · 4.3% · 2.0 万件</div>
+      <div class="funnel-desc">$1.91M · 9.2%</div>
+    </div>
+    <div class="funnel-row">
+      <div class="funnel-stage">$200+(高端走利)</div>
+      <div class="funnel-bar" style="width: 27%;">9 SKU · 3.0% · 1.1 万件</div>
+      <div class="funnel-desc">$1.54M · 7.4%</div>
+    </div>
+  </div>
+  <p class="table-note">// DATA SOURCE: FastMoss 销量榜 300 SKU · 2026-05 · 数据可信度: composite 0.68</p>
+
+  <div class="insights-box">
+    <div class="insights-header">// ANALYSIS OUTPUT — 2026-05 月度全景</div>
+    <div class="insight-row">
+      <div class="insight-num">01</div>
+      <div>
+        <div class="insight-text">SEESE 工厂店 19 SKU 统治 21% 市场,工厂店暴力铺量模式已现</div>
+        <div class="insight-support">SUPPORT: seese 16 SKU $3.65M(18% 份额) + seese pro 3 SKU $653K(3% 份额) = 19 SKU $4.3M(21%);Top 10 销量 5 个 SEESE 产品;Turbo Jet Blower 月销 27,206 + 1,577 达人是绝对头部</div>
+      </div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-num">02</div>
+      <div>
+        <div class="insight-text">父亲节爆品季信号极强:Top 10 销量 9 个带"FathersDayGift"前缀</div>
+        <div class="insight-support">SUPPORT: SEESE Magnetic Ring 30,640 销 / Turbo Jet Blower 27,206 / 24 in 1 Screwdriver 17,730 / Retractable Buckle 15,894 / Mini ChainSaw 11,273 等;丙烷喷灯 + 鼓风机 + 链锯 + 棘轮带 是父亲节 Top 4 类</div>
+      </div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-num">03</div>
+      <div>
+        <div class="insight-text">Fanttik 4 款霸榜热推 Top 12,销量榜缺席 Top 100 = 营销空转</div>
+        <div class="insight-support">SUPPORT: X9 Pro Air Pump(热 #5 / 437 达)/ Fold S1 APEX Screwdriver(热 #7 / 395 达)/ E2 Ultra(热 #11 / 239 达)/ S1 Pro(热 #12 / 239 达);销量榜 Fanttik 7 SKU 仅进 Top 100 边缘 = 营销预算激进但转化未到</div>
+      </div>
+    </div>
+  </div>
+  <a class="section-back" href="#sec-01">↑ 返回顶部</a>
+  <div class="page-classification">// 内部使用 · 限内部传阅 · 月度数据快照</div>
+</div>
+
+<!-- SEC.02 -->
+<div class="section" id="sec-02">
+  <div class="section-header">
+    <div class="section-code">SEC.02</div>
+    <div class="section-title">品类格局:80+ 细分,无明显头部</div>
+  </div>
+  <div class="section-divider"></div>
+
+  <p style="margin-bottom: 20px; font-size: 14px;">
+    消费工具品类覆盖 80+ FastMoss 原始类目,品类极度分散 — <strong>头部品类(电动工具配件)仅 8.1% GMV 份额</strong>,Top 15 品类合计 65% 销售额。<strong>电动工具配件 33 SKU $1.69M</strong> 居首,鼓风机(5 SKU $1.57M)与扳手(25 SKU $1.42M)紧随。15+ 细分品类 SKU&lt;5 = 长尾机会充足。品类映射偏差提示:"鼓风机"≠"吹叶机";"裱花装饰工具"混入实为烘焙/工艺类(父亲节丙烷喷灯用于烧烤)。
+  </p>
+
+  <div class="section-subtitle">Top 15 品类按 GMV 排名(占全榜 65% 销售额)</div>
+  <div class="bar-chart">
+    <div class="bar-row">
+      <div class="bar-label">电动工具配件</div>
+      <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width: 100%;"></div></div>
+      <div class="bar-value">$1.69M</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">鼓风机</div>
+      <div class="bar-track"><div class="bar-fill" style="width: 93%;"></div></div>
+      <div class="bar-value">$1.57M</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">扳手</div>
+      <div class="bar-track"><div class="bar-fill" style="width: 84%;"></div></div>
+      <div class="bar-value">$1.42M</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">链锯</div>
+      <div class="bar-track"><div class="bar-fill" style="width: 71%;"></div></div>
+      <div class="bar-value">$1.21M</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">割草机</div>
+      <div class="bar-track"><div class="bar-fill" style="width: 64%;"></div></div>
+      <div class="bar-value">$1.09M</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">螺丝刀</div>
+      <div class="bar-track"><div class="bar-fill" style="width: 54%;"></div></div>
+      <div class="bar-value">$904K</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">裱花、装饰工具</div>
+      <div class="bar-track"><div class="bar-fill" style="width: 49%;"></div></div>
+      <div class="bar-value">$822K</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">电钻</div>
+      <div class="bar-track"><div class="bar-fill" style="width: 48%;"></div></div>
+      <div class="bar-value">$816K</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">电动扳手</div>
+      <div class="bar-track"><div class="bar-fill" style="width: 40%;"></div></div>
+      <div class="bar-value">$683K</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">手动工具套装</div>
+      <div class="bar-track"><div class="bar-fill" style="width: 32%;"></div></div>
+      <div class="bar-value">$536K</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">小众电动工具</div>
+      <div class="bar-track"><div class="bar-fill" style="width: 32%;"></div></div>
+      <div class="bar-value">$534K</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">电动拖把</div>
+      <div class="bar-track"><div class="bar-fill" style="width: 30%;"></div></div>
+      <div class="bar-value">$505K</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">胶水、胶带、密封条</div>
+      <div class="bar-track"><div class="bar-fill" style="width: 29%;"></div></div>
+      <div class="bar-value">$495K</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">高压清洗机</div>
+      <div class="bar-track"><div class="bar-fill" style="width: 25%;"></div></div>
+      <div class="bar-value">$423K</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">游泳池、热水浴缸用品</div>
+      <div class="bar-track"><div class="bar-fill" style="width: 25%;"></div></div>
+      <div class="bar-value">$423K</div>
+    </div>
+  </div>
+  <p class="table-note">// DATA SOURCE: FastMoss 销量榜 300 SKU · 2026-05 · 按原始 FastMoss 中文品类名(未做合并)</p>
+
+  <div class="insights-box">
+    <div class="insights-header">// ANALYSIS OUTPUT — 品类格局</div>
+    <div class="insight-row">
+      <div class="insight-num">01</div>
+      <div>
+        <div class="insight-text">头部品类仅 8.1% 份额,与家用电器库(Shark 系 23%)形成鲜明对比</div>
+        <div class="insight-support">SUPPORT: 消费工具 Top 1(电动工具配件)8.1% vs 家用电器 Top 1(吸尘器/扫地机)40% — 工具品类仍在品类爆发期,无主导品类;反映出"白牌密集 + 工厂店暴力铺量"模式</div>
+      </div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-num">02</div>
+      <div>
+        <div class="insight-text">"鼓风机"+"裱花装饰"+"游泳池用品" 3 个 FastMoss 类目与 OS 图谱不对齐</div>
+        <div class="insight-support">SUPPORT: 鼓风机实为工业/家用(SEESE Turbo Jet Blower)/ 吹叶机偏户外;裱花装饰实为烘焙/工艺类(SEESE 丙烷喷灯烧烤用);游泳池用品混入工具大类;需在 6 月前修正产品类目图谱</div>
+      </div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-num">03</div>
+      <div>
+        <div class="insight-text">15+ 细分品类 SKU&lt;5 = 长尾机会充足,车载支架/挂钩秤/手动修剪等小众高效</div>
+        <div class="insight-support">SUPPORT: 车载支架 1 SKU 8,064 销 / 锤子 1 SKU 3,966 / 挂钩秤 1 SKU 4,359(达人效率 115 件/人) / 抛光机 1 SKU 2,490 — 小众品类单达人转化率高,6 月持续观察</div>
+      </div>
+    </div>
+  </div>
+  <a class="section-back" href="#sec-01">↑ 返回顶部</a>
+  <div class="page-classification">// 内部使用 · 限内部传阅 · 品类格局分析</div>
+</div>
+
+<!-- SEC.03 -->
+<div class="section" id="sec-03">
+  <div class="section-header">
+    <div class="section-code">SEC.03</div>
+    <div class="section-title">头部店铺:SEESE 一家统治,Fanttik 营销空转</div>
+  </div>
+  <div class="section-divider"></div>
+
+  <p style="margin-bottom: 20px; font-size: 14px;">
+    5 月消费工具头部店铺 <strong>SEESE 工厂店(2 店合计)19 SKU $4.3M GMV 占 21% 全榜份额</strong> 一家统治,是 4 个库中头部集中度最高品类(对比 Shark 23% 在家电 / PetPivot 13.5% 在宠物)。<strong>GJANSH 16 SKU $552K</strong> 头部白牌典型;<strong>VEVOR 10 SKU $1.22M</strong> 中型 + 强营销;<strong>Fanttik 7 SKU $587K 但 21 个 SKU 上热推榜</strong> = 营销投入第 3 但销量转化率低,**典型"营销强/转化弱"信号**,需下月观察是否转化跟上。
+  </p>
+
+  <div class="table-wrap">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>店铺</th>
+        <th>SKU</th>
+        <th>月 GMV</th>
+        <th>份额</th>
+        <th>地位</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="highlight">
+        <td class="mono-cell">seese</td>
+        <td class="mono-cell blue-cell">16</td>
+        <td class="mono-cell blue-cell">$3.65M</td>
+        <td class="mono-cell">18%</td>
+        <td>🏆 工厂店 · 父节爆品 · 一家统治</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">artflamm</td>
+        <td class="mono-cell">3</td>
+        <td class="mono-cell">$788K</td>
+        <td class="mono-cell">3.8%</td>
+        <td>父亲节喷灯爆款</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">seese pro</td>
+        <td class="mono-cell blue-cell">3</td>
+        <td class="mono-cell">$653K</td>
+        <td class="mono-cell">3.2%</td>
+        <td>🚀 隐藏头部(3 SKU 高 GMV)</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">vevor</td>
+        <td class="mono-cell">10</td>
+        <td class="mono-cell">$1.22M</td>
+        <td class="mono-cell">5.9%</td>
+        <td>中型 + 强营销(20 达人 SKU)</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">gjansh</td>
+        <td class="mono-cell">16</td>
+        <td class="mono-cell">$552K</td>
+        <td class="mono-cell">2.7%</td>
+        <td>头部白牌(扳手/电钻)</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">fanttik</td>
+        <td class="mono-cell">7</td>
+        <td class="mono-cell">$587K</td>
+        <td class="mono-cell">2.8%</td>
+        <td>⚠️ 营销强/转化弱(21 达人 SKU 仅 7 进销量榜)</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">casoman tools</td>
+        <td class="mono-cell">5</td>
+        <td class="mono-cell">$379K</td>
+        <td class="mono-cell">1.8%</td>
+        <td>中等 + 较强营销</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">rhino usa</td>
+        <td class="mono-cell">1</td>
+        <td class="mono-cell">$337K</td>
+        <td class="mono-cell">1.6%</td>
+        <td>品牌驱动单 SKU</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">precision metal</td>
+        <td class="mono-cell">4</td>
+        <td class="mono-cell">$291K</td>
+        <td class="mono-cell">1.4%</td>
+        <td>平衡型</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">blushy a</td>
+        <td class="mono-cell">5</td>
+        <td class="mono-cell">$151K</td>
+        <td class="mono-cell">0.7%</td>
+        <td>纯销量(无营销)</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">mirrorzone</td>
+        <td class="mono-cell">5</td>
+        <td class="mono-cell">$116K</td>
+        <td class="mono-cell">0.6%</td>
+        <td>纯销量(无营销)</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">lozlin tools pro</td>
+        <td class="mono-cell">5</td>
+        <td class="mono-cell">$125K</td>
+        <td class="mono-cell">0.6%</td>
+        <td>纯销量(无营销)</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="table-note">// DATA SOURCE: FastMoss 销量榜 300 SKU · COMPOSITE: 0.68 · SEESE 系(2 店合计)占 21% 份额</p>
+
+  <div class="transition-block">
+    <strong>01 [致品牌方]:</strong> SEESE 工厂店模式可借鉴但需谨慎 — 19 SKU $4.3M 是头部品牌 Shark 8% 份额(家电)的 2.6 倍,**典型"白牌工厂店暴力铺量"**。6-9 月若 SEESE 回落至 8-12% = 节日效应;若持续 = 颠覆传统品牌格局。**Fanttik 营销空转是反面教材** — 4 款霸榜热推 Top 12 但销量缺席 Top 100,营销预算激进,产品/价格/落地页需重设计;<br>
+    <strong>02 [致中国白牌]:</strong> 3 个白牌可进入窗口:① 浙江永康/武义 OEM 工厂,MOQ 500-1000 件可复制 SEESE 工厂店模式;② 80+ 长尾品类中"挂钩秤/花园手套/手动修剪"小众高转化(达人效率 100+ 件/人);③ 父节后 6-7 月切换到"夏季户外鼓风机/割草机/便携式工具";<br>
+    <strong>03 [致投资人]:</strong> 消费工具 5 月 $20.7M GMV 是 4 个库第三,但 Top 1 集中度 21% = 4 个库最高。**SEESE 工厂店 6-9 月份额变化是核心监测指标**。**24 个 SKU MoM &lt;-30% = 父节后断崖风险**;Fanttik 营销模式是否能在 6 月修正 = 资本故事关键。
+  </div>
+  <a class="section-back" href="#sec-01">↑ 返回顶部</a>
+  <div class="page-classification">// 内部使用 · 限内部传阅 · 头部店铺分析</div>
+</div>
+
+<!-- SEC.04 -->
+<div class="section" id="sec-04">
+  <div class="section-header">
+    <div class="section-code">SEC.04</div>
+    <div class="section-title">5 个候选产品(5 月自动跟踪发现)</div>
+  </div>
+  <div class="section-divider"></div>
+
+  <p style="margin-bottom: 16px; font-size: 14px;">
+    5 月识别 36 个候选(🆕 12 + 🚀 24),Top 5 候选覆盖 4 大信号类型(动量品/新进入者/品牌驱动/转化异常)。本月核心特征:**SEESE 工厂店 6 款霸榜 + 父亲节礼物集中爆发 + Fanttik 营销空转**。每个候选 5 字段:信号 / 数据画像 / 假设 / 验证成本 / 主要风险 + 下月观察。
+  </p>
+
+  <div class="candidate-card">
+    <div class="candidate-header">
+      <div class="candidate-name">#1 SEESE Magnetic Screw Ring <span class="category">— 电动工具配件(磁吸螺丝环)</span></div>
+      <div class="candidate-meta"><span class="badge badge-green">🚀 动量品</span> 评分 5.00</div>
+    </div>
+    <div class="candidate-stats">
+      <div><div class="candidate-stat-label">ASP</div><div class="candidate-stat-value">$10.59</div></div>
+      <div><div class="candidate-stat-label">月销</div><div class="candidate-stat-value blue">30,640</div></div>
+      <div><div class="candidate-stat-label">MoM</div><div class="candidate-stat-value green">+1617%</div></div>
+      <div><div class="candidate-stat-label">达人</div><div class="candidate-stat-value">126</div></div>
+      <div><div class="candidate-stat-label">店铺</div><div class="candidate-stat-value" style="font-size:12px;">seese</div></div>
+    </div>
+    <details class="section-collapse">
+      <summary>展开 假设 / 验证成本 / 主要风险</summary>
+      <div class="details-content">
+        <div class="candidate-body">
+          <strong>假设:</strong> 父亲节小工具礼物 + 极强转化力。$10 价格段 + 父亲节营销窗口(6/15) + SEESE 工厂店强铺货能力,创造单 SKU 单月 3 万销量。达人数 126 适中,但单达人转化 243 件(榜单最高)= 营销+产品力高度匹配。<br><br>
+          <strong>验证成本:</strong> 中。需采购 SEESE 同款样品测试磁性/兼容性,确认是否可白牌替代。类似白牌已在 GJANSH / SOPAMI 等店铺出现(部分已 1K+ 销量),说明非独家工艺。<br><br>
+          <strong>主要风险:</strong> 父亲节后断崖。5 月 30,640 销量中可能 60-70% 是节日驱动,7 月若 < 5K 视为季节性陷阱。下月观察:6 月 rank 是否维持 Top 20 + 月销是否 > 10K。
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="candidate-card">
+    <div class="candidate-header">
+      <div class="candidate-name">#2 ARTFLAMM Propane Torch <span class="category">— 丙烷喷灯(小众电动工具)</span></div>
+      <div class="candidate-meta"><span class="badge badge-green">🚀 动量品</span> <span class="badge badge-yellow">🆕 新进入者</span> 评分 5.00+6.3</div>
+    </div>
+    <div class="candidate-stats">
+      <div><div class="candidate-stat-label">ASP</div><div class="candidate-stat-value">$84.99</div></div>
+      <div><div class="candidate-stat-label">月销</div><div class="candidate-stat-value blue">9,930</div></div>
+      <div><div class="candidate-stat-label">MoM</div><div class="candidate-stat-value green">+111%</div></div>
+      <div><div class="candidate-stat-label">达人</div><div class="candidate-stat-value">147</div></div>
+      <div><div class="candidate-stat-label">店铺</div><div class="candidate-stat-value" style="font-size:12px;">artflamm</div></div>
+    </div>
+    <details class="section-collapse">
+      <summary>展开 假设 / 验证成本 / 主要风险</summary>
+      <div class="details-content">
+        <div class="candidate-body">
+          <strong>假设:</strong> 丙烷喷灯 = 父亲节"硬核礼物"代表。$85 高价段 + 父亲节营销 + 户外烧烤/烘焙场景,触达"硬汉爸爸"人群。ARTFLAMM 单店 3 SKU 集中爆款($788K GMV),是 SEESE 之外的另一家"工厂店型"玩家。<br><br>
+          <strong>验证成本:</strong> 高。丙烷喷灯涉及气体安全认证(CSA/UL),白牌替代需解决认证。OEM 工厂在浙江永康/武义集中,MOQ 通常 500-1000 件。<br><br>
+          <strong>主要风险:</strong> 同质化竞争。SEESE 也有一款 Propane Torch(rank 7),且 GJANSH 等店铺正在跟进。6 月观察:ARTFLAMM 是否被 SEESE 抢份额,或形成双寡头。
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="candidate-card">
+    <div class="candidate-header">
+      <div class="candidate-name">#3 Pure Copper Battery Cut-Off Switch <span class="category">— 工具包(汽车配件)</span></div>
+      <div class="candidate-meta"><span class="badge badge-yellow">🆕 新进入者</span> 评分 40.5</div>
+    </div>
+    <div class="candidate-stats">
+      <div><div class="candidate-stat-label">ASP</div><div class="candidate-stat-value">$10.99</div></div>
+      <div><div class="candidate-stat-label">月销</div><div class="candidate-stat-value blue">5,910</div></div>
+      <div><div class="candidate-stat-label">MoM</div><div class="candidate-stat-value green">+1664%</div></div>
+      <div><div class="candidate-stat-label">达人</div><div class="candidate-stat-value">0</div></div>
+      <div><div class="candidate-stat-label">店铺</div><div class="candidate-stat-value" style="font-size:12px;">(新店)</div></div>
+    </div>
+    <details class="section-collapse">
+      <summary>展开 假设 / 验证成本 / 主要风险</summary>
+      <div class="details-content">
+        <div class="candidate-body">
+          <strong>假设:</strong> 新店纯白牌 + 父亲节汽车礼物。上架 47 天就冲入 Top 20,无达人 0 营销,纯靠平台推荐 + 节日搜索词。$10 + 汽车场景 + "Father's Day Gift" 前缀 = 标准爆品公式。<br><br>
+          <strong>验证成本:</strong> 极低。$10 白牌汽车配件,采购样品 50-100 块可验证工艺。1688/义乌购直接对接工厂,MOQ 100-300 件。<br><br>
+          <strong>主要风险:</strong> 新店持续性。0 达人的新店,6 月若掉出 Top 100 = 一次性节日爆品。6 月观察重点:rank 是否维持 Top 50 + 是否引入达人。
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="candidate-card">
+    <div class="candidate-header">
+      <div class="candidate-name">#4 GJANSH Trailer Jack Drill Adapter <span class="category">— 绳链滑轮(汽车配件)</span></div>
+      <div class="candidate-meta"><span class="badge badge-yellow">🆕 新进入者</span> 评分 15.1</div>
+    </div>
+    <div class="candidate-stats">
+      <div><div class="candidate-stat-label">ASP</div><div class="candidate-stat-value">$18</div></div>
+      <div><div class="candidate-stat-label">月销</div><div class="candidate-stat-value blue">2,585</div></div>
+      <div><div class="candidate-stat-label">MoM</div><div class="candidate-stat-value green">+409%</div></div>
+      <div><div class="candidate-stat-label">达人</div><div class="candidate-stat-value">0</div></div>
+      <div><div class="candidate-stat-label">店铺</div><div class="candidate-stat-value" style="font-size:12px;">gjansh</div></div>
+    </div>
+    <details class="section-collapse">
+      <summary>展开 假设 / 验证成本 / 主要风险</summary>
+      <div class="details-content">
+        <div class="candidate-body">
+          <strong>假设:</strong> 垂直场景爆品(卡车/拖车)。钻头适配拖车千斤顶 = 极小众但需求明确(美国卡车文化)。GJANSH 是头部白牌店(16 SKU,$552K GMV),渠道能力已验证。<br><br>
+          <strong>验证成本:</strong> 中。需确认是否需要汽车零部件认证(DOT),但作为附件类可能规避。<br><br>
+          <strong>主要风险:</strong> 小众市场天花板。全美卡车保有量约 1.5 亿,但"千斤顶+钻头"组合使用率未知,可能 6 月即饱和。6 月观察:rank 是否维持 Top 100,或 7 月断崖。
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="candidate-card">
+    <div class="candidate-header">
+      <div class="candidate-name">#5 THINKWORK Bolt Extractor Set <span class="category">— 扳手(螺栓提取器)</span></div>
+      <div class="candidate-meta"><span class="badge badge-green">🚀 动量品</span> 评分 5.00</div>
+    </div>
+    <div class="candidate-stats">
+      <div><div class="candidate-stat-label">ASP</div><div class="candidate-stat-value">$25</div></div>
+      <div><div class="candidate-stat-label">月销</div><div class="candidate-stat-value blue">2,145</div></div>
+      <div><div class="candidate-stat-label">MoM</div><div class="candidate-stat-value green">+697%</div></div>
+      <div><div class="candidate-stat-label">达人</div><div class="candidate-stat-value">67</div></div>
+      <div><div class="candidate-stat-label">店铺</div><div class="candidate-stat-value" style="font-size:12px;">(其他)</div></div>
+    </div>
+    <details class="section-collapse">
+      <summary>展开 假设 / 验证成本 / 主要风险</summary>
+      <div class="details-content">
+        <div class="candidate-body">
+          <strong>假设:</strong> "父亲节机械师礼物"。螺栓提取器(取出断裂螺栓的工具) = 父亲节"硬核老爸"礼物 TOP 3。MoM +697% 强信号,达人 67 中等。<br><br>
+          <strong>验证成本:</strong> 中。Cr-V 钢/钴钢材质,1688 工厂 5-10 家,需样品测试硬度。<br><br>
+          <strong>主要风险:</strong> 通用性弱。仅适合"断裂螺栓修复"场景,使用频率低。6 月观察:rank 是否维持 Top 100 + 月销 > 1.5K。
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <a class="section-back" href="#sec-01">↑ 返回顶部</a>
+  <div class="page-classification">// 内部使用 · 限内部传阅 · 候选产品分析</div>
+</div>
+
+<!-- SEC.05 -->
+<div class="section" id="sec-05">
+  <div class="section-header">
+    <div class="section-code">SEC.05</div>
+    <div class="section-title">反向信号:这 3 类不要碰</div>
+  </div>
+  <div class="section-divider"></div>
+
+  <p style="margin-bottom: 20px; font-size: 14px;">
+    5 月共识别 24 个 SKU MoM&lt;-30%(8% 全榜)。<strong>衰退标准:</strong> 单月 MoM&lt;-30% + 累计销量&lt;1K + 高度季节性。本节识别 3 类典型衰退品,所有 5 月新进入者 6 月起需复核。基线月 1 个数据点不足以下"衰退品"结论,6 月起需"连续 2 月&lt;-30%"才能正式归档 flops。
+  </p>
+
+  <div class="candidate-card decline">
+    <div class="candidate-header">
+      <div class="candidate-name">衰退 #1: 部分高压清洗机 SKU <span class="category">— 高压清洗机</span></div>
+      <div class="candidate-meta"><span class="badge badge-red">📉 衰退品</span> MoM -50% ~ -80%</div>
+    </div>
+    <div class="candidate-stats">
+      <div><div class="candidate-stat-label">ASP</div><div class="candidate-stat-value">$80-150</div></div>
+      <div><div class="candidate-stat-label">月销</div><div class="candidate-stat-value red">&lt;1K</div></div>
+      <div><div class="candidate-stat-label">MoM</div><div class="candidate-stat-value red">-50~-80%</div></div>
+      <div><div class="candidate-stat-label">累计</div><div class="candidate-stat-value">&lt;1K</div></div>
+      <div><div class="candidate-stat-label">类型</div><div class="candidate-stat-value" style="font-size:12px;">季节性陷阱</div></div>
+    </div>
+    <div class="candidate-body" style="padding-top: 10px; border-top: 1px solid var(--border);">
+      <strong>衰退原因:</strong> 春季户外清理窗口已过(5 月末进入夏季,杂草清理需求低)。<br>
+      <strong>教训:</strong> 户外动力工具季节性强,4-5 月是窗口期,6-7 月不宜进入;反之 8-9 月秋初可重新备货。
+    </div>
+  </div>
+
+  <div class="candidate-card decline">
+    <div class="candidate-header">
+      <div class="candidate-name">衰退 #2: 部分手动工具套装 <span class="category">— 手动工具套装</span></div>
+      <div class="candidate-meta"><span class="badge badge-red">📉 衰退品</span> MoM -30% ~ -50%</div>
+    </div>
+    <div class="candidate-stats">
+      <div><div class="candidate-stat-label">ASP</div><div class="candidate-stat-value">$20-30</div></div>
+      <div><div class="candidate-stat-label">月销</div><div class="candidate-stat-value red">&lt;500</div></div>
+      <div><div class="candidate-stat-label">MoM</div><div class="candidate-stat-value red">-30~-50%</div></div>
+      <div><div class="candidate-stat-label">累计</div><div class="candidate-stat-value">&lt;500</div></div>
+      <div><div class="candidate-stat-label">类型</div><div class="candidate-stat-value" style="font-size:12px;">节日效应</div></div>
+    </div>
+    <div class="candidate-body" style="padding-top: 10px; border-top: 1px solid var(--border);">
+      <strong>衰退原因:</strong> 父亲节礼品被高客单价套装($50-100)替代,基础款套装需求被挤。<br>
+      <strong>教训:</strong> 节日期间,低价基础款不一定是赢家(用户倾向"看起来值钱"的中高端)。
+    </div>
+  </div>
+
+  <div class="candidate-card decline">
+    <div class="candidate-header">
+      <div class="candidate-name">衰退 #3: Fanttik 4 款产品(营销空转) <span class="category">— 电动螺丝刀 / 鼓风机</span></div>
+      <div class="candidate-meta"><span class="badge badge-red">📉 营销空转</span> 销量榜缺席 Top 100</div>
+    </div>
+    <div class="candidate-stats">
+      <div><div class="candidate-stat-label">热推 #</div><div class="candidate-stat-value">#5/#7/#11/#12</div></div>
+      <div><div class="candidate-stat-label">销量榜</div><div class="candidate-stat-value red">Top 100 缺席</div></div>
+      <div><div class="candidate-stat-label">营销投入</div><div class="candidate-stat-value red">189-437 达</div></div>
+      <div><div class="candidate-stat-label">店铺</div><div class="candidate-stat-value">fanttik</div></div>
+      <div><div class="candidate-stat-label">类型</div><div class="candidate-stat-value" style="font-size:12px;">营销强/转化弱</div></div>
+    </div>
+    <div class="candidate-body" style="padding-top: 10px; border-top: 1px solid var(--border);">
+      <strong>衰退原因:</strong> 典型"营销预算激进,产品/价格/落地页问题"。4 款霸榜热推 Top 12 但销量榜完全缺席 Top 100。<br>
+      <strong>教训:</strong> 营销曝光 ≠ 转化。选对品(SEESE 式工厂店爆品)比找多达人重要。6 月观察:若 Fanttik 4 款仍缺席 Top 100 = 营销模式需重构。
+    </div>
+  </div>
+
+  <a class="section-back" href="#sec-01">↑ 返回顶部</a>
+  <div class="page-classification">// 内部使用 · 限内部传阅 · 反向信号监控</div>
+</div>
+
+<!-- SEC.06 -->
+<div class="section" id="sec-06">
+  <div class="section-header">
+    <div class="section-code">SEC.06</div>
+    <div class="section-title">跟踪对象:11 个候选,6 月状态机首次校验</div>
+  </div>
+  <div class="section-divider"></div>
+
+  <p style="margin-bottom: 16px; font-size: 14px;">
+    5 月识别 11 个高优先级 active 候选进入观察池。基线月无上月数据,所有候选标 🆕 active,6 月状态机首次大规模运行。6 月若 rank 上升 ≥ 5 = ⬆️ upgrading;rank 变化 ±5 = ➡️ stable;rank 下降 ≥ 5 或 mom &lt; -30% = ⬇️ declining。**核心观察重点:24 个父节后断崖 SKU 中,11 个高优先级候选 6 月数据将首次给出"持续赢家 vs 节日陷阱"答案。**
+  </p>
+
+  <div class="srow-cards">
+    <div class="srow-card highlight">
+      <div class="srow-card-head"><span class="badge badge-green">🚀</span><span class="mono-cell" style="font-size:10px; color:var(--blue); margin-left:4px;">rank 1</span></div>
+      <div class="srow-card-title">SEESE Magnetic Screw Ring</div>
+      <div class="srow-field"><span class="srow-field-label">店铺</span><span class="srow-field-value">seese</span></div>
+      <div class="srow-field"><span class="srow-field-label">品类</span><span class="srow-field-value">电动工具配件</span></div>
+      <div class="srow-field"><span class="srow-field-label">5月MoM</span><span class="srow-field-value" style="color:var(--green); font-weight:600;">+1617%</span></div>
+      <div class="srow-field"><span class="srow-field-label">下月重点</span><span class="srow-field-value">月销 > 10K = 突破季节性</span></div>
+    </div>
+    <div class="srow-card highlight">
+      <div class="srow-card-head"><span class="badge badge-green">🚀+🆕</span><span class="mono-cell" style="font-size:10px; color:var(--blue); margin-left:4px;">rank 9</span></div>
+      <div class="srow-card-title">ARTFLAMM Propane Torch</div>
+      <div class="srow-field"><span class="srow-field-label">店铺</span><span class="srow-field-value">artflamm</span></div>
+      <div class="srow-field"><span class="srow-field-label">品类</span><span class="srow-field-value">小众电动工具</span></div>
+      <div class="srow-field"><span class="srow-field-label">5月MoM</span><span class="srow-field-value" style="color:var(--green); font-weight:600;">+111%</span></div>
+      <div class="srow-field"><span class="srow-field-label">下月重点</span><span class="srow-field-value">SEESE 双寡头是否形成</span></div>
+    </div>
+    <div class="srow-card highlight">
+      <div class="srow-card-head"><span class="badge badge-yellow">🆕</span><span class="mono-cell" style="font-size:10px; color:var(--blue); margin-left:4px;">rank 19</span></div>
+      <div class="srow-card-title">Pure Copper Battery Cut-Off Switch</div>
+      <div class="srow-field"><span class="srow-field-label">店铺</span><span class="srow-field-value">(新店)</span></div>
+      <div class="srow-field"><span class="srow-field-label">品类</span><span class="srow-field-value">工具包</span></div>
+      <div class="srow-field"><span class="srow-field-label">5月MoM</span><span class="srow-field-value" style="color:var(--green); font-weight:600;">+1664%</span></div>
+      <div class="srow-field"><span class="srow-field-label">下月重点</span><span class="srow-field-value">新店持续性 + 是否引入达人</span></div>
+    </div>
+    <div class="srow-card">
+      <div class="srow-card-head"><span class="badge badge-yellow">🆕</span><span class="mono-cell" style="font-size:10px; color:var(--blue); margin-left:4px;">rank 63</span></div>
+      <div class="srow-card-title">GJANSH Trailer Jack Drill Adapter</div>
+      <div class="srow-field"><span class="srow-field-label">店铺</span><span class="srow-field-value">gjansh</span></div>
+      <div class="srow-field"><span class="srow-field-label">品类</span><span class="srow-field-value">绳链滑轮</span></div>
+      <div class="srow-field"><span class="srow-field-label">5月MoM</span><span class="srow-field-value" style="color:var(--green); font-weight:600;">+409%</span></div>
+      <div class="srow-field"><span class="srow-field-label">下月重点</span><span class="srow-field-value">小众垂直市场天花板</span></div>
+    </div>
+    <div class="srow-card">
+      <div class="srow-card-head"><span class="badge badge-green">🚀</span><span class="mono-cell" style="font-size:10px; color:var(--blue); margin-left:4px;">rank 87</span></div>
+      <div class="srow-card-title">THINKWORK Bolt Extractor Set</div>
+      <div class="srow-field"><span class="srow-field-label">店铺</span><span class="srow-field-value">(其他)</span></div>
+      <div class="srow-field"><span class="srow-field-label">品类</span><span class="srow-field-value">扳手</span></div>
+      <div class="srow-field"><span class="srow-field-label">5月MoM</span><span class="srow-field-value" style="color:var(--green); font-weight:600;">+697%</span></div>
+      <div class="srow-field"><span class="srow-field-label">下月重点</span><span class="srow-field-value">月销 > 1.5K 维持</span></div>
+    </div>
+    <div class="srow-card">
+      <div class="srow-card-head"><span class="badge badge-green">🚀</span><span class="mono-cell" style="font-size:10px; color:var(--blue); margin-left:4px;">rank 16</span></div>
+      <div class="srow-card-title">SEESE Propane Torch (rank 16)</div>
+      <div class="srow-field"><span class="srow-field-label">店铺</span><span class="srow-field-value">seese</span></div>
+      <div class="srow-field"><span class="srow-field-label">品类</span><span class="srow-field-value">裱花装饰</span></div>
+      <div class="srow-field"><span class="srow-field-label">5月MoM</span><span class="srow-field-value" style="color:var(--green); font-weight:600;">+568%</span></div>
+      <div class="srow-field"><span class="srow-field-label">下月重点</span><span class="srow-field-value">SEESE 双喷灯维持</span></div>
+    </div>
+    <div class="srow-card">
+      <div class="srow-card-head"><span class="badge badge-green">🚀</span><span class="mono-cell" style="font-size:10px; color:var(--blue); margin-left:4px;">rank 18</span></div>
+      <div class="srow-card-title">GJANSH Cordless Drill 21V 父亲节</div>
+      <div class="srow-field"><span class="srow-field-label">店铺</span><span class="srow-field-value">gjansh</span></div>
+      <div class="srow-field"><span class="srow-field-label">品类</span><span class="srow-field-value">电钻</span></div>
+      <div class="srow-field"><span class="srow-field-label">5月MoM</span><span class="srow-field-value" style="color:var(--green); font-weight:600;">+189%</span></div>
+      <div class="srow-field"><span class="srow-field-label">下月重点</span><span class="srow-field-value">父节后断崖验证</span></div>
+    </div>
+    <div class="srow-card">
+      <div class="srow-card-head"><span class="badge badge-yellow">🆕</span><span class="mono-cell" style="font-size:10px; color:var(--blue); margin-left:4px;">rank 33</span></div>
+      <div class="srow-card-title">6-Piece Screwdriver Bit Set</div>
+      <div class="srow-field"><span class="srow-field-label">店铺</span><span class="srow-field-value">(新店)</span></div>
+      <div class="srow-field"><span class="srow-field-label">品类</span><span class="srow-field-value">电钻</span></div>
+      <div class="srow-field"><span class="srow-field-label">5月MoM</span><span class="srow-field-value" style="color:var(--green); font-weight:600;">+482%</span></div>
+      <div class="srow-field"><span class="srow-field-label">下月重点</span><span class="srow-field-value">新店爆品是否维持</span></div>
+    </div>
+    <div class="srow-card">
+      <div class="srow-card-head"><span class="badge badge-yellow">🆕</span><span class="mono-cell" style="font-size:10px; color:var(--blue); margin-left:4px;">rank 49</span></div>
+      <div class="srow-card-title">Iron-On Hemming Tape 买1送1</div>
+      <div class="srow-field"><span class="srow-field-label">店铺</span><span class="srow-field-value">(新店)</span></div>
+      <div class="srow-field"><span class="srow-field-label">品类</span><span class="srow-field-value">熨衣板</span></div>
+      <div class="srow-field"><span class="srow-field-label">5月MoM</span><span class="srow-field-value" style="color:var(--green); font-weight:600;">+1043%</span></div>
+      <div class="srow-field"><span class="srow-field-label">下月重点</span><span class="srow-field-value">跨品类爆品是否延续</span></div>
+    </div>
+    <div class="srow-card">
+      <div class="srow-card-head"><span class="badge badge-green">🚀</span><span class="mono-cell" style="font-size:10px; color:var(--blue); margin-left:4px;">rank 6</span></div>
+      <div class="srow-card-title">SEESE Brushless Mini ChainSaw</div>
+      <div class="srow-field"><span class="srow-field-label">店铺</span><span class="srow-field-value">seese</span></div>
+      <div class="srow-field"><span class="srow-field-label">品类</span><span class="srow-field-value">链锯</span></div>
+      <div class="srow-field"><span class="srow-field-label">5月MoM</span><span class="srow-field-value" style="color:var(--green); font-weight:600;">+122%</span></div>
+      <div class="srow-field"><span class="srow-field-label">下月重点</span><span class="srow-field-value">链锯夏季延续性</span></div>
+    </div>
+    <div class="srow-card">
+      <div class="srow-card-head"><span class="badge badge-green">🚀</span><span class="mono-cell" style="font-size:10px; color:var(--blue); margin-left:4px;">rank 226</span></div>
+      <div class="srow-card-title">VEVOR Push Lawn Sweeper</div>
+      <div class="srow-field"><span class="srow-field-label">店铺</span><span class="srow-field-value">vevor</span></div>
+      <div class="srow-field"><span class="srow-field-label">品类</span><span class="srow-field-value">园林清洁</span></div>
+      <div class="srow-field"><span class="srow-field-label">5月MoM</span><span class="srow-field-value" style="color:var(--green); font-weight:600;">+1709%</span></div>
+      <div class="srow-field"><span class="srow-field-label">下月重点</span><span class="srow-field-value">夏季户外季节验证</span></div>
+    </div>
+  </div>
+
+  <div class="table-wrap desktop-only-table">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>产品(节选)</th>
+        <th>店铺</th>
+        <th>品类</th>
+        <th>5月 rank</th>
+        <th>5月 MoM</th>
+        <th>信号</th>
+        <th>状态</th>
+        <th>下月验证重点</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="highlight">
+        <td class="mono-cell">1</td>
+        <td class="mono-cell">SEESE Magnetic Ring</td>
+        <td class="mono-cell">seese</td>
+        <td class="mono-cell">电动配件</td>
+        <td class="mono-cell blue-cell">#1</td>
+        <td class="mono-cell green-cell">+1617%</td>
+        <td><span class="badge badge-green">🚀</span></td>
+        <td>🆕 active</td>
+        <td>月销 > 10K = 突破季节性</td>
+      </tr>
+      <tr class="highlight">
+        <td class="mono-cell">2</td>
+        <td class="mono-cell">ARTFLAMM Propane Torch</td>
+        <td class="mono-cell">artflamm</td>
+        <td class="mono-cell">小众电动</td>
+        <td class="mono-cell blue-cell">#9</td>
+        <td class="mono-cell green-cell">+111%</td>
+        <td><span class="badge badge-green">🚀+🆕</span></td>
+        <td>🆕 active</td>
+        <td>SEESE 双寡头是否形成</td>
+      </tr>
+      <tr class="highlight">
+        <td class="mono-cell">3</td>
+        <td class="mono-cell">Pure Copper Battery Cut-Off</td>
+        <td class="mono-cell">(新店)</td>
+        <td class="mono-cell">工具包</td>
+        <td class="mono-cell blue-cell">#19</td>
+        <td class="mono-cell green-cell">+1664%</td>
+        <td><span class="badge badge-yellow">🆕</span></td>
+        <td>🆕 active</td>
+        <td>新店持续性 + 达人</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">4</td>
+        <td class="mono-cell">Trailer Jack Drill Adapter</td>
+        <td class="mono-cell">gjansh</td>
+        <td class="mono-cell">绳链滑轮</td>
+        <td class="mono-cell blue-cell">#63</td>
+        <td class="mono-cell green-cell">+409%</td>
+        <td><span class="badge badge-yellow">🆕</span></td>
+        <td>🆕 active</td>
+        <td>小众市场天花板</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">5</td>
+        <td class="mono-cell">THINKWORK Bolt Extractor</td>
+        <td class="mono-cell">(其他)</td>
+        <td class="mono-cell">扳手</td>
+        <td class="mono-cell blue-cell">#87</td>
+        <td class="mono-cell green-cell">+697%</td>
+        <td><span class="badge badge-green">🚀</span></td>
+        <td>🆕 active</td>
+        <td>月销 > 1.5K 维持</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">6</td>
+        <td class="mono-cell">SEESE Propane Torch (#16)</td>
+        <td class="mono-cell">seese</td>
+        <td class="mono-cell">裱花装饰</td>
+        <td class="mono-cell blue-cell">#16</td>
+        <td class="mono-cell green-cell">+568%</td>
+        <td><span class="badge badge-green">🚀</span></td>
+        <td>🆕 active</td>
+        <td>SEESE 双喷灯维持</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">7</td>
+        <td class="mono-cell">GJANSH Cordless Drill 21V</td>
+        <td class="mono-cell">gjansh</td>
+        <td class="mono-cell">电钻</td>
+        <td class="mono-cell blue-cell">#18</td>
+        <td class="mono-cell green-cell">+189%</td>
+        <td><span class="badge badge-green">🚀</span></td>
+        <td>🆕 active</td>
+        <td>父节后断崖验证</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">8</td>
+        <td class="mono-cell">6-Piece Screwdriver Bit</td>
+        <td class="mono-cell">(新店)</td>
+        <td class="mono-cell">电钻</td>
+        <td class="mono-cell blue-cell">#33</td>
+        <td class="mono-cell green-cell">+482%</td>
+        <td><span class="badge badge-yellow">🆕</span></td>
+        <td>🆕 active</td>
+        <td>新店爆品维持</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">9</td>
+        <td class="mono-cell">Iron-On Hemming Tape</td>
+        <td class="mono-cell">(新店)</td>
+        <td class="mono-cell">熨衣板</td>
+        <td class="mono-cell blue-cell">#49</td>
+        <td class="mono-cell green-cell">+1043%</td>
+        <td><span class="badge badge-yellow">🆕</span></td>
+        <td>🆕 active</td>
+        <td>跨品类爆品延续</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">10</td>
+        <td class="mono-cell">SEESE Mini ChainSaw</td>
+        <td class="mono-cell">seese</td>
+        <td class="mono-cell">链锯</td>
+        <td class="mono-cell blue-cell">#6</td>
+        <td class="mono-cell green-cell">+122%</td>
+        <td><span class="badge badge-green">🚀</span></td>
+        <td>🆕 active</td>
+        <td>链锯夏季延续</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">11</td>
+        <td class="mono-cell">VEVOR Push Lawn Sweeper</td>
+        <td class="mono-cell">vevor</td>
+        <td class="mono-cell">园林清洁</td>
+        <td class="mono-cell blue-cell">#226</td>
+        <td class="mono-cell green-cell">+1709%</td>
+        <td><span class="badge badge-green">🚀</span></td>
+        <td>🆕 active</td>
+        <td>夏季户外季节</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="scroll-hint desktop-only-table">← 横向滑动查看更多 →</p>
+  <p class="table-note">// DATA SOURCE: FastMoss 销量榜 + 热推榜 · 2026-05 · 基线月,所有 active 候选</p>
+
+  <div class="insights-box">
+    <div class="insights-header">// 6 月校验规则</div>
+    <div class="insight-row">
+      <div class="insight-num">A</div>
+      <div>
+        <div class="insight-text">SEESE 工厂店 19 SKU 份额 21% 是真模式还是节日效应?</div>
+        <div class="insight-support">SUPPORT: 6-9 月 4 个数据点验证;若 6 月仍 Top 1 + 19 SKU 维持 = 真品牌矩阵;若份额回落 8-12% = 节日效应</div>
+      </div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-num">B</div>
+      <div>
+        <div class="insight-text">父亲节后断崖 = 季节性陷阱?6 月初 2 周验证</div>
+        <div class="insight-support">SUPPORT: 24 个 SKU MoM &lt; -30%;若 6 月 rank &lt; 50 + 月销 &lt; 3K = 节日陷阱;若仍 Top 100 + 月销 &gt; 5K = 突破季节性</div>
+      </div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-num">C</div>
+      <div>
+        <div class="insight-text">Fanttik 营销空转何时终止?</div>
+        <div class="insight-support">SUPPORT: 4 款产品热推 Top 12 但销量缺席 Top 100;6 月若继续 = 营销模式需重构;若 2+ 款进 Top 50 = 修正成功</div>
+      </div>
+    </div>
+  </div>
+  <a class="section-back" href="#sec-01">↑ 返回顶部</a>
+  <div class="page-classification">// 内部使用 · 限内部传阅 · 跟踪对象</div>
+</div>
+
+<!-- SEC.07 -->
+<div class="section" id="sec-07">
+  <div class="section-header">
+    <div class="section-code">SEC.07</div>
+    <div class="section-title">数据可信度:基线月,信号启用 3/5</div>
+  </div>
+  <div class="section-divider"></div>
+
+  <div class="grid-3">
+    <div class="stat-card">
+      <div class="stat-card-label">// 数据源</div>
+      <div class="stat-card-value">FastMoss</div>
+      <div class="stat-card-desc">TikTok Shop US 公开榜单 · 销量榜 300 SKU + 热推榜 300 SKU</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-label">// 综合可信度</div>
+      <div class="stat-card-value">0.68</div>
+      <div class="stat-card-desc">composite 0.68 · quality_warning true · 基线月限制</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-label">// 信号启用</div>
+      <div class="stat-card-value">3/5</div>
+      <div class="stat-card-desc">🆕🚀🕳️ 启用 · 🔁📉 6 月起启用(需 ≥2 月数据)</div>
+    </div>
+  </div>
+
+  <div class="voc-block">
+    <strong>数据口径说明:</strong> 5 月 600 SKU 样本(Top 销量 300 + Top 热推 300),双榜去重后 ~480 唯一 SKU,约 200 家店铺,80+ 细分品类。<strong>基线月限制:</strong> 无上月数据,所有 MoM 列标记为单点观察;🔁 持续赢家 + 📉 衰退品 2 类信号 N/A,6 月起启用;识别 24 个 SKU MoM &lt; -30% 标记为下月复核对象。FastMoss 部分字段定义不完全公开,价格/分类已解析;品类映射 3 个 FastMoss 类目(鼓风机 / 裱花装饰 / 游泳池用品)与 OS 图谱不对齐,下月修正。
+  </div>
+  <p class="voc-attribution">// NOTE: 数据为月度快照,非滚动实时;6 月数据到达时将首次运行状态机大规模校验</p>
+
+  <div class="so-what">
+    <div class="so-what-header">// 4 角色行动建议</div>
+    <div class="so-what-item">
+      <div class="so-what-role">致品牌方</div>
+      <div class="so-what-text"><strong>SEESE 工厂店模式颠覆传统品牌格局:</strong> ① 19 SKU 协同 + 8% 统一佣金 + FathersDayGift 主题 = 4 个库中头部集中度最高(21%);② 单店 GMV $4.3M 是 Shark 8% 份额的 2.6 倍 = 工厂店暴力铺量范本;③ 6-9 月 4 个数据点验证:若维持 Top 1 = 颠覆性模式;若回落 = 节日效应。<strong>Fanttik 是反面教材</strong> — 4 款霸榜热推但销量缺席 = 营销预算激进,产品/价格/落地页需重设计。</div>
+    </div>
+    <div class="so-what-item">
+      <div class="so-what-role">致中国白牌</div>
+      <div class="so-what-text"><strong>3 个白牌可进入窗口:</strong> ① 浙江永康/武义 OEM 工厂,MOQ 500-1000 件,可复制 SEESE 工厂店模式;② 80+ 长尾品类中"挂钩秤/花园手套/手动修剪"小众高效(达人效率 100+ 件/人);③ 父节后 6-7 月切换到"夏季户外鼓风机/割草机/便携式工具"。<strong>不要碰:</strong> 父节后断崖 SKU(24 个 MoM &lt; -30%);Fanttik 式营销空转模式(营销转化不匹配)。</div>
+    </div>
+    <div class="so-what-item">
+      <div class="so-what-role">致投资人</div>
+      <div class="so-what-text"><strong>消费工具 5 月 $20.7M GMV + Top 1 21% 集中度,需关注 3 个变化:</strong> ① SEESE 工厂店 6-9 月份额是否回落(节日 vs 真模式验证);② 父节后 24 个 SKU 断崖实际程度(决定品类季节性深度);③ Fanttik 营销空转是否在 6 月修正(品牌故事关键转折点);④ 75 个 2026 年新品(25% 全榜)6-7 月是否持续(品类增长动能)。</div>
+    </div>
+    <div class="so-what-item">
+      <div class="so-what-role">致产品经理</div>
+      <div class="so-what-text"><strong>5 月 11 个 active 候选 6 月全部需要校验:</strong> ① #1 SEESE Magnetic Ring + SEESE Brushless Mini ChainSaw + SEESE Propane Torch = 父节真爆 vs 节日陷阱验证;② #2 ARTFLAMM Propane Torch 双寡头是否形成;③ #3-#5 Pure Copper / GJANSH Trailer Jack / THINKWORK 新店+小众爆品持续性;④ 6 月起状态机首次运行,11 个候选中 3-4 个可能 ⬆️ upgrading,4-5 个可能 ⬇️ declining,2-3 个 ➡️ stable。**6 月报告将首次呈现"持续赢家"+"衰退品"2 类信号。**</div>
+    </div>
+  </div>
+  <a class="section-back" href="#sec-01">↑ 返回顶部</a>
+  <div class="page-classification">// 内部使用 · 限内部传阅 · 数据可信度与行动建议</div>
+</div>
+
+</div><!-- /main -->
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">MARKET RESEARCH OS</div>
+    <div class="footer-meta">美国消费工具 TikTok Shop · 2026-05 · 内部使用 · 限内部传阅</div>
+    <div class="footer-meta">生成日期 2026-06-10 · REV.1.0</div>
+  </div>
+  <div class="footer-yellow-bar"></div>
+</footer>
+
+<script>
+(function() {
+  var toggleBtn = document.getElementById('toc-toggle');
+  var drawer    = document.getElementById('toc-drawer');
+  var overlay   = document.getElementById('toc-overlay');
+  var closeBtn  = document.getElementById('toc-close');
+  if (!toggleBtn || !drawer) return;
+
+  function openDrawer()  { drawer.classList.add('open');    overlay.classList.add('open'); }
+  function closeDrawer() { drawer.classList.remove('open'); overlay.classList.remove('open'); }
+
+  toggleBtn.addEventListener('click', openDrawer);
+  closeBtn.addEventListener('click', closeDrawer);
+  overlay.addEventListener('click', closeDrawer);
+
+  var tocItems = document.querySelectorAll('.toc-item');
+  tocItems.forEach(function(item) {
+    item.addEventListener('click', function(e) {
+      var target = item.getAttribute('data-target');
+      var el = document.getElementById(target);
+      if (el) {
+        e.preventDefault();
+        closeDrawer();
+        setTimeout(function() {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 200);
+      }
+    });
+  });
+
+  var sections = ['sec-01','sec-02','sec-03','sec-04','sec-05','sec-06','sec-07']
+    .map(function(id) { return document.getElementById(id); })
+    .filter(function(el) { return el !== null; });
+
+  var currentActive = null;
+  function setActive(id) {
+    if (currentActive === id) return;
+    currentActive = id;
+    tocItems.forEach(function(item) {
+      item.classList.toggle('active', item.getAttribute('data-target') === id);
+    });
+  }
+
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+    sections.forEach(function(s) { observer.observe(s); });
+  }
+})();
+</script>
+</body>
+</html>

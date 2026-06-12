@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color="#0F0F0D">
+<title>美国家用电器 TikTok Shop · 2026-05 月度报告</title>
+<style>
+:root {
+  --paper:#F0F0EC; --white:#FFFFFF; --ink-black:#0F0F0D; --ink-dark:#1E1E1A;
+  --text-primary:#1A1A16; --text-sec:#5C5C54; --text-mute:#787870; --text-dim:#9A9A90;
+  --text-nav:#B8B8B0;
+  --yellow:#F5C518; --yellow-pale:#FDF7D6;
+  --blue:#1A56DB;
+  --border:#D8D8D2; --border-dark:#C0C0B8;
+  --green:#15803D; --green-text:#14532D;
+  --red:#B91C1C; --red-pale-bg:#FEE2E2;
+  --orange:#78350F; --orange-pale-bg:#FEF3C7;
+  --orange-deep:#9A3412; --orange-bg:#FED7AA;
+  --grid-line:rgba(0,0,0,0.06);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--paper); color: var(--text-primary);
+  font-family: -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  -webkit-font-smoothing: antialiased; line-height: 1.65; font-size: 15px;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+a { color: inherit; text-decoration: none; }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
+
+/* === Hamburger === */
+.hamburger {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; min-width: 44px;
+  background: transparent; border: 0; cursor: pointer;
+  color: var(--text-nav); font-size: 22px; line-height: 1;
+  -webkit-tap-highlight-color: transparent;
+}
+.hamburger:active { background: rgba(245,197,24,0.12); }
+
+/* === Nav === */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--ink-black); border-bottom: 1px solid #2A2A26;
+  padding: 0 12px; display: flex; align-items: center;
+  height: 52px; gap: 8px;
+  padding-top: env(safe-area-inset-top);
+}
+.nav-brand { font-family: 'SF Mono','Menlo',monospace; color: var(--yellow); font-size: 12px; font-weight: 700; }
+.nav-divider { width: 1px; height: 20px; background: #3A3A34; }
+.nav-title { font-family: 'SF Mono','Menlo',monospace; color: var(--text-nav); font-size: 10px; flex: 1; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nav-meta { display: none; font-family: 'SF Mono','Menlo',monospace; color: var(--text-nav); font-size: 10px; }
+
+/* === TOC Drawer === */
+.toc-drawer {
+  position: fixed; top: 0; left: 0; height: 100%; width: 280px; max-width: 85vw;
+  background: var(--ink-black); color: var(--white);
+  z-index: 200; transform: translateX(-100%);
+  transition: transform 0.25s ease; padding: 64px 0 24px;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+  border-right: 2px solid var(--yellow);
+}
+.toc-drawer.open { transform: translateX(0); }
+.toc-drawer .toc-header { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--yellow); letter-spacing: 0.12em; text-transform: uppercase; padding: 0 20px 12px; border-bottom: 1px solid #2A2A26; position: sticky; top: 0; background: var(--ink-black); }
+.toc-drawer .toc-item { display: flex; align-items: center; gap: 12px; padding: 12px 20px; min-height: 44px; font-size: 13px; color: var(--text-nav); border-bottom: 1px solid #1A1A16; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background 0.15s, color 0.15s; }
+.toc-drawer .toc-item:active { background: rgba(245,197,24,0.12); }
+.toc-drawer .toc-item.active { color: var(--yellow); background: rgba(245,197,24,0.08); border-left: 3px solid var(--yellow); padding-left: 17px; }
+.toc-drawer .toc-num { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-dim); min-width: 30px; }
+.toc-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 199; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
+.toc-overlay.open { opacity: 1; pointer-events: auto; }
+.toc-close { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; background: transparent; border: 0; color: var(--text-nav); font-size: 24px; cursor: pointer; line-height: 1; }
+
+/* === Cover === */
+.cover { background-color: var(--ink-black); background-image: linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px); background-size: 24px 24px; padding: 48px 20px 0; }
+.cover-doc-class { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--yellow); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 24px; }
+.cover-title-block { border-left: 3px solid var(--yellow); padding-left: 16px; margin-bottom: 40px; }
+.cover-title { font-size: 26px; font-weight: 700; color: var(--white); line-height: 1.25; margin-bottom: 12px; letter-spacing: -0.02em; }
+.cover-title .accent { color: var(--yellow); }
+.cover-subtitle { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-nav); text-transform: uppercase; letter-spacing: 0.1em; }
+.headline-block { background: rgba(255,255,255,0.04); border-top: 1px solid #2A2A26; padding: 32px 0; display: grid; grid-template-columns: 1fr; gap: 24px; }
+.headline-number { font-family: 'SF Mono','Menlo',monospace; font-size: 44px; font-weight: 700; color: var(--yellow); line-height: 1; margin-bottom: 12px; }
+.headline-number-label { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-nav); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+.headline-context { font-size: 13px; color: rgba(255,255,255,0.7); }
+.headline-insight-label { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--yellow); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+.headline-insight-text { font-size: 14px; color: var(--white); line-height: 1.7; }
+.headline-insight-text strong { color: var(--yellow); }
+.cover-sub-numbers { background: rgba(255,255,255,0.02); border-top: 1px solid #2A2A26; display: grid; grid-template-columns: repeat(2,1fr); padding: 16px 0; gap: 0; }
+.cover-sub-cell { padding: 12px 16px; border-right: 1px solid #2A2A26; border-bottom: 1px solid #2A2A26; }
+.cover-sub-cell:nth-child(2n) { border-right: none; }
+.cover-sub-cell:nth-last-child(-n+2) { border-bottom: none; }
+.cover-sub-value { font-family: 'SF Mono','Menlo',monospace; font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+.cover-sub-value .arrow { color: var(--yellow); }
+.cover-sub-label { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-nav); text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* === Main / Section === */
+.main { max-width: 100%; margin: 0 auto; padding: 32px 16px 48px; scroll-margin-top: calc(52px + env(safe-area-inset-top, 0px) + 12px); }
+.section { margin-bottom: 48px; scroll-margin-top: calc(52px + env(safe-area-inset-top, 0px) + 12px); }
+.section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+.section-code { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; font-weight: 600; color: var(--text-dim); letter-spacing: 0.1em; }
+.section-title { font-size: 22px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.02em; line-height: 1.3; }
+.section-divider { width: 100%; height: 1px; background: var(--border); margin-bottom: 20px; }
+.section-subtitle { font-size: 16px; font-weight: 600; color: var(--text-primary); margin: 24px 0 12px; }
+.section-back { display: inline-block; font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--orange); margin-top: 8px; min-height: 44px; line-height: 44px; }
+.section-back:active { color: var(--yellow); }
+.page-classification { display: block; text-align: center; padding: 16px 0 8px; font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-mute); letter-spacing: 0.1em; text-transform: uppercase; border-top: 1px dashed var(--border); margin-top: 24px; }
+
+/* === Grids + Stat cards === */
+.grid-2, .grid-3, .grid-4 { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 16px; }
+.stat-card { background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--border-dark); border-radius: 4px; padding: 16px; }
+.stat-card-label { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+.stat-card-value { font-family: 'SF Mono','Menlo',monospace; font-size: 22px; font-weight: 700; color: var(--blue); margin-bottom: 4px; line-height: 1.1; }
+.stat-card-desc { font-size: 12px; color: var(--text-sec); border-top: 1px solid var(--border); padding-top: 8px; margin-top: 8px; line-height: 1.55; }
+
+/* === Data table === */
+.data-table { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; font-size: 12px; display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 8px; }
+.data-table thead tr { background: var(--ink-dark); }
+.data-table thead th { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: rgba(255,255,255,0.7); letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 10px; text-align: left; border-right: 1px solid #2A2A26; font-weight: 600; white-space: nowrap; }
+.data-table thead th:last-child { border-right: none; }
+.data-table tbody td { padding: 8px 10px; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); vertical-align: top; }
+.data-table tbody td:last-child { border-right: none; }
+.data-table tbody tr:last-child td { border-bottom: none; }
+.data-table tbody tr.highlight { background: var(--yellow-pale); }
+.mono-cell { font-family: 'SF Mono','Menlo',monospace; font-size: 12px; }
+.blue-cell { color: var(--blue); font-family: 'SF Mono','Menlo',monospace; font-weight: 600; }
+.red-cell { color: var(--red); font-family: 'SF Mono','Menlo',monospace; font-weight: 600; }
+.green-cell { color: var(--green); font-family: 'SF Mono','Menlo',monospace; font-weight: 600; }
+.table-note { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-mute); margin-top: 6px; margin-bottom: 16px; line-height: 1.6; }
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.scroll-hint { display: block; font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-dim); text-align: center; padding: 6px 0; margin-bottom: 8px; }
+
+/* === Badge === */
+.badge { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 6px; border-radius: 2px; display: inline-block; }
+.badge-red { background: var(--red-pale-bg); color: var(--red); }
+.badge-yellow { background: var(--orange-pale-bg); color: var(--orange); }
+.badge-green { background: #DCFCE7; color: var(--green-text); }
+.badge-blue { background: #DBEAFE; color: #1E40AF; }
+.badge-gray { background: #F3F4F6; color: #374151; }
+
+/* === Bar chart === */
+.bar-chart { background: var(--white); border: 1px solid var(--border); border-radius: 4px; padding: 16px; margin-bottom: 16px; }
+.bar-row { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
+.bar-label { font-size: 11px; color: var(--text-primary); font-weight: 600; }
+.bar-track { background: var(--paper); height: 14px; border-radius: 2px; position: relative; overflow: hidden; }
+.bar-fill { background: var(--ink-dark); height: 100%; position: absolute; left: 0; top: 0; }
+.bar-fill-yellow { background: var(--yellow); }
+.bar-value { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; font-weight: 600; color: var(--text-primary); }
+
+/* === Price tier funnel === */
+.funnel { background: var(--white); border: 1px solid var(--border); border-radius: 4px; padding: 16px; margin-bottom: 16px; }
+.funnel-row { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+.funnel-row:last-child { margin-bottom: 0; }
+.funnel-stage { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+.funnel-bar { background: var(--ink-dark); height: 18px; display: flex; align-items: center; padding-left: 8px; color: var(--yellow); font-family: 'SF Mono','Menlo',monospace; font-size: 0; font-weight: 600; border-radius: 2px; overflow: hidden; }
+.funnel-desc { font-size: 12px; color: var(--text-sec); }
+
+/* === Transition block === */
+.transition-block { background: var(--white); border-left: 3px solid var(--yellow); border-radius: 4px; padding: 14px 16px; margin: 16px 0; font-size: 13px; color: var(--text-primary); line-height: 1.75; }
+
+/* === Candidate cards === */
+.candidate-card { background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--border-dark); border-radius: 4px; padding: 16px; margin-bottom: 14px; }
+.candidate-card.decline { border-left-color: var(--red); }
+.candidate-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; gap: 8px; flex-wrap: wrap; }
+.candidate-name { font-size: 14px; font-weight: 700; color: var(--text-primary); line-height: 1.35; }
+.candidate-name .category { color: var(--text-sec); font-weight: 400; font-size: 12px; }
+.candidate-meta { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-dim); white-space: nowrap; }
+.candidate-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 10px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin: 10px 0; }
+.candidate-stat-label { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-mute); text-transform: uppercase; letter-spacing: 0.06em; }
+.candidate-stat-value { font-family: 'SF Mono','Menlo',monospace; font-size: 15px; font-weight: 700; color: var(--text-primary); line-height: 1.2; }
+.candidate-stat-value.blue { color: var(--blue); }
+.candidate-stat-value.red { color: var(--red); }
+.candidate-stat-value.green { color: var(--green); }
+.candidate-body { font-size: 13px; color: var(--text-primary); line-height: 1.7; }
+
+/* === So-what action recommendations === */
+.so-what { background: var(--white); border: 1px solid var(--border); border-radius: 4px; padding: 16px; margin-top: 20px; }
+.so-what-header { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; font-weight: 600; color: var(--yellow); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px; }
+.so-what-item { padding: 12px 0; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 1fr; gap: 6px; }
+.so-what-item:last-child { border-bottom: none; }
+.so-what-role { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-sec); text-transform: uppercase; font-weight: 600; }
+.so-what-text { font-size: 13px; color: var(--text-primary); line-height: 1.7; }
+
+/* === Insights box === */
+.insights-box { background-color: var(--ink-black); background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 24px 24px; border-radius: 4px; padding: 20px 18px; margin-top: 20px; }
+.insights-header { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; font-weight: 600; color: var(--yellow); letter-spacing: 0.12em; text-transform: uppercase; border-bottom: 1px solid #2A2A26; padding-bottom: 12px; margin-bottom: 16px; }
+.insight-row { display: grid; grid-template-columns: 24px 1fr; gap: 10px; margin-bottom: 16px; align-items: start; }
+.insight-row:last-child { margin-bottom: 0; }
+.insight-num { font-family: 'SF Mono','Menlo',monospace; font-size: 11px; font-weight: 700; color: var(--yellow); }
+.insight-text { font-size: 13px; font-weight: 600; color: var(--white); margin-bottom: 4px; line-height: 1.5; }
+.insight-support { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-dim); line-height: 1.5; }
+
+/* === VoC block === */
+.voc-block { background: var(--yellow-pale); border-left: 3px solid var(--yellow); padding: 14px 16px; margin: 14px 0; border-radius: 0 4px 4px 0; font-size: 13px; color: var(--text-primary); line-height: 1.75; font-style: italic; }
+.voc-attribution { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-mute); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.08em; font-style: normal; }
+
+/* === Tracking row cards (SEC.06 mobile) === */
+.srow-cards { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 8px; }
+.srow-card { background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--blue); border-radius: 4px; padding: 14px 16px; }
+.srow-card.highlight { border-left-color: var(--yellow); background: #FFFEF5; }
+.srow-card.decline { border-left-color: var(--red); }
+.srow-card-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.srow-card-title { font-size: 13px; font-weight: 700; color: var(--text-primary); margin: 8px 0 10px; line-height: 1.35; }
+.srow-field { display: grid; grid-template-columns: 52px 1fr; gap: 10px; font-size: 12px; padding: 5px 0; }
+.srow-field + .srow-field { border-top: 1px solid var(--border); }
+.srow-field-label { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-mute); text-transform: uppercase; padding-top: 1px; }
+.srow-field-value { color: var(--text-primary); line-height: 1.5; }
+.desktop-only-table { display: none; }
+
+/* === Section collapse (details) === */
+details.section-collapse { margin-bottom: 10px; }
+details.section-collapse > summary { list-style: none; cursor: pointer; -webkit-tap-highlight-color: transparent; min-height: 44px; display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--border-dark); border-radius: 4px; font-size: 13px; font-weight: 600; color: var(--text-primary); }
+details.section-collapse > summary::-webkit-details-marker { display: none; }
+details.section-collapse > summary::marker { content: ''; }
+details.section-collapse > summary::after { content: '+'; margin-left: auto; font-family: 'SF Mono','Menlo',monospace; font-size: 18px; color: var(--orange); font-weight: 400; }
+details.section-collapse[open] > summary::after { content: '−'; }
+details.section-collapse > summary:active { background: rgba(245,197,24,0.08); }
+details.section-collapse > .details-content { padding-top: 12px; }
+
+/* === Footer === */
+footer { background: var(--ink-black); border-top: 1px solid #2A2A26; padding: 24px 16px 0; margin-top: 48px; padding-bottom: env(safe-area-inset-bottom); }
+.footer-grid { display: grid; grid-template-columns: 1fr; gap: 6px; text-align: center; padding-bottom: 20px; }
+.footer-brand { font-family: 'SF Mono','Menlo',monospace; font-size: 12px; font-weight: 600; color: var(--white); letter-spacing: 0.08em; }
+.footer-meta { font-family: 'SF Mono','Menlo',monospace; font-size: 10px; color: var(--text-nav); }
+.footer-yellow-bar { height: 2px; background: var(--yellow); }
+
+/* === TABLET ≥768px === */
+@media (min-width: 768px) {
+  .hamburger { display: none; }
+  .toc-drawer, .toc-overlay { display: none; }
+  .nav { padding: 0 24px; gap: 14px; }
+  .nav-title { font-size: 11px; }
+  .nav-meta { display: inline; }
+  .main { padding: 56px 32px; max-width: 1100px; }
+  .section { margin-bottom: 64px; }
+  .section-title { font-size: 24px; }
+  .section-subtitle { font-size: 18px; margin: 32px 0 16px; }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .stat-card { padding: 20px; }
+  .stat-card-value { font-size: 26px; }
+  .data-table { display: table; font-size: 13px; }
+  .data-table thead th, .data-table tbody td { padding: 10px 14px; }
+  .scroll-hint { display: none; }
+  .srow-cards { display: none; }
+  .desktop-only-table { display: block; }
+  .bar-row { display: grid; grid-template-columns: 180px 1fr 80px; gap: 12px; align-items: center; flex-direction: unset; margin-bottom: 8px; }
+  .bar-label { font-size: 13px; }
+  .bar-track { height: 18px; }
+  .bar-value { text-align: right; font-size: 12px; }
+  .funnel-row { display: grid; grid-template-columns: 170px 1fr 120px; gap: 12px; align-items: center; flex-direction: unset; margin-bottom: 10px; }
+  .funnel-bar { height: 32px; font-size: 12px; }
+  .candidate-stats { grid-template-columns: repeat(5, 1fr); }
+  .candidate-stat-value { font-size: 16px; }
+  .so-what-item { grid-template-columns: 120px 1fr; gap: 16px; }
+  .cover { padding: 64px 40px 0; }
+  .cover-title-block { padding-left: 24px; margin-bottom: 48px; }
+  .cover-title { font-size: 32px; }
+  .cover-subtitle { font-size: 12px; }
+  .headline-block { padding: 40px 0; grid-template-columns: 1fr 1.5fr; gap: 32px; }
+  .headline-number { font-size: 56px; }
+  .headline-context { font-size: 14px; }
+  .headline-insight-text { font-size: 15px; }
+  .cover-sub-numbers { grid-template-columns: repeat(4, 1fr); padding: 20px 0; }
+  .cover-sub-cell { padding: 0 24px; border-right: 1px solid #2A2A26; border-bottom: none; }
+  .cover-sub-cell:nth-child(2n) { border-right: 1px solid #2A2A26; }
+  .cover-sub-cell:last-child { border-right: none; }
+  .cover-sub-value { font-size: 20px; }
+  .insights-box { padding: 28px 28px; }
+  .insight-text { font-size: 14px; }
+  .transition-block { padding: 18px 22px; font-size: 14px; }
+  .so-what { padding: 20px 24px; }
+  details.section-collapse > summary { pointer-events: none; }
+  details.section-collapse > summary::after { display: none; }
+  details.section-collapse > .details-content { padding-top: 16px; display: block; }
+  footer { padding: 28px 32px 0; }
+  .footer-grid { grid-template-columns: 1fr 1fr 1fr; gap: 16px; text-align: initial; }
+  .page-classification { display: none; }
+}
+
+/* === DESKTOP ≥1024px === */
+@media (min-width: 1024px) {
+  .main { padding: 64px 48px; }
+  .cover { padding: 72px 64px 0; }
+  .cover-title { font-size: 38px; }
+  .headline-number { font-size: 64px; }
+  .section-title { font-size: 26px; }
+  .stat-card-value { font-size: 28px; }
+  .insight-text { font-size: 15px; }
+  footer { padding: 28px 48px 0; }
+}
+
+/* === PRINT === */
+@media print {
+  body { background: white; padding-bottom: 0; }
+  .nav, .hamburger, .toc-drawer, .toc-overlay, .page-classification { display: none; }
+  footer { padding: 16px 0 0; }
+  .cover { background: white !important; color: black !important; padding: 0; background-image: none !important; }
+  .cover-title, .headline-number, .cover-sub-value { color: black !important; }
+  .cover-title .accent, .headline-insight-text strong { color: var(--orange) !important; }
+  .headline-block, .cover-sub-numbers { background: white !important; border: none !important; }
+  .insights-box { background: white !important; color: black !important; border: 1px solid var(--border); background-image: none !important; }
+  .insight-text { color: black !important; }
+  .insight-num, .insights-header { color: var(--ink-dark) !important; }
+  .insight-text strong { color: var(--orange) !important; }
+  .section { page-break-inside: avoid; }
+  details.section-collapse > summary { display: none; }
+  details.section-collapse:not([open]) > .details-content { display: block; }
+  .srow-cards { display: none; }
+  .desktop-only-table { display: block !important; }
+  a { color: black !important; text-decoration: none !important; }
+}
+</style>
+</head>
+<body>
+
+<button class="hamburger" id="toc-toggle" aria-label="打开目录">☰</button>
+<nav class="nav">
+  <span class="nav-brand">[MROS]</span>
+  <div class="nav-divider"></div>
+  <span class="nav-title">美国家用电器 TikTok Shop · 2026-05 月度报告</span>
+  <span class="nav-meta">REV.1.0 · 2026-06-10</span>
+</nav>
+
+<div class="toc-overlay" id="toc-overlay"></div>
+<aside class="toc-drawer" id="toc-drawer" aria-label="目录">
+  <button class="toc-close" id="toc-close" aria-label="关闭">✕</button>
+  <div class="toc-header">// 目录 · 7 章节</div>
+  <a class="toc-item" data-target="sec-01" href="#sec-01"><span class="toc-num">01</span><span>5 月全景</span></a>
+  <a class="toc-item" data-target="sec-02" href="#sec-02"><span class="toc-num">02</span><span>品类格局</span></a>
+  <a class="toc-item" data-target="sec-03" href="#sec-03"><span class="toc-num">03</span><span>头部店铺</span></a>
+  <a class="toc-item" data-target="sec-04" href="#sec-04"><span class="toc-num">04</span><span>候选产品(5 款)</span></a>
+  <a class="toc-item" data-target="sec-05" href="#sec-05"><span class="toc-num">05</span><span>反向信号(3 类)</span></a>
+  <a class="toc-item" data-target="sec-06" href="#sec-06"><span class="toc-num">06</span><span>跟踪对象(12 个)</span></a>
+  <a class="toc-item" data-target="sec-07" href="#sec-07"><span class="toc-num">07</span><span>数据可信度</span></a>
+</aside>
+
+<!-- 封面 -->
+<div class="cover">
+  <div class="cover-doc-class">DOCUMENT CLASS: MARKET INTELLIGENCE · TIKTOK SHOP</div>
+  <div class="cover-title-block">
+    <h1 class="cover-title">美国家用电器 TikTok Shop<br><span class="accent">Shark 系吃下 23% 市场,夏季品类集体起量</span></h1>
+    <p class="cover-subtitle">HOME APPLIANCES · US · 2026-05 · BASELINE MONTH</p>
+  </div>
+  <div class="headline-block">
+    <div class="headline-number-block">
+      <div class="headline-number-label">// 5 月总销售额</div>
+      <div class="headline-number">$49.8M</div>
+      <div class="headline-context">300 SKU 销量榜 + 300 SKU 热推榜 · 风扇 / 灭蚊 / 空调夏季品类集体起量</div>
+    </div>
+    <div class="headline-insight">
+      <div class="headline-insight-label">// 一句话核心判断</div>
+      <div class="headline-insight-text">5 月美国家电 TikTok Shop 斩获 <strong>$49.8M GMV(4 个库最高)</strong>。<strong>Shark 系(Shark Home + Ninja)合计 23% 销售额</strong> = 行业绝对头部,吸尘器/扫地机品类 16% SKU 拿走 40% GMV。<strong>47% 营销投入未转化为上榜销量</strong> — 141 个产品只在热推榜,关联达人数 vs 销量 Pearson 仅 0.547。<strong>营销与销售价格严重错配</strong>:热推中位价 $81.46 vs 销量中位价 $44.36(1.84 倍差距)。夏季品类(风扇/灭蚊/空调/空气净化)4 个合计 ~33% SKU + ~30% GMV。</div>
+    </div>
+  </div>
+  <div class="cover-sub-numbers">
+    <div class="cover-sub-cell">
+      <div class="cover-sub-value">23% <span class="arrow">↑</span></div>
+      <div class="cover-sub-label">// Shark 系单店占全榜份额</div>
+    </div>
+    <div class="cover-sub-cell">
+      <div class="cover-sub-value">$129 <span class="arrow">↑</span></div>
+      <div class="cover-sub-label">// Shark WANDVAC 单 SKU ASP</div>
+    </div>
+    <div class="cover-sub-cell">
+      <div class="cover-sub-value">1.84× <span class="arrow">↓</span></div>
+      <div class="cover-sub-label">// 营销价 vs 销量价错配</div>
+    </div>
+    <div class="cover-sub-cell">
+      <div class="cover-sub-value">12 <span class="arrow">→</span></div>
+      <div class="cover-sub-label">// 本月候选跟踪池</div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- SEC.01 -->
+<div class="section" id="sec-01">
+  <div class="section-header">
+    <div class="section-code">SEC.01</div>
+    <div class="section-title">5 月全景:风扇主战场 + Shark 统治,夏季前夕</div>
+  </div>
+  <div class="section-divider"></div>
+
+  <p style="margin-bottom: 20px; font-size: 14px; color: var(--text-primary); line-height: 1.8;">
+    美国家用电器品类 5 月在 TikTok Shop 斩获 <strong>$49.8M GMV</strong>(销量 85.1 万件),覆盖 22+ 细分品类,是 4 个库中 GMV 最高。月内最强单一信号是 <strong>Shark 系(Shark Home + Ninja Kitchen US)合计 $17.5M 占 23% 销售额</strong>。Top 10 销量榜中 5 个是风扇(合计销量 ~96K 件),夏季品类(风扇/灭蚊/空调/空气净化器)合计 33% SKU + 30% GMV。**47% 营销投入未转化为上榜销量**,关联达人数 vs 销量 Pearson 仅 0.547 = 中相关,营销与销售价格错配严重。
+  </p>
+
+  <div class="grid-4">
+    <div class="stat-card">
+      <div class="stat-card-label">// 总 GMV(全榜)</div>
+      <div class="stat-card-value">$49.8M</div>
+      <div class="stat-card-desc">4 个库中最高 · 300 SKU 销量榜 + 300 SKU 热推榜</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-label">// 总销量</div>
+      <div class="stat-card-value">851K</div>
+      <div class="stat-card-desc">85.1 万件家电售出(风扇 96K + 挂烫机 50K + Shark WANDVAC 18K)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-label">// 平均客单价</div>
+      <div class="stat-card-value">$58.52</div>
+      <div class="stat-card-desc">$49.8M ÷ 85.1 万件,中位价格带在 $44(销量榜)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-label">// 头部店铺集中度</div>
+      <div class="stat-card-value">14.2%</div>
+      <div class="stat-card-desc">Shark Home 单店份额(Shark + Ninja 合计 23% 行业绝对头部)</div>
+    </div>
+  </div>
+
+  <div class="transition-block">
+    <strong>给读者的一句话:</strong> 这就是<strong>"夏季前夕 + 父亲节预热"</strong>双引擎驱动月。TikTok 美国家电赛道由 <strong>Shark 系(美系上市品牌 JS Global)23% 销售额</strong> 统治;夏季品类(风扇 / 灭蚊 / 空调)集体起量;**最关键洞察:47% 营销投入未转化为上榜销量,选品是核心(达人数 ≠ 销量保证)**。6-7 月窗口:**夏季品类(风扇)继续冲量** + **父亲节后 Shark WANDVAC / HydroDuo 持续性验证** + **7 月报告首次呈现"持续赢家 + 衰退品"2 类信号**。
+  </div>
+
+  <div class="section-subtitle">价格带转化漏斗:$100-200 销量最高桶(高 ASP 主导)</div>
+  <div class="funnel">
+    <div class="funnel-row">
+      <div class="funnel-stage">$0-25(走量桶)</div>
+      <div class="funnel-bar" style="width: 50%;">92 SKU · 30.7% 占榜 · 23.7 万件</div>
+      <div class="funnel-desc">$6.0M · 12% 份额</div>
+    </div>
+    <div class="funnel-row">
+      <div class="funnel-stage">$25-50(走量中端)</div>
+      <div class="funnel-bar" style="width: 50%;">73 SKU · 24.3% · 23.5 万件</div>
+      <div class="funnel-desc">$6.5M · 13% 份额</div>
+    </div>
+    <div class="funnel-row">
+      <div class="funnel-stage">$50-100(中高端)</div>
+      <div class="funnel-bar" style="width: 68%;">66 SKU · 22.0% · 17.9 万件</div>
+      <div class="funnel-desc">$8.5M · 17% 份额</div>
+    </div>
+    <div class="funnel-row">
+      <div class="funnel-stage">$100-200(高端 · 销量最高桶)</div>
+      <div class="funnel-bar" style="width: 100%;">44 SKU · 14.7% · 14.4 万件</div>
+      <div class="funnel-desc"><strong>$15.0M · 30%(最高桶)</strong></div>
+    </div>
+    <div class="funnel-row">
+      <div class="funnel-stage">$200+(超高端)</div>
+      <div class="funnel-bar" style="width: 93%;">25 SKU · 8.3% · 5.7 万件</div>
+      <div class="funnel-desc">$13.9M · 28%</div>
+    </div>
+  </div>
+  <p class="table-note">// DATA SOURCE: FastMoss 销量榜 300 SKU · 2026-05 · 数据可信度: composite 0.68</p>
+
+  <div class="insights-box">
+    <div class="insights-header">// ANALYSIS OUTPUT — 2026-05 月度全景</div>
+    <div class="insight-row">
+      <div class="insight-num">01</div>
+      <div>
+        <div class="insight-text">Shark 系 23% 销售额 + 吸尘器/扫地机 16% SKU 拿 40% GMV = 高 ASP 主导格局</div>
+        <div class="insight-support">SUPPORT: Shark Home 19 SKU $15.07M(14.2% 单店) + Ninja Kitchen US 17 SKU $2.48M(2.3%) = 23% 合计;吸尘器/扫地机品类 16% SKU 拿走 40% GMV(2.5 倍杠杆);Shark WANDVAC 上架 73 天进入 Top 4 + +870% MoM</div>
+      </div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-num">02</div>
+      <div>
+        <div class="insight-text">47% 营销投入未转化为上榜销量,选品是核心(达人数 ≠ 销量保证)</div>
+        <div class="insight-support">SUPPORT: 141 个产品只在热推榜(47%) → 营销费打水漂;关联达人数 vs 总销量 Pearson 0.547(中相关);营销失效共性:推产品价格偏高($50-100+)或功能性过强难视觉化</div>
+      </div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-num">03</div>
+      <div>
+        <div class="insight-text">风扇是 6 月绝对主战场,但营销与销售价格严重错配(1.84 倍)</div>
+        <div class="insight-support">SUPPORT: 销量榜前 10 中 5 个是风扇(~96K 件);但热推榜中位价 $81.46 vs 销量榜中位价 $44.36 → 达人在推贵的,买家在买便宜的;风扇品类 SKU 21% 但 GMV 仅 19%</div>
+      </div>
+    </div>
+  </div>
+  <a class="section-back" href="#sec-01">↑ 返回顶部</a>
+  <div class="page-classification">// 内部使用 · 限内部传阅 · 月度数据快照</div>
+</div>
+
+<!-- SEC.02 -->
+<div class="section" id="sec-02">
+  <div class="section-header">
+    <div class="section-code">SEC.02</div>
+    <div class="section-title">品类格局:吸尘器 40% GMV 主导,风扇 21% SKU 集体起量</div>
+  </div>
+  <div class="section-divider"></div>
+
+  <p style="margin-bottom: 20px; font-size: 14px;">
+    家电品类覆盖 22+ 细分品类,品类 HHI 集中度 878.5(分散,长尾机会充足)。<strong>吸尘器及扫地机器人 16% SKU 拿走 40% GMV</strong>(高 ASP $80-200 主导);<strong>电风扇 21% SKU 仅拿走 19% GMV</strong>(高频低 ASP $25-50)。季节性强烈:风扇 + 灭蚊 + 空调 + 空气净化器 = 4 个夏季品类合计 ~33% SKU + ~30% GMV。6 月 10 日(夏季前夕)数据,7-8 月这些品类 SKU 占比应继续上升。
+  </p>
+
+  <div class="section-subtitle">Top 10 品类按销量榜 GMV 排名(吸尘器品类拿走 40%)</div>
+  <div class="bar-chart">
+    <div class="bar-row">
+      <div class="bar-label">吸尘器及扫地机器人</div>
+      <div class="bar-track"><div class="bar-fill bar-fill-yellow" style="width: 100%;"></div></div>
+      <div class="bar-value">$19.9M</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">电风扇</div>
+      <div class="bar-track"><div class="bar-fill" style="width: 48%;"></div></div>
+      <div class="bar-value">$9.48M</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">小众厨房电器</div>
+      <div class="bar-track"><div class="bar-fill" style="width: 17%;"></div></div>
+      <div class="bar-value">$3.45M</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">挂烫机</div>
+      <div class="bar-track"><div class="bar-fill" style="width: 14%;"></div></div>
+      <div class="bar-value">$2.83M</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">空调</div>
+      <div class="bar-track"><div class="bar-fill" style="width: 12%;"></div></div>
+      <div class="bar-value">$2.29M</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">电动拖把</div>
+      <div class="bar-track"><div class="bar-fill" style="width: 12%;"></div></div>
+      <div class="bar-value">$2.30M</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">破壁机/榨汁机/豆浆机</div>
+      <div class="bar-track"><div class="bar-fill" style="width: 11%;"></div></div>
+      <div class="bar-value">$2.29M</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">空气净化器</div>
+      <div class="bar-track"><div class="bar-fill" style="width: 9%;"></div></div>
+      <div class="bar-value">$1.79M</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">电烤炉</div>
+      <div class="bar-track"><div class="bar-fill" style="width: 6%;"></div></div>
+      <div class="bar-value">$1.27M</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">灭蚊器</div>
+      <div class="bar-track"><div class="bar-fill" style="width: 7%;"></div></div>
+      <div class="bar-value">$1.32M</div>
+    </div>
+  </div>
+  <p class="table-note">// DATA SOURCE: FastMoss 销量榜 300 SKU · 2026-05 · HHI 集中度 878.5(分散,长尾机会充足)</p>
+
+  <div class="insights-box">
+    <div class="insights-header">// ANALYSIS OUTPUT — 品类格局</div>
+    <div class="insight-row">
+      <div class="insight-num">01</div>
+      <div>
+        <div class="insight-text">吸尘器/扫地机 = 高 ASP 主导(16% SKU 拿 40% GMV),学习范本 Shark</div>
+        <div class="insight-support">SUPPORT: 16% SKU × 40% GMV(2.5 倍杠杆);Shark WANDVAC 上架 73 天进入 Top 4 = 头部品牌新品爆发力强;Shark HydroDuo +7554% MoM(罕见爆品级增幅)</div>
+      </div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-num">02</div>
+      <div>
+        <div class="insight-text">风扇品类 = 高频低 ASP(21% SKU 仅 19% GMV),中国白牌最可复制区间</div>
+        <div class="insight-support">SUPPORT: Lentorgi Clip Fan $35.85 + 170 达 + +552% MoM = 中国白牌范本;Qawtor 风扇 88d 新进入者 + +652% MoM;Bedroom Pedestal Fan 80d 7.3 score</div>
+      </div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-num">03</div>
+      <div>
+        <div class="insight-text">8 个空白候选品类(<5 SKU):压力锅/电饭锅 + 炸锅 + 电水壶 = 中国白牌可切入</div>
+        <div class="insight-support">SUPPORT: 压力锅/电饭锅 4 SKU $681K 品类 GMV(均销 1,810)/ 游泳池用品 1 SKU $456K / 炸锅 3 SKU $420K / 电水壶 4 SKU $131K — 美国市场被低估,白牌可低成本切入</div>
+      </div>
+    </div>
+  </div>
+  <a class="section-back" href="#sec-01">↑ 返回顶部</a>
+  <div class="page-classification">// 内部使用 · 限内部传阅 · 品类格局分析</div>
+</div>
+
+<!-- SEC.03 -->
+<div class="section" id="sec-03">
+  <div class="section-header">
+    <div class="section-code">SEC.03</div>
+    <div class="section-title">头部店铺:Shark 系 23% 统治,7 月重点监测份额变化</div>
+  </div>
+  <div class="section-divider"></div>
+
+  <p style="margin-bottom: 20px; font-size: 14px;">
+    5 月家电头部店铺 <strong>Shark Home 19 SKU $15.07M 占 14.2% 单一店铺</strong>(4 个库中单店份额最高),<strong>Shark 系(Shark Home + Ninja Kitchen US)合计 23%</strong> = 行业绝对头部。Shark + Ninja 均归属 <strong>JS Global(美系上市品牌)</strong>,母品牌资本背书强。**Cowsar Appliance(中国白牌)9 SKU $2.69M 排名 #3** = 中国白牌最大玩家;**Dreameus(追觅)4 SKU $1.53M 排名 #6** = 中国出海品牌。下月预判:Shark 7 月是否被中国白牌(Cowsar / EUHOMY)蚕食 = 核心监测点。
+  </p>
+
+  <div class="table-wrap">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>店铺</th>
+        <th>SKU</th>
+        <th>月 GMV</th>
+        <th>份额</th>
+        <th>地位</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="highlight">
+        <td class="mono-cell">shark home</td>
+        <td class="mono-cell blue-cell">19</td>
+        <td class="mono-cell blue-cell">$15.07M</td>
+        <td class="mono-cell">14.2%</td>
+        <td>🏆 美系(JS Global)· 单店份额最高</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">sweetcrispy s</td>
+        <td class="mono-cell">4</td>
+        <td class="mono-cell">$4.35M</td>
+        <td class="mono-cell">4.1%</td>
+        <td>风扇(单 SKU 35K 销)</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">cowsar appliance</td>
+        <td class="mono-cell">9</td>
+        <td class="mono-cell">$2.69M</td>
+        <td class="mono-cell">2.5%</td>
+        <td>中国白牌最大玩家</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">ninja kitchen us</td>
+        <td class="mono-cell">4</td>
+        <td class="mono-cell">$2.48M</td>
+        <td class="mono-cell">2.3%</td>
+        <td>JS Global 兄弟品牌</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">dr.flash shop</td>
+        <td class="mono-cell">1</td>
+        <td class="mono-cell">$1.67M</td>
+        <td class="mono-cell">1.6%</td>
+        <td>挂烫机单 SKU(爆品)</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">dreameus</td>
+        <td class="mono-cell">4</td>
+        <td class="mono-cell">$1.53M</td>
+        <td class="mono-cell">1.4%</td>
+        <td>中国出海(追觅)</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">euhomy</td>
+        <td class="mono-cell">4</td>
+        <td class="mono-cell">$1.46M</td>
+        <td class="mono-cell">1.4%</td>
+        <td>中国(冰吧)</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">jack & rose</td>
+        <td class="mono-cell">1</td>
+        <td class="mono-cell">$1.36M</td>
+        <td class="mono-cell">1.3%</td>
+        <td>挂烫机单 SKU(爆品)</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">midea-us</td>
+        <td class="mono-cell">3</td>
+        <td class="mono-cell">$0.97M</td>
+        <td class="mono-cell">0.9%</td>
+        <td>中国出海(美的)</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">qvc, inc</td>
+        <td class="mono-cell">7</td>
+        <td class="mono-cell">$0.85M</td>
+        <td class="mono-cell">0.8%</td>
+        <td>美系(电视购物)</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="table-note">// DATA SOURCE: FastMoss 销量榜 300 SKU · COMPOSITE: 0.68 · Shark 系(2 店合计)占 23% 份额</p>
+
+  <div class="transition-block">
+    <strong>01 [致品牌方]:</strong> <strong>Shark 学习范本已锁定:5% 低佣 + 高 ASP($80-200) + 多 SKU 矩阵 + 头部品牌信任</strong>。6 月同时发 2 款新品(WANDVAC + HydroDuo)都用此公式 → 中国白牌想切入高 ASP 段必须重新设计毛利结构。**Ninja 是 Shark 的"产品差异化"策略**(烤炉/破壁机避开吸尘器红海);<br>
+    <strong>02 [致中国白牌]:</strong> 3 个白牌可进入窗口:① 风扇 / 灭蚊器 / $25-50 桶(中国白牌最可复制区间,Lentorgi 范本);② 烘干机通风清洁 / 灭蚊灯 / 手持扇(小件+强视觉,Sealegend 件/达人 843 极致效率);③ 压力锅/电饭锅 / 炸锅 / 电水壶(8 个空白候选品类,4 SKU 现状任何新 SKU 都能立刻抢份额);<br>
+    <strong>03 [致投资人]:</strong> 家电 5 月 $49.8M GMV = 4 个库最高(吸尘器品类 $20M 主导)。<strong>Shark 系 23% 销售额在 7 月是否被中国白牌(Cowsar / EUHOMY)蚕食 = 核心监测点</strong>。**46 个 SKU 6 月爆品(&gt;500% MoM)生命周期验证** = 6-7 月报告关键。JS Global(Shark+Ninja)母公司 = 美系上市资本背书 = 长期对手。
+  </div>
+  <a class="section-back" href="#sec-01">↑ 返回顶部</a>
+  <div class="page-classification">// 内部使用 · 限内部传阅 · 头部店铺分析</div>
+</div>
+
+<!-- SEC.04 -->
+<div class="section" id="sec-04">
+  <div class="section-header">
+    <div class="section-code">SEC.04</div>
+    <div class="section-title">5 个候选产品(5 月自动跟踪发现)</div>
+  </div>
+  <div class="section-divider"></div>
+
+  <p style="margin-bottom: 16px; font-size: 14px;">
+    5 月识别 61 个候选(🆕 10 + 🚀 43 + 🕳️ 8),Top 5 候选覆盖 3 大信号类型 + Shark 双爆品 + 空白品类。本月核心特征:**Shark 双爆品(WANDVAC + HydroDuo)+ Lentorgi 风扇中国白牌范本 + Sealegend 极致效率**。每个候选 5 字段:信号 / 数据画像 / 假设 / 验证成本 / 主要风险 + 下月观察。
+  </p>
+
+  <div class="candidate-card">
+    <div class="candidate-header">
+      <div class="candidate-name">#1 Shark WANDVAC 无线手持吸尘器 <span class="category">— 吸尘器(无线手持)</span></div>
+      <div class="candidate-meta"><span class="badge badge-yellow">🆕 新进入者</span> 评分 48.0(本月最高)</div>
+    </div>
+    <div class="candidate-stats">
+      <div><div class="candidate-stat-label">ASP</div><div class="candidate-stat-value">$129.99</div></div>
+      <div><div class="candidate-stat-label">月销</div><div class="candidate-stat-value blue">18,059</div></div>
+      <div><div class="candidate-stat-label">MoM</div><div class="candidate-stat-value green">+870%</div></div>
+      <div><div class="candidate-stat-label">达人</div><div class="candidate-stat-value">652</div></div>
+      <div><div class="candidate-stat-label">店铺</div><div class="candidate-stat-value" style="font-size:12px;">shark home(JS Global)</div></div>
+    </div>
+    <details class="section-collapse">
+      <summary>展开 假设 / 验证成本 / 主要风险</summary>
+      <div class="details-content">
+        <div class="candidate-body">
+          <strong>假设:</strong> 头部上市品牌(JS Global)用 Shark WANDVAC 测试夏季父亲节送礼场景 + 无线手持新品类目。$129.99 高 ASP + 5% 低佣金 + 652 达人的组合,说明品牌方愿意贴补营销费推新品,意在抢"父亲节季节性窗口"。<br><br>
+          <strong>验证成本:</strong> <strong>低</strong> — 7 月数据可立即回答:销量是否维持(父亲节后是否断崖)→ 看 period_sales;达人是否继续推(看 linked_creators_current);Shark 同期是否还有新品上架(看 7 月新进入者中 Shark SKU 数)。<br><br>
+          <strong>主要风险:</strong> 父亲节是单点季节性,6-7 月后可能 MoM 转负;Shark WANDVAC 与 Dyson V 系列存在直接竞品,大促期可能被价格战压制;652 达人是高基数,7 月若跌破 400 即信号衰减。<strong>下月观察:</strong> ⓐ 销量是否维持 > 10K ⓑ 达人是否维持 > 400 ⓒ 7 月新进入者中 Shark 系 SKU 数。
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="candidate-card">
+    <div class="candidate-header">
+      <div class="candidate-name">#2 Shark HydroDuo 智能湿吸一体机 <span class="category">— 吸尘器(湿吸一体)</span></div>
+      <div class="candidate-meta"><span class="badge badge-green">🚀 动量品</span> +8700% MoM(本月最戏剧性)</div>
+    </div>
+    <div class="candidate-stats">
+      <div><div class="candidate-stat-label">ASP</div><div class="candidate-stat-value">$199.99</div></div>
+      <div><div class="candidate-stat-label">月销</div><div class="candidate-stat-value blue">2,679</div></div>
+      <div><div class="candidate-stat-label">MoM</div><div class="candidate-stat-value green">+7554%</div></div>
+      <div><div class="candidate-stat-label">达人</div><div class="candidate-stat-value">78</div></div>
+      <div><div class="candidate-stat-label">店铺</div><div class="candidate-stat-value" style="font-size:12px;">shark home</div></div>
+    </div>
+    <details class="section-collapse">
+      <summary>展开 假设 / 验证成本 / 主要风险</summary>
+      <div class="details-content">
+        <div class="candidate-body">
+          <strong>假设:</strong> Shark HydroDuo 是<strong>"父亲节场景化产品"</strong> — 智能 Dirt-Reveal 技术对应"清理老爸爱车"+"父子互动"内容。+7554% MoM 极可能是 5 月极低基数(2,679 / (1 + 75.54) ≈ 35 件) + 6 月父亲节营销推动的共振。<br><br>
+          <strong>验证成本:</strong> <strong>中</strong> — 需结合 Shark 营销日历与社媒内容分析:7 月 MoM 是否转负(回归常态);78 个达人是否主要为父题内容创作者;与 Shark WANDVAC 同期上,Shark 6 月同时发 2 款新品,可能分散资源。<br><br>
+          <strong>主要风险:</strong> 极可能为"一次性爆品"(父亲节后断崖);199.99 高 ASP,目标用户群较窄;件/达人 624 看起来好,但分母小(78 达人),一个头部 KOL 即可贡献。<strong>下月观察:</strong> ⓐ 7 月 MoM 是否转负(若转正,需重新评估) ⓑ 关联达人是否聚焦父题内容 ⓒ 累计销量是否突破 5K(品牌力验证)。
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="candidate-card">
+    <div class="candidate-header">
+      <div class="candidate-name">#3 Lentorgi 可充电夹扇 <span class="category">— 电风扇(中国白牌)</span></div>
+      <div class="candidate-meta"><span class="badge badge-green">🚀 动量品</span> +552% MoM</div>
+    </div>
+    <div class="candidate-stats">
+      <div><div class="candidate-stat-label">ASP</div><div class="candidate-stat-value">$35.85</div></div>
+      <div><div class="candidate-stat-label">月销</div><div class="candidate-stat-value blue">14,089</div></div>
+      <div><div class="candidate-stat-label">MoM</div><div class="candidate-stat-value green">+552%</div></div>
+      <div><div class="candidate-stat-label">达人</div><div class="candidate-stat-value">170</div></div>
+      <div><div class="candidate-stat-label">店铺</div><div class="candidate-stat-value" style="font-size:12px;">【Lentorgi】(中国白牌)</div></div>
+    </div>
+    <details class="section-collapse">
+      <summary>展开 假设 / 验证成本 / 主要风险</summary>
+      <div class="details-content">
+        <div class="candidate-body">
+          <strong>假设:</strong> 中国白牌 Lentorgi 用<strong>"小件+场景化+中价位"</strong>公式在风扇红海中撕开裂缝。$35.85 价格带 + 170 达人 + +552% MoM,典型"夏季爆品中段冲量"。<strong>此模式可被其他中国白牌复制</strong>(场景化+中价+夏季)。<br><br>
+          <strong>验证成本:</strong> <strong>低</strong> — 7 月数据即可验证季节性:7-8 月销量继续上升(夏季旺季延续)→ 模式成立;同价位($25-50)是否有其他中国白牌产品复制成功 → 观察 7-8 月新进入者。<br><br>
+          <strong>主要风险:</strong> 夏季季节性,9 月后必衰退;中国白牌壁垒低,被模仿概率高;170 达人属于中基数,7-8 月若不扩到 300+,可能撞天花板。<strong>下月观察:</strong> ⓐ 7-8 月销量是否突破 20K(旺季峰值) ⓑ 同价位新进入者中"中国白牌"占比 ⓒ 9 月是否衰退(季节性验证)。
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="candidate-card">
+    <div class="candidate-header">
+      <div class="candidate-name">#4 Sealegend 烘干机通风清洁套件 <span class="category">— 生活家电零部件</span></div>
+      <div class="candidate-meta"><span class="badge badge-green">🚀 动量品</span> 达人效率冠军 件/达人 843</div>
+    </div>
+    <div class="candidate-stats">
+      <div><div class="candidate-stat-label">ASP</div><div class="candidate-stat-value">$13.49</div></div>
+      <div><div class="candidate-stat-label">月销</div><div class="candidate-stat-value blue">9,530</div></div>
+      <div><div class="candidate-stat-label">MoM</div><div class="candidate-stat-value green">+406%</div></div>
+      <div><div class="candidate-stat-label">达人</div><div class="candidate-stat-value">80</div></div>
+      <div><div class="candidate-stat-label">店铺</div><div class="candidate-stat-value" style="font-size:12px;">sealegend(美国配件品牌)</div></div>
+    </div>
+    <details class="section-collapse">
+      <summary>展开 假设 / 验证成本 / 主要风险</summary>
+      <div class="details-content">
+        <div class="candidate-body">
+          <strong>假设:</strong> <strong>"小配件+高视频可视化+极低单价"</strong> 公式让 80 个达人<strong>人均推 843 件</strong>。这是达人效率的范本 — 不是靠"找更多达人",而是靠"每个达人能出更好的视频"。$13.49 极低价 + "清洁烘干机内部"内容(强视觉冲击:黑泥出来)是内容爆款天然土壤。<br><br>
+          <strong>验证成本:</strong> <strong>低</strong> — 此模式极成熟,核心问题是"是否能复制到其他场景":7 月观察同价位($0-25)新进入者是否包含类似"强视觉冲击"产品;Sealegend 是否还在更新 SKU(看 7 月新进入者中 Sealegend SKU 数)。<br><br>
+          <strong>主要风险:</strong> 843 件/达人是天花板级,7 月若跌破 600 即效率衰减;单一爆品,品牌方未必能将"Sealegend"做成持续 IP;"烘干机清洁"是 niche 场景,天花板低。<strong>下月观察:</strong> ⓐ 达人效率是否维持 > 600 ⓑ Sealegend 品牌方是否在扩 SKU(看 7 月新进入者) ⓒ 是否有"小配件+强视觉"模式的其他案例(7 月动量品中筛选)。
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="candidate-card">
+    <div class="candidate-header">
+      <div class="candidate-name">#5 压力锅/电饭锅 品类空白机会 <span class="category">— 厨房大电(品类级空白)</span></div>
+      <div class="candidate-meta"><span class="badge badge-blue">🕳️ 空白候选</span> 4 SKU 瓜分 $681K</div>
+    </div>
+    <div class="candidate-stats">
+      <div><div class="candidate-stat-label">SKU</div><div class="candidate-stat-value">4</div></div>
+      <div><div class="candidate-stat-label">品类GMV</div><div class="candidate-stat-value blue">$681K</div></div>
+      <div><div class="candidate-stat-label">均销</div><div class="candidate-stat-value">1,810</div></div>
+      <div><div class="candidate-stat-label">品类L1</div><div class="candidate-stat-value">kitchen/cooker</div></div>
+      <div><div class="candidate-stat-label">空白度</div><div class="candidate-stat-value" style="font-size:12px;">高(品类 MoM N/A)</div></div>
+    </div>
+    <details class="section-collapse">
+      <summary>展开 假设 / 验证成本 / 主要风险</summary>
+      <div class="details-content">
+        <div class="candidate-body">
+          <strong>假设:</strong> TikTok 美国家电品类中,<strong>压力锅/电饭锅仅 4 个 SKU 瓜分 $681K 品类 GMV</strong>,但同价位竞品在中国市场是红海。意味着:① 美国市场对此品类需求被严重低估 ② 中国白牌可低成本切入 ③ 4 SKU 现状下,任何有产品力的新 SKU 都能立刻抢份额。<br><br>
+          <strong>验证成本:</strong> <strong>中</strong> — 需做品类级独立研究:7 月观察该品类是否新增 SKU(若有新增,验证需求扩张);TikTok 上"#ricecooker" "#instantpot"等标签的内容热度;美国亚马逊同品类 ASP 区间(对标定价)。<br><br>
+          <strong>主要风险:</strong> 4 SKU 中可能已存在"品类霸主",新进入者难撼动;厨房大电在 TikTok 视觉化难(功能性强,场景弱);需关注 Ninja Foodi 等品牌的反击。<strong>下月观察:</strong> ⓐ 7 月新进入者中压力锅/电饭锅 SKU 数(>0 即信号) ⓑ 7 月品类均销量变化 ⓒ 头部 4 SKU 是否仍在榜(品牌力测试)。
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <a class="section-back" href="#sec-01">↑ 返回顶部</a>
+  <div class="page-classification">// 内部使用 · 限内部传阅 · 候选产品分析</div>
+</div>
+
+<!-- SEC.05 -->
+<div class="section" id="sec-05">
+  <div class="section-header">
+    <div class="section-code">SEC.05</div>
+    <div class="section-title">反向信号:这 3 类不要碰</div>
+  </div>
+  <div class="section-divider"></div>
+
+  <p style="margin-bottom: 20px; font-size: 14px;">
+    5 月共识别 5 个 SKU MoM &lt; -30%(单月信号,需 7 月复核"连续 2 月 &lt; -30%"才能确认衰退品)。本节识别 3 个典型"高警戒"产品,品牌力 + 季节性 + 价格带 3 类风险信号。
+  </p>
+
+  <div class="candidate-card decline">
+    <div class="candidate-header">
+      <div class="candidate-name">衰退 #1: Colorful Flame Fireplace Aroma Diffuser <span class="category">— 加湿器(冬季品类)</span></div>
+      <div class="candidate-meta"><span class="badge badge-red">📉 高警戒</span> MoM -87.8%</div>
+    </div>
+    <div class="candidate-stats">
+      <div><div class="candidate-stat-label">ASP</div><div class="candidate-stat-value">$30</div></div>
+      <div><div class="candidate-stat-label">月销</div><div class="candidate-stat-value red">1,120</div></div>
+      <div><div class="candidate-stat-label">MoM</div><div class="candidate-stat-value red">-87.8%</div></div>
+      <div><div class="candidate-stat-label">累计</div><div class="candidate-stat-value">~3,000</div></div>
+      <div><div class="candidate-stat-label">类型</div><div class="candidate-stat-value" style="font-size:12px;">冬季品类退场</div></div>
+    </div>
+    <div class="candidate-body" style="padding-top: 10px; border-top: 1px solid var(--border);">
+      <strong>衰退原因:</strong> 高度疑似衰退。冬季品类(火焰加湿器)6-8 月夏季需求极低 + 累计销量低 + 单月暴跌 87.8% 极异常。<br>
+      <strong>教训:</strong> <strong>冬季品类 4-5 月是末班车</strong>,6 月起勿入;反之 10-11 月(秋冬)可重新备货。下月观察:7 月若再降 = 基本可归档 flops。
+    </div>
+  </div>
+
+  <div class="candidate-card decline">
+    <div class="candidate-header">
+      <div class="candidate-name">衰退 #2: Rechargeable 2 in 1 Snacks Mini Bag Sealer <span class="category">— 封口机(小品类)</span></div>
+      <div class="candidate-meta"><span class="badge badge-red">📉 高警戒</span> MoM -83.6%</div>
+    </div>
+    <div class="candidate-stats">
+      <div><div class="candidate-stat-label">ASP</div><div class="candidate-stat-value">$12</div></div>
+      <div><div class="candidate-stat-label">月销</div><div class="candidate-stat-value red">1,196</div></div>
+      <div><div class="candidate-stat-label">MoM</div><div class="candidate-stat-value red">-83.6%</div></div>
+      <div><div class="candidate-stat-label">累计</div><div class="candidate-stat-value">~3,500</div></div>
+      <div><div class="candidate-stat-label">类型</div><div class="candidate-stat-value" style="font-size:12px;">小品类,可能产品力问题</div></div>
+    </div>
+    <div class="candidate-body" style="padding-top: 10px; border-top: 1px solid var(--border);">
+      <strong>衰退原因:</strong> 小品类天花板低 + 单月 -83.6% 极异常 + 累计销量低。<br>
+      <strong>教训:</strong> 小品类封口机(零食封口)场景可视化弱,内容难以持续。7 月若再降 = 归档 flops。
+    </div>
+  </div>
+
+  <div class="candidate-card decline">
+    <div class="candidate-header">
+      <div class="candidate-name">衰退 #3: Shark StainForce Handheld Spot Cleaner <span class="category">— 吸尘器(品牌词搜索)</span></div>
+      <div class="candidate-meta"><span class="badge badge-red">📉 重点观察</span> MoM -61.6%</div>
+    </div>
+    <div class="candidate-stats">
+      <div><div class="candidate-stat-label">ASP</div><div class="candidate-stat-value">$80</div></div>
+      <div><div class="candidate-stat-label">月销</div><div class="candidate-stat-value red">7,092</div></div>
+      <div><div class="candidate-stat-label">MoM</div><div class="candidate-stat-value red">-61.6%</div></div>
+      <div><div class="candidate-stat-label">累计</div><div class="candidate-stat-value">~50,000</div></div>
+      <div><div class="candidate-stat-label">类型</div><div class="candidate-stat-value" style="font-size:12px;">品牌力仍在,可能季节性</div></div>
+    </div>
+    <div class="candidate-body" style="padding-top: 10px; border-top: 1px solid var(--border);">
+      <strong>衰退原因:</strong> 头部品牌 Shark 老品被新品 WANDVAC / HydroDuo 抢份额(Shark 6 月同时发 2 款新品)。<br>
+      <strong>教训:</strong> <strong>同店 SKU 替换风险</strong> — 头部品牌新品爆发力强,老爆品需观察是否被新品替代。7 月观察:若 StainForce 反弹 = 品牌矩阵健康;若继续跌 = Shark 内部资源切换。
+    </div>
+  </div>
+
+  <a class="section-back" href="#sec-01">↑ 返回顶部</a>
+  <div class="page-classification">// 内部使用 · 限内部传阅 · 反向信号监控</div>
+</div>
+
+<!-- SEC.06 -->
+<div class="section" id="sec-06">
+  <div class="section-header">
+    <div class="section-code">SEC.06</div>
+    <div class="section-title">跟踪对象:12 个候选,6 月状态机首次校验</div>
+  </div>
+  <div class="section-divider"></div>
+
+  <p style="margin-bottom: 16px; font-size: 14px;">
+    5 月识别 12 个高优先级 active 候选进入观察池(5 个 Top + 7 个慢热)。基线月无上月数据,所有候选标 🆕 active,6 月状态机首次大规模运行。**核心观察重点:Shark 双爆品持续性 + 中国白牌范本持续性 + 压力锅品类空白是否被快速填补**。6 月若 rank 上升 ≥ 5 = ⬆️ upgrading;rank 变化 ±5 = ➡️ stable;rank 下降 ≥ 5 或 mom &lt; -30% = ⬇️ declining。
+  </p>
+
+  <div class="srow-cards">
+    <div class="srow-card highlight">
+      <div class="srow-card-head"><span class="badge badge-yellow">🆕</span><span class="mono-cell" style="font-size:10px; color:var(--blue); margin-left:4px;">rank 4</span></div>
+      <div class="srow-card-title">Shark WANDVAC 无线手持吸尘器</div>
+      <div class="srow-field"><span class="srow-field-label">店铺</span><span class="srow-field-value">shark home</span></div>
+      <div class="srow-field"><span class="srow-field-label">品类</span><span class="srow-field-value">吸尘器(无线)</span></div>
+      <div class="srow-field"><span class="srow-field-label">5月MoM</span><span class="srow-field-value" style="color:var(--green); font-weight:600;">+870%</span></div>
+      <div class="srow-field"><span class="srow-field-label">下月重点</span><span class="srow-field-value">月销 > 10K + 达人 > 400</span></div>
+    </div>
+    <div class="srow-card highlight">
+      <div class="srow-card-head"><span class="badge badge-green">🚀</span><span class="mono-cell" style="font-size:10px; color:var(--blue); margin-left:4px;">rank 74</span></div>
+      <div class="srow-card-title">Shark HydroDuo 智能湿吸</div>
+      <div class="srow-field"><span class="srow-field-label">店铺</span><span class="srow-field-value">shark home</span></div>
+      <div class="srow-field"><span class="srow-field-label">品类</span><span class="srow-field-value">吸尘器(湿吸)</span></div>
+      <div class="srow-field"><span class="srow-field-label">5月MoM</span><span class="srow-field-value" style="color:var(--green); font-weight:600;">+7554%</span></div>
+      <div class="srow-field"><span class="srow-field-label">下月重点</span><span class="srow-field-value">父节后断崖验证</span></div>
+    </div>
+    <div class="srow-card highlight">
+      <div class="srow-card-head"><span class="badge badge-green">🚀</span><span class="mono-cell" style="font-size:10px; color:var(--blue); margin-left:4px;">rank 8</span></div>
+      <div class="srow-card-title">Lentorgi 可充电夹扇</div>
+      <div class="srow-field"><span class="srow-field-label">店铺</span><span class="srow-field-value">【Lentorgi】</span></div>
+      <div class="srow-field"><span class="srow-field-label">品类</span><span class="srow-field-value">电风扇</span></div>
+      <div class="srow-field"><span class="srow-field-label">5月MoM</span><span class="srow-field-value" style="color:var(--green); font-weight:600;">+552%</span></div>
+      <div class="srow-field"><span class="srow-field-label">下月重点</span><span class="srow-field-value">7-8 月销量 > 20K</span></div>
+    </div>
+    <div class="srow-card highlight">
+      <div class="srow-card-head"><span class="badge badge-green">🚀</span><span class="mono-cell" style="font-size:10px; color:var(--blue); margin-left:4px;">rank 13</span></div>
+      <div class="srow-card-title">Sealegend 烘干机通风清洁</div>
+      <div class="srow-field"><span class="srow-field-label">店铺</span><span class="srow-field-value">sealegend</span></div>
+      <div class="srow-field"><span class="srow-field-label">品类</span><span class="srow-field-value">生活家电零部件</span></div>
+      <div class="srow-field"><span class="srow-field-label">5月MoM</span><span class="srow-field-value" style="color:var(--green); font-weight:600;">+406%</span></div>
+      <div class="srow-field"><span class="srow-field-label">下月重点</span><span class="srow-field-value">件/达人 > 600 维持</span></div>
+    </div>
+    <div class="srow-card">
+      <div class="srow-card-head"><span class="badge badge-blue">🕳️</span><span class="mono-cell" style="font-size:10px; color:var(--blue); margin-left:4px;">4 SKU</span></div>
+      <div class="srow-card-title">压力锅/电饭锅 品类空白</div>
+      <div class="srow-field"><span class="srow-field-label">店铺</span><span class="srow-field-value">(品类级)</span></div>
+      <div class="srow-field"><span class="srow-field-label">品类</span><span class="srow-field-value">kitchen/cooker</span></div>
+      <div class="srow-field"><span class="srow-field-label">5月MoM</span><span class="srow-field-value">N/A(基线)</span></div>
+      <div class="srow-field"><span class="srow-field-label">下月重点</span><span class="srow-field-value">7 月新增 SKU 数</span></div>
+    </div>
+    <div class="srow-card">
+      <div class="srow-card-head"><span class="badge badge-green">🚀</span><span class="mono-cell" style="font-size:10px; color:var(--blue); margin-left:4px;">rank 85</span></div>
+      <div class="srow-card-title">Shark StainStriker 清洁机</div>
+      <div class="srow-field"><span class="srow-field-label">店铺</span><span class="srow-field-value">shark home</span></div>
+      <div class="srow-field"><span class="srow-field-label">品类</span><span class="srow-field-value">吸尘器</span></div>
+      <div class="srow-field"><span class="srow-field-label">5月MoM</span><span class="srow-field-value" style="color:var(--green); font-weight:600;">+232%</span></div>
+      <div class="srow-field"><span class="srow-field-label">下月重点</span><span class="srow-field-value">Shark 矩阵稳定性</span></div>
+    </div>
+    <div class="srow-card">
+      <div class="srow-card-head"><span class="badge badge-green">🚀</span><span class="mono-cell" style="font-size:10px; color:var(--blue); margin-left:4px;">rank 213</span></div>
+      <div class="srow-card-title">Ganiza Immersion Blender</div>
+      <div class="srow-field"><span class="srow-field-label">店铺</span><span class="srow-field-value">ganiza</span></div>
+      <div class="srow-field"><span class="srow-field-label">品类</span><span class="srow-field-value">破壁机</span></div>
+      <div class="srow-field"><span class="srow-field-label">5月MoM</span><span class="srow-field-value" style="color:var(--green); font-weight:600;">+292%</span></div>
+      <div class="srow-field"><span class="srow-field-label">下月重点</span><span class="srow-field-value">月销 > 1.5K 维持</span></div>
+    </div>
+    <div class="srow-card">
+      <div class="srow-card-head"><span class="badge badge-green">🚀</span><span class="mono-cell" style="font-size:10px; color:var(--blue); margin-left:4px;">rank 73</span></div>
+      <div class="srow-card-title">Phueut 1800W Steam Mop</div>
+      <div class="srow-field"><span class="srow-field-label">店铺</span><span class="srow-field-value">phueut</span></div>
+      <div class="srow-field"><span class="srow-field-label">品类</span><span class="srow-field-value">电动拖把</span></div>
+      <div class="srow-field"><span class="srow-field-label">5月MoM</span><span class="srow-field-value" style="color:var(--green); font-weight:600;">+125%</span></div>
+      <div class="srow-field"><span class="srow-field-label">下月重点</span><span class="srow-field-value">夏季清洁需求验证</span></div>
+    </div>
+    <div class="srow-card">
+      <div class="srow-card-head"><span class="badge badge-green">🚀</span><span class="mono-cell" style="font-size:10px; color:var(--blue); margin-left:4px;">rank 98</span></div>
+      <div class="srow-card-title">8-in-1 Nut Milk Machine</div>
+      <div class="srow-field"><span class="srow-field-label">店铺</span><span class="srow-field-value">(其他)</span></div>
+      <div class="srow-field"><span class="srow-field-label">品类</span><span class="srow-field-value">咖啡机</span></div>
+      <div class="srow-field"><span class="srow-field-label">5月MoM</span><span class="srow-field-value" style="color:var(--green); font-weight:600;">+3291%</span></div>
+      <div class="srow-field"><span class="srow-field-label">下月重点</span><span class="srow-field-value">咖啡机品类验证</span></div>
+    </div>
+    <div class="srow-card">
+      <div class="srow-card-head"><span class="badge badge-green">🚀</span><span class="mono-cell" style="font-size:10px; color:var(--blue); margin-left:4px;">rank 18</span></div>
+      <div class="srow-card-title">OGERY Rechargeable Camping Fan</div>
+      <div class="srow-field"><span class="srow-field-label">店铺</span><span class="srow-field-value">ogery</span></div>
+      <div class="srow-field"><span class="srow-field-label">品类</span><span class="srow-field-value">电风扇</span></div>
+      <div class="srow-field"><span class="srow-field-label">5月MoM</span><span class="srow-field-value" style="color:var(--green); font-weight:600;">+101%</span></div>
+      <div class="srow-field"><span class="srow-field-label">下月重点</span><span class="srow-field-value">户外夏季峰值</span></div>
+    </div>
+    <div class="srow-card">
+      <div class="srow-card-head"><span class="badge badge-yellow">🆕</span><span class="mono-cell" style="font-size:10px; color:var(--blue); margin-left:4px;">rank 68</span></div>
+      <div class="srow-card-title">BougeRV Air Cooler Fan 3-in-1</div>
+      <div class="srow-field"><span class="srow-field-label">店铺</span><span class="srow-field-value">bougerv</span></div>
+      <div class="srow-field"><span class="srow-field-label">品类</span><span class="srow-field-value">电风扇</span></div>
+      <div class="srow-field"><span class="srow-field-label">5月MoM</span><span class="srow-field-value" style="color:var(--green); font-weight:600;">+97%</span></div>
+      <div class="srow-field"><span class="srow-field-label">下月重点</span><span class="srow-field-value">风扇+空调组合新品</span></div>
+    </div>
+    <div class="srow-card">
+      <div class="srow-card-head"><span class="badge badge-yellow">🆕</span><span class="mono-cell" style="font-size:10px; color:var(--blue); margin-left:4px;">rank 86</span></div>
+      <div class="srow-card-title">Walking Vibration Pad P1</div>
+      <div class="srow-field"><span class="srow-field-label">店铺</span><span class="srow-field-value">(其他)</span></div>
+      <div class="srow-field"><span class="srow-field-label">品类</span><span class="srow-field-value">健身仪器(跨品类)</span></div>
+      <div class="srow-field"><span class="srow-field-label">5月MoM</span><span class="srow-field-value" style="color:var(--green); font-weight:600;">+252%</span></div>
+      <div class="srow-field"><span class="srow-field-label">下月重点</span><span class="srow-field-value">跨品类信号验证</span></div>
+    </div>
+  </div>
+
+  <div class="table-wrap desktop-only-table">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>产品(节选)</th>
+        <th>店铺</th>
+        <th>品类</th>
+        <th>5月 rank</th>
+        <th>5月 MoM</th>
+        <th>信号</th>
+        <th>状态</th>
+        <th>下月验证重点</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="highlight">
+        <td class="mono-cell">1</td>
+        <td class="mono-cell">Shark WANDVAC</td>
+        <td class="mono-cell">shark home</td>
+        <td class="mono-cell">吸尘器</td>
+        <td class="mono-cell blue-cell">#4</td>
+        <td class="mono-cell green-cell">+870%</td>
+        <td><span class="badge badge-yellow">🆕</span></td>
+        <td>🆕 active</td>
+        <td>月销 > 10K + 达人 > 400</td>
+      </tr>
+      <tr class="highlight">
+        <td class="mono-cell">2</td>
+        <td class="mono-cell">Shark HydroDuo</td>
+        <td class="mono-cell">shark home</td>
+        <td class="mono-cell">吸尘器</td>
+        <td class="mono-cell blue-cell">#74</td>
+        <td class="mono-cell green-cell">+7554%</td>
+        <td><span class="badge badge-green">🚀</span></td>
+        <td>🆕 active</td>
+        <td>父节后断崖验证</td>
+      </tr>
+      <tr class="highlight">
+        <td class="mono-cell">3</td>
+        <td class="mono-cell">Lentorgi Clip Fan</td>
+        <td class="mono-cell">【Lentorgi】</td>
+        <td class="mono-cell">电风扇</td>
+        <td class="mono-cell blue-cell">#8</td>
+        <td class="mono-cell green-cell">+552%</td>
+        <td><span class="badge badge-green">🚀</span></td>
+        <td>🆕 active</td>
+        <td>7-8 月销量 > 20K</td>
+      </tr>
+      <tr class="highlight">
+        <td class="mono-cell">4</td>
+        <td class="mono-cell">Sealegend Dryer Vent</td>
+        <td class="mono-cell">sealegend</td>
+        <td class="mono-cell">生活家电</td>
+        <td class="mono-cell blue-cell">#13</td>
+        <td class="mono-cell green-cell">+406%</td>
+        <td><span class="badge badge-green">🚀</span></td>
+        <td>🆕 active</td>
+        <td>件/达人 > 600</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">5</td>
+        <td class="mono-cell">压力锅/电饭锅 品类</td>
+        <td class="mono-cell">(品类级)</td>
+        <td class="mono-cell">厨房大电</td>
+        <td class="mono-cell blue-cell">4 SKU</td>
+        <td class="mono-cell">N/A</td>
+        <td><span class="badge badge-blue">🕳️</span></td>
+        <td>🆕 active</td>
+        <td>7 月新增 SKU 数</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">6</td>
+        <td class="mono-cell">Shark StainStriker</td>
+        <td class="mono-cell">shark home</td>
+        <td class="mono-cell">吸尘器</td>
+        <td class="mono-cell blue-cell">#85</td>
+        <td class="mono-cell green-cell">+232%</td>
+        <td><span class="badge badge-green">🚀</span></td>
+        <td>🆕 active</td>
+        <td>Shark 矩阵稳定</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">7</td>
+        <td class="mono-cell">Ganiza Immersion Blender</td>
+        <td class="mono-cell">ganiza</td>
+        <td class="mono-cell">破壁机</td>
+        <td class="mono-cell blue-cell">#213</td>
+        <td class="mono-cell green-cell">+292%</td>
+        <td><span class="badge badge-green">🚀</span></td>
+        <td>🆕 active</td>
+        <td>月销 > 1.5K</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">8</td>
+        <td class="mono-cell">Phueut Steam Mop</td>
+        <td class="mono-cell">phueut</td>
+        <td class="mono-cell">电动拖把</td>
+        <td class="mono-cell blue-cell">#73</td>
+        <td class="mono-cell green-cell">+125%</td>
+        <td><span class="badge badge-green">🚀</span></td>
+        <td>🆕 active</td>
+        <td>夏季清洁需求</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">9</td>
+        <td class="mono-cell">8-in-1 Nut Milk</td>
+        <td class="mono-cell">(其他)</td>
+        <td class="mono-cell">咖啡机</td>
+        <td class="mono-cell blue-cell">#98</td>
+        <td class="mono-cell green-cell">+3291%</td>
+        <td><span class="badge badge-green">🚀</span></td>
+        <td>🆕 active</td>
+        <td>咖啡机品类</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">10</td>
+        <td class="mono-cell">OGERY Camping Fan</td>
+        <td class="mono-cell">ogery</td>
+        <td class="mono-cell">电风扇</td>
+        <td class="mono-cell blue-cell">#18</td>
+        <td class="mono-cell green-cell">+101%</td>
+        <td><span class="badge badge-green">🚀</span></td>
+        <td>🆕 active</td>
+        <td>户外夏季峰值</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">11</td>
+        <td class="mono-cell">BougeRV 3-in-1</td>
+        <td class="mono-cell">bougerv</td>
+        <td class="mono-cell">电风扇</td>
+        <td class="mono-cell blue-cell">#68</td>
+        <td class="mono-cell green-cell">+97%</td>
+        <td><span class="badge badge-yellow">🆕</span></td>
+        <td>🆕 active</td>
+        <td>风扇+空调组合</td>
+      </tr>
+      <tr>
+        <td class="mono-cell">12</td>
+        <td class="mono-cell">Walking Vibration Pad</td>
+        <td class="mono-cell">(其他)</td>
+        <td class="mono-cell">健身(跨类)</td>
+        <td class="mono-cell blue-cell">#86</td>
+        <td class="mono-cell green-cell">+252%</td>
+        <td><span class="badge badge-yellow">🆕</span></td>
+        <td>🆕 active</td>
+        <td>跨品类信号</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="scroll-hint desktop-only-table">← 横向滑动查看更多 →</p>
+  <p class="table-note">// DATA SOURCE: FastMoss 销量榜 + 热推榜 · 2026-05 · 基线月,所有 active 候选</p>
+
+  <div class="insights-box">
+    <div class="insights-header">// 6 月校验规则</div>
+    <div class="insight-row">
+      <div class="insight-num">A</div>
+      <div>
+        <div class="insight-text">Shark 双爆品 = 父节后持续 vs 一次性爆品?</div>
+        <div class="insight-support">SUPPORT: 6 月若 WANDVAC 月销 &gt; 10K + HydroDuo MoM 转正 = 真品牌矩阵;若两者 &lt; 5K = 父节限定</div>
+      </div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-num">B</div>
+      <div>
+        <div class="insight-text">Lentorgi 范本可被复制?7-8 月中国白牌跟进验证</div>
+        <div class="insight-support">SUPPORT: 6-8 月新进入者中"风扇+中国白牌+ $25-50"SKU 数 &gt; 5 = 模式成立;若 &lt; 2 = 范本不可复制</div>
+      </div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-num">C</div>
+      <div>
+        <div class="insight-text">压力锅/电饭锅空白 = 真实需求 vs 品类边界?</div>
+        <div class="insight-support">SUPPORT: 7 月新进入者中压力锅/电饭锅 SKU 数 &gt; 0 = 真实需求(中国白牌机会);= 0 = 需求未达 / 品类边界模糊</div>
+      </div>
+    </div>
+  </div>
+  <a class="section-back" href="#sec-01">↑ 返回顶部</a>
+  <div class="page-classification">// 内部使用 · 限内部传阅 · 跟踪对象</div>
+</div>
+
+<!-- SEC.07 -->
+<div class="section" id="sec-07">
+  <div class="section-header">
+    <div class="section-code">SEC.07</div>
+    <div class="section-title">数据可信度:基线月,信号启用 3/5</div>
+  </div>
+  <div class="section-divider"></div>
+
+  <div class="grid-3">
+    <div class="stat-card">
+      <div class="stat-card-label">// 数据源</div>
+      <div class="stat-card-value">FastMoss</div>
+      <div class="stat-card-desc">TikTok Shop US 公开榜单 · 销量榜 300 SKU + 热推榜 300 SKU</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-label">// 综合可信度</div>
+      <div class="stat-card-value">0.68</div>
+      <div class="stat-card-desc">composite 0.68 · quality_warning true · 基线月限制</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card-label">// 信号启用</div>
+      <div class="stat-card-value">3/5</div>
+      <div class="stat-card-desc">🆕🚀🕳️ 启用 · 🔁📉 7 月起启用(需 ≥2 月数据)</div>
+    </div>
+  </div>
+
+  <div class="voc-block">
+    <strong>数据口径说明:</strong> 5 月 600 SKU 样本(Top 销量 300 + Top 热推 300),双榜去重后 ~480 唯一 SKU,约 200 家店铺,22+ 细分品类。**基线月限制:** 无上月数据,所有 MoM 列标记为单点观察;🔁 持续赢家 + 📉 衰退品 2 类信号 N/A,7 月起启用;识别 5 个 SKU MoM &lt; -30% 标记为下月复核对象。FastMoss 部分字段定义不完全公开,价格/分类已解析;字段空值率低(launch_date 缺失 &lt; 1%,300 条中 6 条)。
+  </div>
+  <p class="voc-attribution">// NOTE: 数据为月度快照,非滚动实时;7 月数据到达时将首次运行状态机大规模校验</p>
+
+  <div class="so-what">
+    <div class="so-what-header">// 4 角色行动建议</div>
+    <div class="so-what-item">
+      <div class="so-what-role">致品牌方</div>
+      <div class="so-what-text"><strong>Shark 学习范本:</strong> ① 5% 低佣 + 高 ASP($80-200) + 多 SKU 矩阵 + 头部品牌信任 = 不可被白牌冲击;② Shark 6 月同时发 2 款新品(WANDVAC + HydroDuo)用同公式 = 资源分配能力;③ 47% 营销失效的共性是"产品功能性过强难视觉化" → Shark 通过"场景化营销"绕开。<strong>Ninja 差异化</strong>(烤炉/破壁机避开吸尘器红海)是品类设计智慧。</div>
+    </div>
+    <div class="so-what-item">
+      <div class="so-what-role">致中国白牌</div>
+      <div class="so-what-text"><strong>3 个白牌可进入窗口:</strong> ① 风扇 / 灭蚊器 / $25-50 桶(<strong>Lentorgi 范本</strong>:场景化+中价+夏季);② 烘干机通风清洁 / 灭蚊灯 / 手持扇(<strong>小配件+强视觉</strong>:Sealegend 件/达人 843 极致效率);③ 8 个空白候选品类(压力锅/电饭锅 / 炸锅 / 电水壶 — 4 SKU 现状任何新 SKU 都能立刻抢份额)。<strong>不要碰:</strong> 吸尘器/扫地机(Shark 23% 垄断);冬季品类(5 月火焰加湿器 -88% MoM 警示)。</div>
+    </div>
+    <div class="so-what-item">
+      <div class="so-what-role">致投资人</div>
+      <div class="so-what-text"><strong>家电 5 月 $49.8M GMV = 4 个库最高,3 个监测点:</strong> ① <strong>Shark 系 23% 销售额在 7 月是否被中国白牌(Cowsar / EUHOMY)蚕食</strong> = 资本故事关键转折;② 6 月 46 个 SKU &gt; 500% MoM 的爆品生命周期验证;③ 7 月独立日是否带动夏季品类(风扇)再一波;<strong>47% 营销未转化</strong> 反映行业整体"营销投入" vs "产品力"错配,7 月起持续监测 Pearson 相关性是否变化。</div>
+    </div>
+    <div class="so-what-item">
+      <div class="so-what-role">致产品经理</div>
+      <div class="so-what-text"><strong>5 月 12 个 active 候选 6 月全部需要校验:</strong> ① #1 Shark WANDVAC + #2 Shark HydroDuo 父节后持续性 = Shark 6 月同时发 2 款新品的资本故事验证;② #3 Lentorgi 范本持续性 = 中国白牌夏季风扇可复制;③ #4 Sealegend 件/达人 843 = 极致效率模板;④ #5 压力锅/电饭锅品类空白 = 7 月起若新增 SKU = 中国白牌机会;⑤ 6 月起状态机首次运行,12 个候选中 3-4 个可能 ⬆️ upgrading,3-4 个可能 ⬇️ declining,2-3 个 ➡️ stable。<strong>7 月报告将首次呈现"持续赢家"+"衰退品"2 类信号。</strong></div>
+    </div>
+  </div>
+  <a class="section-back" href="#sec-01">↑ 返回顶部</a>
+  <div class="page-classification">// 内部使用 · 限内部传阅 · 数据可信度与行动建议</div>
+</div>
+
+</div><!-- /main -->
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">MARKET RESEARCH OS</div>
+    <div class="footer-meta">美国家用电器 TikTok Shop · 2026-05 · 内部使用 · 限内部传阅</div>
+    <div class="footer-meta">生成日期 2026-06-10 · REV.1.0</div>
+  </div>
+  <div class="footer-yellow-bar"></div>
+</footer>
+
+<script>
+(function() {
+  var toggleBtn = document.getElementById('toc-toggle');
+  var drawer    = document.getElementById('toc-drawer');
+  var overlay   = document.getElementById('toc-overlay');
+  var closeBtn  = document.getElementById('toc-close');
+  if (!toggleBtn || !drawer) return;
+
+  function openDrawer()  { drawer.classList.add('open');    overlay.classList.add('open'); }
+  function closeDrawer() { drawer.classList.remove('open'); overlay.classList.remove('open'); }
+
+  toggleBtn.addEventListener('click', openDrawer);
+  closeBtn.addEventListener('click', closeDrawer);
+  overlay.addEventListener('click', closeDrawer);
+
+  var tocItems = document.querySelectorAll('.toc-item');
+  tocItems.forEach(function(item) {
+    item.addEventListener('click', function(e) {
+      var target = item.getAttribute('data-target');
+      var el = document.getElementById(target);
+      if (el) {
+        e.preventDefault();
+        closeDrawer();
+        setTimeout(function() {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 200);
+      }
+    });
+  });
+
+  var sections = ['sec-01','sec-02','sec-03','sec-04','sec-05','sec-06','sec-07']
+    .map(function(id) { return document.getElementById(id); })
+    .filter(function(el) { return el !== null; });
+
+  var currentActive = null;
+  function setActive(id) {
+    if (currentActive === id) return;
+    currentActive = id;
+    tocItems.forEach(function(item) {
+      item.classList.toggle('active', item.getAttribute('data-target') === id);
+    });
+  }
+
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+    sections.forEach(function(s) { observer.observe(s); });
+  }
+})();
+</script>
+</body>
+</html>
