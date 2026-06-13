@@ -58,27 +58,36 @@
   <script src="../assets/app.js"></script>
   <script>
     // Page-specific filter config — consumed by filters.js on `load`.
+    // Facets are evaluated in order. Selecting a value on facet N resets
+    // all facets below N to 'all'. Vertical → Channel → Period cascade.
     window.PortfolioFiltersInit = window.PortfolioFiltersInit || [];
     window.PortfolioFiltersInit.push({
       page: 'reports',
       kind: 'report',
       manifestPath: 'reports.json',
       listSelector: '#reportList',
-      axes: {
-        primary: {
-          key: 'channel',
-          label: 'Channel',
-          items: ['tiktok', 'amazon', 'industry']
-        },
-        secondary: {
+      facets: [
+        {
           key: 'vertical',
           label: 'Vertical',
-          allLabel: 'verticals',
           items: ['pet-supplies', 'home-improvement', 'home-appliances', 'consumer-tools'],
-          dependsOn: { channel: 'industry' },
-          style: 'dropdown'
+          controlStyle: 'chips'
+        },
+        {
+          key: 'channel',
+          label: 'Channel',
+          items: ['tiktok', 'amazon', 'industry'],
+          allLabel: 'channels',
+          controlStyle: 'dropdown'
+        },
+        {
+          key: 'period',
+          label: 'Period',
+          sourceField: 'date',
+          granularity: 'month',
+          controlStyle: 'chips'
         }
-      }
+      ]
     });
   </script>
   <script src="../assets/filters.js" defer></script>
