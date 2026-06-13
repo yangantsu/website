@@ -1162,3 +1162,9 @@ main {
   body::before { animation: none; }
   .avatar-ring { animation: none; }
 }
+
+/* ── Related tags (used on report pages) ───────────────
+   The related-tags styles live in assets/related.css so report
+   pages can link only the styles they need without pulling in
+   the site's dark-theme chrome rules. See BRAND.md §13.
+   ──────────────────────────────────────────────────────── */
