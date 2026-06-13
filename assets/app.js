@@ -2,8 +2,6 @@
   'use strict';
 
   const LANG_KEY = 'the-portfolio-lang';
-  const REPORTS_PASSWORD = '12345678';
-  let reportsUnlocked = false;
 
   // ── i18n ──────────────────────────────────────────────
   function getLang() {
@@ -182,13 +180,10 @@
       data.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
       renderReportList(container, data);
       setupReportListClicks(container);
-      updateListLockState();
     } catch (e) {
       console.error('[portfolio] reports page failed:', e);
       container.innerHTML = `<p style="color: var(--text-muted); text-align: center; padding: 40px;">Failed to load content. (${escapeHtml(e.message)})</p>`;
     }
-
-    setupUnlockForm();
   }
 
   function renderReportList(container, items) {
@@ -197,19 +192,11 @@
       const excerpt = excerptSpans(item);
       const track = trackSpans(item);
       return `
-        <a class="list-item is-locked" href="javascript:void(0)" data-report-file="${escapeHtml(item.filename)}">
+        <a class="list-item" href="${escapeHtml(item.filename)}" data-report-file="${escapeHtml(item.filename)}">
           <div class="meta">
             ${track}
             <span class="date">${dateSpans(item.date)}</span>
-            <span class="open-hint is-locked">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-              </svg>
-              <span data-lang-en>Locked</span>
-              <span data-lang-zh>已锁定</span>
-            </span>
-            <span class="open-hint is-unlocked">
+            <span class="open-hint">
               <span data-lang-en>Read ›</span>
               <span data-lang-zh>阅读 ›</span>
             </span>
@@ -223,112 +210,17 @@
 
   function setupReportListClicks(container) {
     container.addEventListener('click', (e) => {
+      // Let middle-click / cmd-click / ctrl-click follow the href (new tab).
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey) return;
       const item = e.target.closest('.list-item[data-report-file]');
       if (!item) return;
       e.preventDefault();
-      const filename = item.dataset.reportFile;
-      if (reportsUnlocked) {
-        doOpenReport(filename);
-      } else {
-        // Modal should already be visible, but make sure the input is focused
-        const input = document.getElementById('unlockInput');
-        if (input) {
-          input.focus();
-          input.classList.add('error');
-          setTimeout(() => input.classList.remove('error'), 400);
-        }
-      }
+      doOpenReport(item.dataset.reportFile);
     });
-  }
-
-  function updateListLockState() {
-    const items = document.querySelectorAll('.list-item[data-report-file]');
-    items.forEach(item => {
-      item.classList.toggle('is-locked', !reportsUnlocked);
-      item.classList.toggle('is-unlocked', reportsUnlocked);
-    });
-  }
-
-  // ── Reports: password modal gate ──────────────────────
-  function setupUnlockForm() {
-    const form = document.getElementById('unlockForm');
-    const input = document.getElementById('unlockInput');
-    const error = document.getElementById('unlockError');
-    const modal = document.getElementById('unlockModal');
-    const lockAgainBtn = document.getElementById('lockAgainBtn');
-    if (!form || !input || !error || !modal) return;
-
-    // Show modal immediately on page load (or re-lock)
-    showUnlockModal();
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      if (input.value === REPORTS_PASSWORD) {
-        reportsUnlocked = true;
-        hideUnlockModal();
-        showUnlockStatus();
-        updateListLockState();
-        error.hidden = true;
-        input.classList.remove('error');
-        input.value = '';
-        document.body.style.overflow = '';
-      } else {
-        input.classList.remove('error');
-        // re-trigger shake animation
-        void input.offsetWidth;
-        input.classList.add('error');
-        error.hidden = false;
-        input.value = '';
-        input.focus();
-        setTimeout(() => input.classList.remove('error'), 450);
-      }
-    });
-
-    if (lockAgainBtn) {
-      lockAgainBtn.addEventListener('click', () => {
-        reportsUnlocked = false;
-        if (typeof window.closeReport === 'function') window.closeReport();
-        hideUnlockStatus();
-        showUnlockModal();
-        updateListLockState();
-        setTimeout(() => input.focus(), 100);
-      });
-    }
-  }
-
-  function showUnlockModal() {
-    const modal = document.getElementById('unlockModal');
-    if (modal) {
-      modal.hidden = false;
-      // re-trigger entrance animation
-      modal.style.animation = 'none';
-      void modal.offsetWidth;
-      modal.style.animation = '';
-      document.body.style.overflow = 'hidden';
-      const input = document.getElementById('unlockInput');
-      if (input) setTimeout(() => input.focus(), 200);
-    }
-  }
-
-  function hideUnlockModal() {
-    const modal = document.getElementById('unlockModal');
-    if (modal) modal.hidden = true;
-  }
-
-  function showUnlockStatus() {
-    const status = document.getElementById('unlockStatus');
-    if (status) status.hidden = false;
-  }
-
-  function hideUnlockStatus() {
-    const status = document.getElementById('unlockStatus');
-    if (status) status.hidden = true;
   }
 
   window.openReport = function (filename) {
-    if (reportsUnlocked) {
-      doOpenReport(filename);
-    }
+    doOpenReport(filename);
   };
 
   function doOpenReport(filename) {

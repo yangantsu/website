@@ -190,7 +190,7 @@ The article/report card on a list page.
 
 - 1px navy border, dark card bg, 12px radius.
 - Meta row: track badge (coral dim) → date (text-dim, tabular numerals) →
-  optional right-aligned hint (coral, or "Locked" lock icon).
+  optional right-aligned hint (coral).
 - Title: serif display, 20px, weight 600, line-height 1.4.
 - Excerpt: 14px, text-dim, 1.75 line-height.
 - Tags row: 10px uppercase, navy bg, dim text — never coral (coral is rationed).
@@ -204,17 +204,7 @@ Used inside article bodies, never in chrome.
 - A 80px coral `"` mark above the text (Georgia serif), 20px negative margin.
 - No border, no background — just a typographic pause.
 
-### 4.4 The unlock banner
-
-Reports-only. Replaces the "Coming Soon" pattern for password-gated content.
-
-- 64px circular coral-dim icon, 24px coral heading, dim subhead, 360px-wide
-  form with a single password input + coral primary button.
-- The submit button is the only place on the site where coral fully fills a
-  rectangular element. The 8px radius is intentional — it does not match
-  the soft 12-16px card radii, signalling "this is a CTA, not a card".
-
-### 4.5 The signature
+### 4.4 The signature
 
 Appears at the end of every article (`— 安祖羊`) and in the site footer.
 Coral red, 13-20px, `letter-spacing: 0.2em`, weight 700-800. No punctuation
@@ -322,12 +312,12 @@ any one of them in a single piece.
 │   ├── articles.json       ← manifest (see §9)
 │   └── *.html              ← standalone article documents
 ├── reports/
-│   ├── index.html          ← list page + unlock + iframe reader
+│   ├── index.html          ← list page + iframe reader
 │   ├── reports.json        ← manifest
 │   └── *.html              ← standalone report documents
 ├── assets/
 │   ├── style.css           ← all chrome styling
-│   └── app.js              ← i18n, manifest fetching, password gate
+│   └── app.js              ← i18n, manifest fetching
 ├── BRAND.md                ← this file
 └── .gitignore
 ```
@@ -417,16 +407,9 @@ is the canonical template.
 ### Add a report
 
 1. Write the report as a self-contained HTML file in `reports/`.
-2. Add a manifest entry to `reports/reports.json`. Reports are
-   password-gated; the password lives in `assets/app.js` (`REPORTS_PASSWORD`).
-3. The reports page renders the list, prompts for the password, and opens
-   the report in an iframe when unlocked.
-
-### Change the password
-
-`REPORTS_PASSWORD` in `assets/app.js`. There is no server-side
-validation — this is a soft gate. The lock state is in-memory and resets
-on every page load (no `localStorage`).
+2. Add a manifest entry to `reports/reports.json`.
+3. The reports page renders the list and opens the chosen report in an
+   in-page iframe reader (with a `← Back to reports` button).
 
 ---
 
