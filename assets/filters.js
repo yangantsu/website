@@ -258,13 +258,15 @@
             <span class="filter-row-label-text">${escapeHtml(facet.label)}</span>
           </div>
           <div class="filter-chips">
-            <button type="button" class="more-trigger dropdown-trigger" aria-haspopup="true" aria-expanded="false">
-              <span class="dropdown-trigger-label">${triggerLabel}</span>
-              <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 5 6 8 9 5"/></svg>
-            </button>
-            <div class="more-popover dropdown-popover" hidden>
-              <div class="more-popover-list">${popoverItems}</div>
-            </div>
+            <span class="more-trigger-wrap">
+              <button type="button" class="more-trigger dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+                <span class="dropdown-trigger-label">${triggerLabel}</span>
+                <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 5 6 8 9 5"/></svg>
+              </button>
+              <div class="more-popover dropdown-popover" hidden>
+                <div class="more-popover-list">${popoverItems}</div>
+              </div>
+            </span>
           </div>
         </div>`;
     }
