@@ -407,9 +407,153 @@ is the canonical template.
 ### Add a report
 
 1. Write the report as a self-contained HTML file in `reports/`.
-2. Add a manifest entry to `reports/reports.json`.
-3. The reports page renders the list; each item is a direct link to its
+2. Add a manifest entry to `reports/reports.json` with the **extended
+   schema** (see §13):
+   - `filename`, `title`, `date` — required (same as before).
+   - `channel` — required: `"tiktok" | "amazon" | "industry"`.
+   - `vertical` — required: e.g. `"pet-supplies"`,
+     `"home-improvement"`. See §13 for the full list.
+   - `series` — optional but recommended: e.g. `"TikTok Shop Monthly"`.
+   - `series_no` — optional integer; used for tie-breaking.
+3. To enable cross-navigation from inside the report, instrument the
+   report with the related-tags section (see §13.4).
+4. The reports page renders the list; each item is a direct link to its
    own report file (same model as articles).
+
+---
+
+## 13. The related-tags system (cross-navigation inside a report)
+
+A reader landing on a TikTok Pet Goods May 2026 report should be **one
+tap away** from any other report in the same series, the same channel,
+or the same vertical. The related-tags system is how the reports
+cross-link without anyone hand-editing the HTML.
+
+### 13.1 The three dropdowns
+
+Every report with the section rendered shows a horizontal bar with up
+to three popovers:
+
+| Position | Filter | Use case |
+| --- | --- | --- |
+| **1st** | **Series** — months in the same series | "I want the previous monthly." |
+| **2nd** | **Channels** — same vertical, different channel | "Show me Amazon pet, not TikTok pet." |
+| **3rd** | **Verticals** — same channel, different vertical | "What else do I have on TikTok?" |
+
+Plus a back link "All reports" on the left. The dropdown that has no
+options is automatically hidden — with 4 reports and 1 month, only the
+vertical dropdown shows on a TikTok Pet Goods report.
+
+### 13.2 The manifest schema (extended)
+
+Reports carry four new fields beyond the original `filename` /
+`title` / `date`:
+
+```json
+{
+  "filename": "product-market_pet-supplies_tiktok_2026-may.html",
+  "title": "美国宠物用品 TikTok Shop · 2026-05 月度报告",
+  "date": "2026-05",
+  "channel": "tiktok",
+  "vertical": "pet-supplies",
+  "series": "TikTok Shop Monthly",
+  "series_no": 5
+}
+```
+
+| Field | Required | Notes |
+| --- | --- | --- |
+| `channel` | yes | `"tiktok"`, `"amazon"`, or `"industry"`. Drives the channel dropdown. |
+| `vertical` | yes | E.g. `"pet-supplies"`, `"home-improvement"`, `"home-appliances"`, `"consumer-tools"`, `"apparel"`, `"outdoor"`, `"beauty"`. Drives the vertical dropdown. New verticals can be added freely. |
+| `series` | recommended | Display name of the series. Drives the series dropdown. |
+| `series_no` | optional | Integer used for tie-breaking when multiple reports share a `(date, series)`. Higher wins. |
+
+### 13.3 Where the related-tags lives in the file layout
+
+- `assets/related.js` — the engine. Loads `reports.json`, finds the
+  current report, renders three dropdowns.
+- `assets/related.css` — the styles. Kept in a separate file because
+  reports are self-contained and cannot link the site's main
+  `style.css` without the global rules overriding the report's own
+  design system.
+- The `#related` target div lives inside the report's body, after the
+  cover and before the main content.
+
+### 13.4 Instrumenting a report (the recipe)
+
+To add the related-tags section to a new report, four edits:
+
+1. **Head — link the stylesheet.** Add before the inline `<style>`:
+   ```html
+   <link rel="stylesheet" href="../assets/related.css">
+   ```
+
+2. **Body — add the target div.** Place it after the cover/hero and
+   before the main body. The `data-filename` must match the manifest
+   entry:
+   ```html
+   <div id="related" data-filename="your-report-filename.html"></div>
+   ```
+
+3. **End of body — load the script.** Add before `</body>`:
+   ```html
+   <script src="../assets/related.js" defer></script>
+   ```
+
+4. **Manifest — add the entry.** With `channel`, `vertical`, and
+   optionally `series` and `series_no`.
+
+That's it. No per-report JS. The pattern is fully data-driven.
+
+### 13.5 Why a separate CSS file, not in style.css
+
+`style.css` is the site's dark-theme chrome. Reports are light-theme
+self-contained documents. Linking `style.css` from a report would let
+`html`, `body`, `.site-nav`, `body::before` (the noise overlay), and
+other global rules override the report's own design. Keeping the
+related styles in `assets/related.css` means the report loads exactly
+one extra file, ~3KB, and gains nothing it doesn't expect.
+
+This is a deliberate deviation from "all chrome styles in one file" —
+the brand rule "single source of truth" applies to design tokens, not
+to the structural decision of which files a self-contained report
+loads.
+
+### 13.6 Visual design (the related bar)
+
+- **Surface:** matches the report's paper background. No dark band.
+- **Border:** 1px in the report's `--border` color, with a 3px
+  `--ink-black` top edge and a 28px `--yellow` lead-in (the report's
+  own accent system, not the site's coral).
+- **Trigger:** paper background, dark border, 12px uppercase label.
+  Active state: blue border (the report's blue), caret rotated 180°.
+- **Popover:** paper background, dark border, 8/24/2/4 shadow stack.
+  Max-height 280px, internal scroll. Each item is a full-width tap
+  target, hover state shows a 2px blue left bar.
+- **Mobile (< 600px):** back link and dropdowns stack vertically;
+  triggers are full-width; popovers are full-width and left-aligned.
+
+### 13.7 Empty / degenerate cases
+
+- **Only one month in the series** → series dropdown is hidden.
+- **Only one channel in this vertical** → channel dropdown is hidden.
+- **Only one vertical in this channel** → vertical dropdown is hidden.
+- **Report not in the manifest** → back link only, no dropdowns.
+- **Manifest fetch fails** → small italic "Related: failed to load…"
+  error message in the bar's place.
+
+The bar never shows an empty dropdown. It never shows a confusing
+single-option dropdown either.
+
+### 13.8 Future work (out of scope for v1)
+
+- The list page redesign (v4: 4-channel chip rail, always-visible
+  verticals sub-row, lead card pattern, year dividers). The data model
+  in §13.2 was designed to support it.
+- A client-side search box over `title + excerpt + tags`.
+- A `/series/tikTok-shop-monthly` aggregation page.
+- `sync.py` updates to recognize the `2026-may` filename pattern and
+  the new manifest fields.
 
 ---
 
