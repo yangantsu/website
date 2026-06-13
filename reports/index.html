@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@500;600;700;900&display=swap">
   <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/filters.css">
 </head>
 <body data-page="reports">
   <nav class="site-nav">
@@ -55,5 +56,29 @@
   </footer>
 
   <script src="../assets/app.js"></script>
+  <script>
+    // Page-specific filter config — consumed by filters.js on `load`.
+    window.PortfolioFiltersInit = window.PortfolioFiltersInit || [];
+    window.PortfolioFiltersInit.push({
+      page: 'reports',
+      kind: 'report',
+      manifestPath: 'reports.json',
+      listSelector: '#reportList',
+      axes: {
+        primary: {
+          key: 'channel',
+          label: 'Channel',
+          items: ['tiktok', 'amazon', 'industry']
+        },
+        secondary: {
+          key: 'vertical',
+          label: 'Vertical',
+          items: ['pet-supplies', 'home-improvement', 'home-appliances', 'consumer-tools'],
+          dependsOn: { channel: 'industry' }
+        }
+      }
+    });
+  </script>
+  <script src="../assets/filters.js" defer></script>
 </body>
 </html>

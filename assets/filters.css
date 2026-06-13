@@ -1,0 +1,240 @@
+/* ─────────────────────────────────────────────────────────
+   FILTERS — layered channel/vertical/tag chip navigation
+   for collection pages (Reports, Articles).
+   ─────────────────────────────────────────────────────────
+   Self-contained: no styles leak into or out of .filter-bar.
+   Reuses :root design tokens from style.css.
+
+   Layout: a flex column of two stacked rows.
+   - .filter-row--primary     always visible
+   - .filter-row--secondary   visible per-axis gating
+   ───────────────────────────────────────────────────────── */
+
+.filter-bar {
+  --chip-bg:        transparent;
+  --chip-text:      var(--text-dim);
+  --chip-border:    var(--border-card);
+  --chip-bg-active: var(--accent-dim);
+  --chip-text-active: var(--text);
+  --chip-border-active: var(--accent-border);
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0 0 28px;
+  padding: 0;
+}
+
+/* ── A row = label on the left, scrolling chip rail on the right ── */
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.filter-row-label {
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-mute);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  width: 80px;
+}
+
+.filter-row-label-text { display: block; }
+
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── Chip button ─────────────────────────────────────── */
+.filter-bar .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  padding: 6px 12px;
+  background: var(--chip-bg);
+  color: var(--chip-text);
+  border: 1px solid var(--chip-border);
+  border-radius: 100px;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.filter-bar .chip:hover {
+  color: var(--text);
+  border-color: var(--accent-border);
+  background: var(--accent-soft);
+}
+.filter-bar .chip.active {
+  color: var(--accent);
+  background: var(--accent-dim);
+  border-color: var(--accent-border);
+}
+.filter-bar .chip.active .chip-count { color: var(--accent); }
+
+.filter-bar .chip-count {
+  font-size: 10.5px;
+  color: var(--text-mute);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+.filter-bar .chip .caret {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+  opacity: 0.6;
+  margin-left: 2px;
+}
+
+/* ── "+ N more" trigger (only on tag axis when overflow exists) ── */
+.filter-bar .more-trigger {
+  flex-shrink: 0;
+  padding: 6px 12px;
+  background: transparent;
+  color: var(--text-mute);
+  border: 1px dashed var(--border-card);
+  border-radius: 100px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+}
+.filter-bar .more-trigger:hover {
+  color: var(--text);
+  border-color: var(--accent-border);
+}
+.filter-bar .more-trigger[aria-expanded="true"] {
+  color: var(--accent);
+  border-color: var(--accent-border);
+  border-style: solid;
+}
+
+/* ── More popover ─────────────────────────────────────── */
+.filter-bar .more-trigger-wrap {
+  position: relative;
+  display: inline-block;
+}
+.filter-bar .more-popover {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 30;
+  min-width: 200px;
+  max-width: 320px;
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 6px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 8px;
+  box-shadow: var(--shadow-card-hover);
+  -webkit-overflow-scrolling: touch;
+}
+.filter-bar .more-popover[hidden] { display: none; }
+.filter-bar .more-popover-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.filter-bar .more-popover-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  padding: 7px 12px;
+  background: transparent;
+  color: var(--text-dim);
+  border: none;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.12s, color 0.12s;
+}
+.filter-bar .more-popover-item:hover {
+  background: var(--accent-soft);
+  color: var(--text);
+}
+.filter-bar .more-popover-item.is-active {
+  background: var(--accent-dim);
+  color: var(--accent);
+}
+.filter-bar .more-popover-item.is-active .chip-count { color: var(--accent); }
+
+/* ── Empty state (no items match) ─────────────────────── */
+.filter-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-mute);
+  font-size: 13px;
+  background: var(--bg-card);
+  border: 1px dashed var(--border-card);
+  border-radius: 8px;
+}
+
+/* ── Mobile: single-column rows, horizontal-scroll chips ── */
+@media (max-width: 599px) {
+  .filter-bar {
+    gap: 14px;
+  }
+  .filter-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .filter-row-label {
+    width: auto;
+    font-size: 9.5px;
+  }
+  .filter-chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 4px;
+    /* right-edge fade to signal scrollability */
+    -webkit-mask-image: linear-gradient(to right, black calc(100% - 24px), transparent);
+            mask-image: linear-gradient(to right, black calc(100% - 24px), transparent);
+  }
+  .filter-chips::-webkit-scrollbar { display: none; }
+
+  .filter-bar .chip {
+    padding: 5px 11px;
+    font-size: 12px;
+  }
+
+  /* On mobile, "+ more" stays inline and the popover anchors differently */
+  .filter-bar .more-popover {
+    right: 0;
+    left: auto;
+    min-width: 220px;
+  }
+}
+
+/* ── Tablet: smaller label width ─────────────────────── */
+@media (min-width: 600px) and (max-width: 959px) {
+  .filter-row-label {
+    width: 64px;
+    font-size: 9.5px;
+  }
+}
