@@ -326,6 +326,51 @@
          </div>`
       : '';
 
+    // Dropdown-style secondary row (e.g. reports verticals). Replaces the chip rail
+    // with a single trigger button. Popover contains all options + "All".
+    if (axes.secondary.style === 'dropdown') {
+      const allValues = ['all', ...chipValues];
+      const currentVal = state[secKey];
+      const triggerLabel = (() => {
+        if (currentVal === 'all') {
+          const total = secCounts.all;
+          return total > 0
+            ? `All ${escapeHtml(axes.secondary.allLabel || axes.secondary.label || 'items')} · <span class="chip-count">${total}</span>`
+            : `All ${escapeHtml(axes.secondary.allLabel || axes.secondary.label || 'items')}`;
+        }
+        const lbl = secLabels[currentVal] || (isTagAxis ? currentVal : labelForVertical(currentVal));
+        return `${escapeHtml(lbl)} · <span class="chip-count">${secCounts[currentVal] || 0}</span>`;
+      })();
+
+      const popoverItems = allValues.map(v => {
+        let lbl;
+        if (v === 'all') lbl = `All ${escapeHtml(axes.secondary.allLabel || axes.secondary.label || 'items')}`;
+        else if (secLabels[v]) lbl = secLabels[v];
+        else if (isTagAxis) lbl = v;
+        else lbl = labelForVertical(v);
+        const isActive = currentVal === v;
+        return `<button type="button" class="more-popover-item${isActive ? ' is-active' : ''}" data-value="${escapeHtml(v)}">${escapeHtml(lbl)}<span class="chip-count">${secCounts[v]}</span></button>`;
+      }).join('');
+
+      const dropdownHtml = `
+        <div class="filter-row filter-row--secondary filter-row--dropdown" data-row="${secKey}">
+          <div class="filter-row-label">
+            <span class="filter-row-label-text">${escapeHtml(axes.secondary.label || 'Sub')}</span>
+          </div>
+          <div class="filter-chips">
+            <button type="button" class="more-trigger dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+              <span class="dropdown-trigger-label">${triggerLabel}</span>
+              <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 5 6 8 9 5"/></svg>
+            </button>
+            <div class="more-popover dropdown-popover" hidden>
+              <div class="more-popover-list">${popoverItems}</div>
+            </div>
+          </div>
+        </div>`;
+
+      return { visible: true, html: dropdownHtml, isDropdown: true };
+    }
+
     return {
       visible: true,
       html: `
