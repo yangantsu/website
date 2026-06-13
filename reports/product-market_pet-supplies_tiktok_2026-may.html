@@ -375,8 +375,18 @@ footer { background: var(--ink-black); border-top: 1px solid #2A2A26; padding: 2
   </div>
 </div>
 
-<!-- RELATED TAGS — cross-navigation to other reports -->
-<div id="related" data-filename="product-market_pet-supplies_tiktok_2026-may.html"></div>
+<!-- RELATED TAGS — cross-navigation to other reports.
+     The back link is rendered directly in HTML so it shows even if
+     related.js fails to load. The dropdowns are added by related.js. -->
+<div id="related" data-filename="product-market_pet-supplies_tiktok_2026-may.html">
+  <div class="related-bar">
+    <a class="related-back" href="index.html" aria-label="Back to all reports">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="10 12 6 8 10 4"/></svg>
+      <span>All reports</span>
+    </a>
+    <div class="related-dropdowns"></div>
+  </div>
+</div>
 
 <div class="main">
 

@@ -159,12 +159,18 @@
   }
 
   function renderEmpty(container) {
-    container.innerHTML = '';
+    const dropdowns = container.querySelector('.related-dropdowns');
+    if (dropdowns) dropdowns.innerHTML = '';
+    else container.innerHTML = '';
     container.classList.add('is-empty');
   }
 
   function renderError(container, message) {
-    container.innerHTML = `<p class="related-error">${escapeHtml(message)}</p>`;
+    // Only replace the dropdowns slot — keep the static back link visible.
+    const dropdowns = container.querySelector('.related-dropdowns');
+    const errHtml = `<p class="related-error">${escapeHtml(message)}</p>`;
+    if (dropdowns) dropdowns.innerHTML = errHtml;
+    else container.innerHTML = errHtml;
   }
 
   function bindDropdowns(container) {
@@ -240,12 +246,9 @@
 
     const current = manifest.find(r => r.filename === currentFilename);
     if (!current) {
-      // Current report not in manifest — render a fallback "back to all reports" only
-      container.innerHTML = `
-        <a class="related-back" href="index.html">
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="10 12 6 8 10 4"/></svg>
-          Back to all reports
-        </a>`;
+      // Current report not in manifest — clear dropdowns, keep static back link.
+      const dropdowns = container.querySelector('.related-dropdowns');
+      if (dropdowns) dropdowns.innerHTML = '';
       return;
     }
 
@@ -282,19 +285,33 @@
     const showChannel = channelList.length > 0;
     const showVertical = verticalList.length > 0;
 
-    container.innerHTML = `
-      <div class="related-bar">
-        <a class="related-back" href="index.html" aria-label="Back to all reports">
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="10 12 6 8 10 4"/></svg>
-          <span>All reports</span>
-        </a>
-        <div class="related-dropdowns">
-          ${showSeries ? renderDropdown(seriesTrigger, seriesList, 'series') : ''}
-          ${showChannel ? renderDropdown(channelTrigger, channelList, 'channel') : ''}
-          ${showVertical ? renderDropdown(verticalTrigger, verticalList, 'vertical') : ''}
-        </div>
-      </div>
-    `;
+    // Render only into the dropdowns slot — the back link is in static HTML
+    // and must remain even if the dropdowns fail to populate.
+    const dropdowns = container.querySelector('.related-dropdowns');
+    if (!dropdowns) {
+      // Defensive: report file may not have the static markup. Fall back to
+      // full replacement.
+      container.innerHTML = `
+        <div class="related-bar">
+          <a class="related-back" href="index.html" aria-label="Back to all reports">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="10 12 6 8 10 4"/></svg>
+            <span>All reports</span>
+          </a>
+          <div class="related-dropdowns">
+            ${showSeries ? renderDropdown(seriesTrigger, seriesList, 'series') : ''}
+            ${showChannel ? renderDropdown(channelTrigger, channelList, 'channel') : ''}
+            ${showVertical ? renderDropdown(verticalTrigger, verticalList, 'vertical') : ''}
+          </div>
+        </div>`;
+      bindDropdowns(container);
+      return;
+    }
+
+    dropdowns.innerHTML = [
+      showSeries ? renderDropdown(seriesTrigger, seriesList, 'series') : '',
+      showChannel ? renderDropdown(channelTrigger, channelList, 'channel') : '',
+      showVertical ? renderDropdown(verticalTrigger, verticalList, 'vertical') : ''
+    ].join('');
 
     bindDropdowns(container);
   }
