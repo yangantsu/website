@@ -163,9 +163,7 @@
     return '';
   }
 
-  // ── Reports page (list + iframe reader) ──────────────
-  let currentReport = null;
-
+  // ── Reports page (list) ──────────────────────────────
   async function initReportsPage() {
     const container = document.getElementById('reportList');
     if (!container) return;
@@ -179,7 +177,6 @@
       }
       data.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
       renderReportList(container, data);
-      setupReportListClicks(container);
     } catch (e) {
       console.error('[portfolio] reports page failed:', e);
       container.innerHTML = `<p style="color: var(--text-muted); text-align: center; padding: 40px;">Failed to load content. (${escapeHtml(e.message)})</p>`;
@@ -192,7 +189,7 @@
       const excerpt = excerptSpans(item);
       const track = trackSpans(item);
       return `
-        <a class="list-item" href="${escapeHtml(item.filename)}" data-report-file="${escapeHtml(item.filename)}">
+        <a class="list-item" href="${escapeHtml(item.filename)}">
           <div class="meta">
             ${track}
             <span class="date">${dateSpans(item.date)}</span>
@@ -207,48 +204,6 @@
         </a>`;
     }).join('');
   }
-
-  function setupReportListClicks(container) {
-    container.addEventListener('click', (e) => {
-      // Let middle-click / cmd-click / ctrl-click follow the href (new tab).
-      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey) return;
-      const item = e.target.closest('.list-item[data-report-file]');
-      if (!item) return;
-      e.preventDefault();
-      doOpenReport(item.dataset.reportFile);
-    });
-  }
-
-  window.openReport = function (filename) {
-    doOpenReport(filename);
-  };
-
-  function doOpenReport(filename) {
-    const listView = document.getElementById('listView');
-    const readerView = document.getElementById('readerView');
-    const frame = document.getElementById('reportFrame');
-    if (!listView || !readerView || !frame) return;
-    currentReport = { filename, scrollY: window.scrollY };
-    frame.src = filename;
-    listView.hidden = true;
-    readerView.hidden = false;
-    document.body.style.overflow = 'hidden';
-  }
-
-  window.closeReport = function () {
-    const listView = document.getElementById('listView');
-    const readerView = document.getElementById('readerView');
-    const frame = document.getElementById('reportFrame');
-    if (!listView || !readerView || !frame) return;
-    frame.src = '';
-    listView.hidden = false;
-    readerView.hidden = true;
-    document.body.style.overflow = '';
-    if (currentReport) {
-      window.scrollTo(0, currentReport.scrollY || 0);
-      currentReport = null;
-    }
-  };
 
   // ── Coming Soon ───────────────────────────────────────
   function renderComingSoon(container, kind) {

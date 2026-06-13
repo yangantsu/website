@@ -312,7 +312,7 @@ any one of them in a single piece.
 │   ├── articles.json       ← manifest (see §9)
 │   └── *.html              ← standalone article documents
 ├── reports/
-│   ├── index.html          ← list page + iframe reader
+│   ├── index.html          ← list page
 │   ├── reports.json        ← manifest
 │   └── *.html              ← standalone report documents
 ├── assets/
@@ -408,8 +408,8 @@ is the canonical template.
 
 1. Write the report as a self-contained HTML file in `reports/`.
 2. Add a manifest entry to `reports/reports.json`.
-3. The reports page renders the list and opens the chosen report in an
-   in-page iframe reader (with a `← Back to reports` button).
+3. The reports page renders the list; each item is a direct link to its
+   own report file (same model as articles).
 
 ---
 
