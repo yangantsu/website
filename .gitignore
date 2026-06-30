@@ -8,3 +8,7 @@ Thumbs.db
 node_modules/
 .claude/
 .worktrees/
+.templates/
+DESIGN.md
+package.json
+package-lock.json
